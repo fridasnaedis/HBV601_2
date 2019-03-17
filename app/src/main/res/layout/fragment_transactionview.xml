@@ -14,12 +14,12 @@
         android:text="@string/transaction_amount_lable" />
 
     <TextView
-        style="?android:listSeparatorTextViewStyle"
+        style="@style/data_style"
         android:id="@+id/transaction_amount"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-
+        android:layout_height="wrap_content"
+        android:layout_marginStart="9dp"
+        android:layout_marginBottom="20dp"/>
 
     <TextView
         style="?android:listSeparatorTextViewStyle"
@@ -28,10 +28,12 @@
         android:text="@string/transaction_description_lable"/>
 
     <TextView
-        style="?android:listSeparatorTextViewStyle"
+        style="@style/data_style"
         android:id="@+id/transaction_description"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginStart="9dp"
+        android:layout_marginBottom="20dp"/>
 
 
     <TextView
@@ -41,9 +43,12 @@
         android:text="@string/transaction_date_lable"/>
 
     <TextView
+        style="@style/data_style"
         android:id="@+id/transaction_date"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginStart="9dp"
+        android:layout_marginBottom="20dp"/>
 
 
 </LinearLayout>

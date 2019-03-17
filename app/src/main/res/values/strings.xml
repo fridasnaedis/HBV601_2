@@ -1,6 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
 <resources>
     <string name="app_name">LilBill</string>
-    <string name="transaction_amount_lable">Ammount</string>
-    <string name="transaction_description_lable">Description</string>
-    <string name="transaction_date_lable">Date</string>
+    <style name="data_style">
+        <item name="android:textSize">16sp</item>
+    </style>
+    <string name="transaction_amount_lable"><strong>Amount:</strong></string>
+    <string name="transaction_description_lable"><strong>Description:</strong></string>
+    <string name="transaction_date_lable"><strong>Date:</strong></string>
 </resources>
