@@ -28,12 +28,12 @@ public class MainActivity extends SingleFragmentActivity {
     public static final String TAG = MainActivity.class.getSimpleName();
 
 
-
  
     protected Fragment createFragment() {
         return new TransactionFragment();
 
     }
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment);
