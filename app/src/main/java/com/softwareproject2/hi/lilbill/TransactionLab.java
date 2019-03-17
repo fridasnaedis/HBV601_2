@@ -24,7 +24,7 @@ public class TransactionLab {
         Float value = new Float(2000);
 
         //Populate 100 random transaction
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 10; i++) {
             Transaction transaction = new Transaction();
             transaction.setAmount(value + i * 5);
             mTransactions.add(transaction);

@@ -60,13 +60,17 @@ public class TransactionListFragment extends Fragment {
             //TO DO
             //Tengja við fragment
 
-            Toast.makeText(getActivity(), "hæ" , Toast.LENGTH_SHORT)
+            String descriptionText = "This is a description for the transaction made on: " +
+                    mTransaction.getDate().toString();
+
+            Toast.makeText(getActivity(), descriptionText , Toast.LENGTH_SHORT)
                 .show();
         }
 
         public void bind(Transaction transaction) {
+            String mTransactionAmount = transaction.getAmount().toString() + " kr.";
             mTransaction = transaction;
-            mTileTextView.setText(mTransaction.getAmount().toString());
+            mTileTextView.setText(mTransactionAmount);
             mDateTextView.setText(mTransaction.getDate().toString());
         }
     }
