@@ -2,6 +2,7 @@ package com.softwareproject2.hi.lilbill;
 
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +15,13 @@ import okhttp3.Request;
 import okhttp3.Response;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.widget.TabHost;
+import android.widget.TextView;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -48,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getData() {
+
+
 
         /* Strengur sem er url sem samsvarar hvert á að sækja gögn
            urlið væri root/user/json eða eh álíka, þar sem user er sá sem er logged in
@@ -89,6 +98,8 @@ public class MainActivity extends AppCompatActivity {
                         // Ná í Streng úr json
                         final String jsonData = response.body().string();
 
+                        jsonToObject(jsonData);
+
                         runOnUiThread(new Runnable() {
 
                             @Override
@@ -123,5 +134,33 @@ public class MainActivity extends AppCompatActivity {
         boolean isAvailable = false;
         if(networkInfo!= null && networkInfo.isConnected()) isAvailable = true;
         return isAvailable;
+    }
+
+    public void jsonToObject(String json) {
+        /**
+         * Þetta fall á að geta verið notað til að breyta json yfir í Transaction object
+         */
+
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
+        Transaction transaction = new Transaction();
+        transaction = gson.fromJson(String.valueOf(json), Transaction.class);
+
+        Log.i(TAG, String.valueOf(transaction));
+
+    }
+
+    public  void objectToJson(Transaction transaction) {
+        /**
+         * Þessi aðferð á að breyta java object, í þessu tilfelli Transaction object
+         * yfir í json streng.
+         */
+
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
+
+        String json = gson.toJson(transaction);
+
+        Log.i(TAG, String.valueOf(json));
     }
 }
