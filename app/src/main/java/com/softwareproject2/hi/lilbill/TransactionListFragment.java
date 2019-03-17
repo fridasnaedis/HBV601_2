@@ -1,5 +1,6 @@
 package com.softwareproject2.hi.lilbill;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -60,11 +61,9 @@ public class TransactionListFragment extends Fragment {
             //TO DO
             //Tengja við fragment
 
-            String descriptionText = "This is a description for the transaction made on: " +
-                    mTransaction.getDate().toString();
+            Intent intent = MainActivity.newIntent(getActivity(), mTransaction.getId());
+            startActivity(intent);
 
-            Toast.makeText(getActivity(), descriptionText , Toast.LENGTH_SHORT)
-                .show();
         }
 
         public void bind(Transaction transaction) {

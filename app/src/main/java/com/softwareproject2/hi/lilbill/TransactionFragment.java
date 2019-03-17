@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.util.Date;
+import java.util.UUID;
 
 public class TransactionFragment extends Fragment {
 
@@ -28,7 +29,11 @@ public class TransactionFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mTransaction = new Transaction();
+        //mTransaction = new Transaction();
+
+        UUID transactionId = (UUID) getActivity().getIntent()
+                .getSerializableExtra(MainActivity.EXTRA_TRANSACTION_ID);
+        mTransaction = TransactionLab.get(getActivity()).getTransaction(transactionId);
 
 //        Transaction transaction = new Transaction();
 //        transaction.setAccountId(Long.valueOf("1"));
@@ -43,9 +48,9 @@ public class TransactionFragment extends Fragment {
 //        Log.d(TAG, gson.toJson(transaction));
 
         //Dummy data
-        Float value = new Float(200000);
-        mTransaction.setAmount(value);
-        mTransaction.setDescription("Dominos Pizza er góð! Segir Ísak!");
+        //Float value = new Float(200000);
+        //mTransaction.setAmount(value);
+        //mTransaction.setDescription("Dominos Pizza er góð! Segir Ísak!");
     }
 
     @Override
