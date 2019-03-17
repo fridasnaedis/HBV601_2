@@ -57,4 +57,8 @@ public class Transaction {
     public void setDate(Date date) {
         mDate = date;
     }
+
+    public UUID getId() {
+        return mId;
+    }
 }
