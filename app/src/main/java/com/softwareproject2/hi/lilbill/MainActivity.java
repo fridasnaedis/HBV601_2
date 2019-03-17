@@ -33,25 +33,11 @@ public class MainActivity extends SingleFragmentActivity {
     protected Fragment createFragment() {
         return new TransactionFragment();
 
+    }
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-      
-      //Create and commit a fragment transaction
-        FragmentManager fm = getSupportFragmentManager();
-        Fragment fragment = fm.findFragmentById(R.id.fragment_container);
+        setContentView(R.layout.activity_fragment);
 
-        if (fragment == null) {
-            fragment = new TransactionFragment();
-            //creates and returns an instance of FragmentTransaction
-            //Then we can chain fragments together
-            fm.beginTransaction()
-                    //(container view id, fragment)
-                    //container view id tells where the fragments view should appear - unique identifyer
-                    //this is the resource ID of the container view ID
-                    .add(R.id.fragment_container, fragment)
-                    .commit();
-        }
 
         getData();
     }
