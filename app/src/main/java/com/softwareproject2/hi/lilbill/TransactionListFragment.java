@@ -63,11 +63,13 @@ public class TransactionListFragment extends Fragment {
 
             Intent intent = MainActivity.newIntent(getActivity(), mTransaction.getId());
             startActivity(intent);
+
         }
 
         public void bind(Transaction transaction) {
+            String mTransactionAmount = transaction.getAmount().toString() + " kr.";
             mTransaction = transaction;
-            mTileTextView.setText(mTransaction.getAmount().toString());
+            mTileTextView.setText(mTransactionAmount);
             mDateTextView.setText(mTransaction.getDate().toString());
         }
     }
