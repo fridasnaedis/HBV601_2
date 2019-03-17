@@ -2,6 +2,7 @@ package com.softwareproject2.hi.lilbill;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -21,12 +22,21 @@ import com.google.gson.GsonBuilder;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.UUID;
 
 
 public class MainActivity extends SingleFragmentActivity {
 
     public static final String TAG = MainActivity.class.getSimpleName();
 
+    public static final String EXTRA_TRANSACTION_ID =
+            "com.softwareproject2.hi.lilbill.transaction_id";
+
+    public static Intent newIntent(Context packageContext, UUID transactionID) {
+        Intent intent = new Intent(packageContext, MainActivity.class);
+        intent.putExtra(EXTRA_TRANSACTION_ID, transactionID);
+        return intent;
+    }
 
  
     protected Fragment createFragment() {
