@@ -2,24 +2,11 @@ package com.softwareproject2.hi.lilbill;
 
 
 import android.content.Context;
-import android.content.res.Resources;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.android.volley.RequestQueue;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-
-
 import okhttp3.OkHttpClient;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -27,12 +14,8 @@ import okhttp3.Request;
 import okhttp3.Response;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.JSONObject;
-
 import java.io.IOException;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -65,10 +48,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getData() {
-        String apiKey = "a6bcdd96c91df987a3833e64d05b5987";
+
+        /* Strengur sem er url sem samsvarar hvert á að sækja gögn
+           urlið væri root/user/json eða eh álíka, þar sem user er sá sem er logged in
+           og json er þá json viewið.
+        */
         String url = "https://apis.is/concerts";
 
         if (isNetworkAvailable()) {
+
+            // Establish connection
             OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder()
                     .url(url)
@@ -79,6 +68,9 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call call, IOException e) {
+                    /**
+                     * Ef request failar.
+                     */
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -89,18 +81,26 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
+                    /**
+                     * Ef request gefur response.
+                     */
 
                     try {
+                        // Ná í Streng úr json
                         final String jsonData = response.body().string();
 
                         runOnUiThread(new Runnable() {
 
                             @Override
                             public void run() {
-                                Resources res = getResources();
-                                TextView textView = findViewById(R.id.json_view);
-                                String text = String.format(res.getString(R.string.json_response), jsonData);
-                                textView.setText(text);
+                                /**
+                                 * Hér mun það sem gerist í UI þræði keyra. Eins og að uppfæra view.
+                                 */
+
+//                                Resources res = getResources();
+//                                TextView textView = findViewById(R.id.json_view);
+//                                String text = String.format(res.getString(R.string.json_response), jsonData);
+//                                textView.setText(text);
                             }
                         });
 
@@ -115,6 +115,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean isNetworkAvailable() {
+        /**
+         * Fall sem athugar að allt sé í lagi með network manager.
+         */
         ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();
         boolean isAvailable = false;
