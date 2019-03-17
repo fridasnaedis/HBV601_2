@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">LilBill</string>
+    <string name="transaction_amount_lable">Ammount</string>
+    <string name="transaction_description_lable">Description</string>
+    <string name="transaction_date_lable">Date</string>
 </resources>
