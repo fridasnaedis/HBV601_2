@@ -5,7 +5,7 @@ Lil bill is your go to transaction management service!
 To run this project clone or download the repository.
 
 
-##Current state of project: 
+## Current state of project: 
 
 List view of transactions
 
