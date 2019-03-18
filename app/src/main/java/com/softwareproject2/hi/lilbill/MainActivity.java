@@ -4,6 +4,7 @@ package com.softwareproject2.hi.lilbill;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,8 +16,11 @@ import okhttp3.Request;
 import okhttp3.Response;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.view.View;
 import android.widget.TabHost;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.io.IOException;
@@ -37,7 +41,6 @@ public class MainActivity extends SingleFragmentActivity {
         intent.putExtra(EXTRA_TRANSACTION_ID, transactionID);
         return intent;
     }
-
  
     protected Fragment createFragment() {
         return new TransactionFragment();
@@ -48,6 +51,13 @@ public class MainActivity extends SingleFragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment);
 
+        FloatingActionButton createNewTransaction = findViewById(R.id.new_transaction_fab);
+        createNewTransaction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, TransactionConstructionActivity.class));
+            }
+        });
 
         getData();
     }
