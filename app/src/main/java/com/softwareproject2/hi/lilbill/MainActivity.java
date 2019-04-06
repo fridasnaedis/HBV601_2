@@ -21,6 +21,7 @@ import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.SignInButton;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.io.IOException;
@@ -30,6 +31,7 @@ import java.util.UUID;
 
 
 public class MainActivity extends SingleFragmentActivity {
+
 
     public static final String TAG = MainActivity.class.getSimpleName();
 
@@ -41,7 +43,7 @@ public class MainActivity extends SingleFragmentActivity {
         intent.putExtra(EXTRA_TRANSACTION_ID, transactionID);
         return intent;
     }
- 
+
     protected Fragment createFragment() {
         return new TransactionFragment();
 
@@ -59,12 +61,11 @@ public class MainActivity extends SingleFragmentActivity {
             }
         });
 
+
         getData();
     }
 
     private void getData() {
-
-
 
         /* Strengur sem er url sem samsvarar hvert á að sækja gögn
            urlið væri root/user/json eða eh álíka, þar sem user er sá sem er logged in
