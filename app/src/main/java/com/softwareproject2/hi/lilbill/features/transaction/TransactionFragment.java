@@ -1,20 +1,18 @@
-package com.softwareproject2.hi.lilbill;
+package com.softwareproject2.hi.lilbill.features.transactionview;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.softwareproject2.hi.lilbill.MainActivity;
+import com.softwareproject2.hi.lilbill.R;
+import com.softwareproject2.hi.lilbill.TransactionLab;
 
-import java.util.Date;
 import java.util.UUID;
 
 public class TransactionFragment extends Fragment {
@@ -69,7 +67,8 @@ public class TransactionFragment extends Fragment {
         mDecription.setText(mTransaction.getDescription());
 
 
-
+        // android.text.format.DateFormat
+        // setja dagsettningu á læsilegra form
         mDate = (TextView) v.findViewById(R.id.transaction_date);
         mDate.setText(mTransaction.getDate().toString());
 

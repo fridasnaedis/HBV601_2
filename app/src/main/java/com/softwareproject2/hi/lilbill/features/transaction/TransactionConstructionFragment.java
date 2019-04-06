@@ -1,4 +1,4 @@
-package com.softwareproject2.hi.lilbill;
+package com.softwareproject2.hi.lilbill.features.transactionview;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.softwareproject2.hi.lilbill.R;
 
 public class TransactionConstructionFragment extends Fragment {
     private Transaction mTransaction;

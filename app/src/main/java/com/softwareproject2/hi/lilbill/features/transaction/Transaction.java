@@ -1,4 +1,4 @@
-package com.softwareproject2.hi.lilbill;
+package com.softwareproject2.hi.lilbill.features.transactionview;
 
 import java.util.Date;
 import java.util.UUID;
