@@ -1,4 +1,4 @@
-package com.softwareproject2.hi.lilbill.features.transactionview;
+package com.softwareproject2.hi.lilbill.features.transaction;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;

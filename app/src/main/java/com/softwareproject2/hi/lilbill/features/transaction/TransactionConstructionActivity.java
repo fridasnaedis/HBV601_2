@@ -1,4 +1,4 @@
-package com.softwareproject2.hi.lilbill.features.transactionview;
+package com.softwareproject2.hi.lilbill.features.transaction;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

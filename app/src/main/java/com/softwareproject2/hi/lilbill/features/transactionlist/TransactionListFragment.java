@@ -1,4 +1,4 @@
-package com.softwareproject2.hi.lilbill.features.transactionlistview;
+package com.softwareproject2.hi.lilbill.features.transactionlist;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.softwareproject2.hi.lilbill.MainActivity;
 import com.softwareproject2.hi.lilbill.R;
 import com.softwareproject2.hi.lilbill.TransactionLab;
-import com.softwareproject2.hi.lilbill.features.transactionview.Transaction;
+import com.softwareproject2.hi.lilbill.features.transaction.Transaction;
 
 import java.util.List;
 
