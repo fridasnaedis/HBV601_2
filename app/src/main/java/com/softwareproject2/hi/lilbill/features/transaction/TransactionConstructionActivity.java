@@ -1,9 +1,11 @@
-package com.softwareproject2.hi.lilbill;
+package com.softwareproject2.hi.lilbill.features.transaction;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.softwareproject2.hi.lilbill.R;
 
 public class TransactionConstructionActivity extends AppCompatActivity {
 
