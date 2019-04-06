@@ -2,9 +2,9 @@ package com.softwareproject2.hi.lilbill;
 
 
 import android.content.Context;
-import android.content.res.Resources;
+import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import okhttp3.OkHttpClient;
@@ -12,22 +12,32 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Request;
 import okhttp3.Response;
-import android.net.ConnectivityManager;
+import android.net.ConnectivityManager;g
 import android.net.NetworkInfo;
-import android.widget.TabHost;
-import android.widget.TextView;
+import android.view.View;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.softwareproject2.hi.lilbill.features.transaction.Transaction;
+import com.softwareproject2.hi.lilbill.features.transaction.TransactionConstructionActivity;
+import com.softwareproject2.hi.lilbill.features.transaction.TransactionFragment;
+
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.util.Date;
+import java.util.UUID;
 
 
 public class MainActivity extends SingleFragmentActivity {
 
     public static final String TAG = MainActivity.class.getSimpleName();
 
+    public static final String EXTRA_TRANSACTION_ID =
+            "com.softwareproject2.hi.lilbill.transaction_id";
 
+    public static Intent newIntent(Context packageContext, UUID transactionID) {
+        Intent intent = new Intent(packageContext, MainActivity.class);
+        intent.putExtra(EXTRA_TRANSACTION_ID, transactionID);
+        return intent;
+    }
  
     protected Fragment createFragment() {
         return new TransactionFragment();
@@ -38,13 +48,18 @@ public class MainActivity extends SingleFragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment);
 
+        FloatingActionButton createNewTransaction = findViewById(R.id.new_transaction_fab);
+        createNewTransaction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, TransactionConstructionActivity.class));
+            }
+        });
 
         getData();
     }
 
     private void getData() {
-
-
 
         /* Strengur sem er url sem samsvarar hvert á að sækja gögn
            urlið væri root/user/json eða eh álíka, þar sem user er sá sem er logged in

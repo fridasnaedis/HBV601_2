@@ -1,5 +1,6 @@
-package com.softwareproject2.hi.lilbill;
+package com.softwareproject2.hi.lilbill.features.transactionlist;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,7 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.softwareproject2.hi.lilbill.MainActivity;
+import com.softwareproject2.hi.lilbill.R;
+import com.softwareproject2.hi.lilbill.TransactionLab;
+import com.softwareproject2.hi.lilbill.features.transaction.Transaction;
 
 import java.util.List;
 
@@ -60,11 +65,9 @@ public class TransactionListFragment extends Fragment {
             //TO DO
             //Tengja við fragment
 
-            String descriptionText = "This is a description for the transaction made on: " +
-                    mTransaction.getDate().toString();
+            Intent intent = MainActivity.newIntent(getActivity(), mTransaction.getId());
+            startActivity(intent);
 
-            Toast.makeText(getActivity(), descriptionText , Toast.LENGTH_SHORT)
-                .show();
         }
 
         public void bind(Transaction transaction) {

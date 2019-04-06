@@ -12,7 +12,7 @@
         style="?android:listSeparatorTextViewStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/transaction_amount_lable" />
+        android:text="@string/transaction_amount_label" />
 
     <TextView
         style="@style/data_style"
@@ -26,7 +26,7 @@
         style="?android:listSeparatorTextViewStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/transaction_description_lable"/>
+        android:text="@string/transaction_description_label"/>
 
     <TextView
         style="@style/data_style"
@@ -41,7 +41,7 @@
         style="?android:listSeparatorTextViewStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/transaction_date_lable"/>
+        android:text="@string/transaction_date_label"/>
 
     <TextView
         style="@style/data_style"

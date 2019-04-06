@@ -1,6 +1,11 @@
 package com.softwareproject2.hi.lilbill;
 
+//populate-a alltaf þegar appið er opnað uppá nýtt við log-in
+
+
 import android.content.Context;
+
+import com.softwareproject2.hi.lilbill.features.transaction.Transaction;
 
 import java.util.ArrayList;
 import java.util.List;

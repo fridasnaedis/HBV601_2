@@ -1,20 +1,19 @@
-package com.softwareproject2.hi.lilbill;
+package com.softwareproject2.hi.lilbill.features.transaction;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.softwareproject2.hi.lilbill.MainActivity;
+import com.softwareproject2.hi.lilbill.R;
+import com.softwareproject2.hi.lilbill.TransactionLab;
 
-import java.util.Date;
+import java.util.UUID;
 
 public class TransactionFragment extends Fragment {
 
@@ -28,7 +27,11 @@ public class TransactionFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mTransaction = new Transaction();
+        //mTransaction = new Transaction();
+
+        UUID transactionId = (UUID) getActivity().getIntent()
+                .getSerializableExtra(MainActivity.EXTRA_TRANSACTION_ID);
+        mTransaction = TransactionLab.get(getActivity()).getTransaction(transactionId);
 
 //        Transaction transaction = new Transaction();
 //        transaction.setAccountId(Long.valueOf("1"));
@@ -43,9 +46,9 @@ public class TransactionFragment extends Fragment {
 //        Log.d(TAG, gson.toJson(transaction));
 
         //Dummy data
-        Float value = new Float(200000);
-        mTransaction.setAmount(value);
-        mTransaction.setDescription("Dominos Pizza er góð! Segir Ísak!");
+        //Float value = new Float(200000);
+        //mTransaction.setAmount(value);
+        //mTransaction.setDescription("Dominos Pizza er góð! Segir Ísak!");
     }
 
     @Override
@@ -64,7 +67,8 @@ public class TransactionFragment extends Fragment {
         mDecription.setText(mTransaction.getDescription());
 
 
-
+        // android.text.format.DateFormat
+        // setja dagsettningu á læsilegra form
         mDate = (TextView) v.findViewById(R.id.transaction_date);
         mDate.setText(mTransaction.getDate().toString());
 

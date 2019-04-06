@@ -1,4 +1,4 @@
-package com.softwareproject2.hi.lilbill;
+package com.softwareproject2.hi.lilbill.features.transaction;
 
 import java.util.Date;
 import java.util.UUID;
@@ -38,8 +38,8 @@ public class Transaction {
         return amount;
     }
 
-    public void setAmount(Float ammount) {
-        this.amount = ammount;
+    public void setAmount(Float amount) {
+        this.amount = amount;
     }
 
     public String getDescription() {

@@ -2,10 +2,15 @@
 
 <resources>
     <string name="app_name">LilBill</string>
+
     <style name="data_style">
         <item name="android:textSize">16sp</item>
     </style>
-    <string name="transaction_amount_lable"><strong>Amount:</strong></string>
-    <string name="transaction_description_lable"><strong>Description:</strong></string>
-    <string name="transaction_date_lable"><strong>Date:</strong></string>
+
+    <string name="transaction_amount_label"><strong>Amount:</strong></string>
+    <string name="transaction_amount_hint">100</string>
+    <string name="transaction_description_label"><strong>Description:</strong></string>
+    <string name="transaction_description_hint">Write a description of the transaction</string>
+    <string name="transaction_date_label"><strong>Date:</strong></string>
+    <string name="transaction_submit_new">Submit</string>
 </resources>
