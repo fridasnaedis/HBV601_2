@@ -33,12 +33,14 @@ public class MainActivity extends SingleFragmentActivity {
     public static final String EXTRA_TRANSACTION_ID =
             "com.softwareproject2.hi.lilbill.transaction_id";
 
-    public static Intent newIntent(Context packageContext, UUID transactionID) {
+
+    public static Intent newIntent(Context packageContext, UUID transactionID, UUID accountId) {
         Intent intent = new Intent(packageContext, MainActivity.class);
         intent.putExtra(EXTRA_TRANSACTION_ID, transactionID);
         return intent;
     }
- 
+
+
     protected Fragment createFragment() {
         return new TransactionFragment();
 

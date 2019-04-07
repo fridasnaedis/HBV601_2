@@ -6,7 +6,7 @@ import java.util.UUID;
 public class Transaction {
 
     private UUID mId;
-    private Long accountId;
+    private UUID accountId;
     private Long splitId;
     private Float amount;
     private String mDescription;
@@ -18,11 +18,11 @@ public class Transaction {
     }
 
 
-    public Long getAccountId() {
+    public UUID getAccountId() {
         return accountId;
     }
 
-    public void setAccountId(Long accountId) {
+    public void setAccountId(UUID accountId) {
         this.accountId = accountId;
     }
 
