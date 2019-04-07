@@ -7,16 +7,21 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
+
 import okhttp3.OkHttpClient;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Request;
 import okhttp3.Response;
-import android.net.ConnectivityManager;g
+
+import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.view.View;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.softwareproject2.hi.lilbill.features.transaction.Transaction;
@@ -28,7 +33,6 @@ import java.util.UUID;
 
 
 public class MainActivity extends SingleFragmentActivity {
-
 
     public static final String TAG = MainActivity.class.getSimpleName();
 
@@ -50,6 +54,7 @@ public class MainActivity extends SingleFragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment);
 
+
         FloatingActionButton createNewTransaction = findViewById(R.id.new_transaction_fab);
         createNewTransaction.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,6 +66,7 @@ public class MainActivity extends SingleFragmentActivity {
 
         getData();
     }
+
 
     private void getData() {
 
@@ -138,7 +144,7 @@ public class MainActivity extends SingleFragmentActivity {
         ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();
         boolean isAvailable = false;
-        if(networkInfo!= null && networkInfo.isConnected()) isAvailable = true;
+        if (networkInfo != null && networkInfo.isConnected()) isAvailable = true;
         return isAvailable;
     }
 
@@ -156,7 +162,7 @@ public class MainActivity extends SingleFragmentActivity {
 
     }
 
-    public  void objectToJson(Transaction transaction) {
+    public void objectToJson(Transaction transaction) {
         /**
          * Þessi aðferð á að breyta java object, í þessu tilfelli Transaction object
          * yfir í json streng.
