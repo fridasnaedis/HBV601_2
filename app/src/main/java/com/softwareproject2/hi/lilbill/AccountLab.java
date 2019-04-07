@@ -1,7 +1,5 @@
 package com.softwareproject2.hi.lilbill;
 
-//populate-a alltaf þegar appið er opnað uppá nýtt við log-in
-
 import android.content.Context;
 
 import com.softwareproject2.hi.lilbill.features.account.Account;
@@ -12,21 +10,29 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class TransactionLab {
+public class AccountLab {
 
-    private static TransactionLab sTransactionLab;
+
+    private static AccountLab sAccountLab;
+    //bara fyrir dummy lista, laga í get transaction aðferð
     private List<Transaction> mTransactions;
     private List<Account> mAccounts;
 
 
-    public static TransactionLab get(Context context) {
-        if (sTransactionLab == null) {
-            sTransactionLab = new TransactionLab(context);
+    public static AccountLab get(Context context) {
+        if (sAccountLab == null) {
+            sAccountLab = new AccountLab(context);
         }
-        return sTransactionLab;
+        return sAccountLab;
     }
 
-    private TransactionLab(Context context) {
+    private AccountLab(Context context) {
+
+        //kalla á network manager og sækja account sem inniheldur lista af öllum transaction
+
+        //mAccounts = networkManager.getBLA
+
+        // Dummy stöff
 
         mTransactions = new ArrayList<>();
         Float value = new Float(2000);
@@ -39,7 +45,7 @@ public class TransactionLab {
         }
 
 
-        //Búum til lista til þess að halda utanum alla accounts
+        // Búum til lista til þess að halda utanum alla accounts
         mAccounts = new ArrayList<>();
 
         Float balance;
@@ -52,23 +58,33 @@ public class TransactionLab {
             Account account = new Account();
             account.setUser1("user1");
             account.setUser2("user2");
-            account.setTransactionsList(mTransactions);
+            //account.setTransactionsList(mTransactions);
             balance = (float) Math.random()*100;
             account.setNetBalance(balance);
-            account.setTransactionsList(mTransactions);
             mAccounts.add(account);
         }
-
     }
+
 
     public List<Account> getAccounts(){
         return mAccounts;
     }
 
-    public List<Transaction> getTransactions() {
-        return mTransactions;
+
+    //ná í eitt transaction út frá transactionUUID og account UUID
+    public Transaction getTransaction(UUID accountId, UUID transactionId){
+
+        Account account = getAccount(accountId);
+        //List<Transaction> mTransactions = account.getTransactionsList();
+        for(Transaction transaction : mTransactions){
+            if (transaction.getId().equals(transactionId)){
+                return transaction;
+            }
+        }
+        return null;
     }
 
+    //ná í einn Account
     public Account getAccount(UUID id) {
         for (Account account : mAccounts) {
             if (account.getId().equals(id)) {
@@ -78,12 +94,5 @@ public class TransactionLab {
         return null;
     }
 
-    public Transaction getTransaction(UUID id) {
-        for (Transaction transaction : mTransactions) {
-            if (transaction.getId().equals(id)) {
-                return transaction;
-            }
-        }
-        return  null;
-    }
 }
+

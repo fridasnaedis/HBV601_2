@@ -37,6 +37,7 @@ public class TransactionListFragment extends Fragment {
     }
 
     private void updateUI() {
+        //ýtra í öfugri röð
         TransactionLab transactionLab = TransactionLab.get(getActivity());
 
         List<Transaction> transactions = transactionLab.getTransactions();

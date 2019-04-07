@@ -12,7 +12,7 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Request;
 import okhttp3.Response;
-import android.net.ConnectivityManager;g
+import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.view.View;
 
