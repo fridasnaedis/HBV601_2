@@ -8,6 +8,13 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
+import okhttp3.OkHttpClient;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Request;
+import okhttp3.Response;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.view.View;
 
 import com.softwareproject2.hi.lilbill.features.account.Account;
@@ -28,7 +35,8 @@ public class MainActivity extends SingleFragmentActivity {
     public static final String EXTRA_TRANSACTION_ID =
             "com.softwareproject2.hi.lilbill.transaction_id";
 
-    public static Intent newIntent(Context packageContext, UUID transactionID) {
+
+    public static Intent newIntent(Context packageContext, UUID transactionID, UUID accountId) {
         Intent intent = new Intent(packageContext, MainActivity.class);
         intent.putExtra(EXTRA_TRANSACTION_ID, transactionID);
         return intent;
