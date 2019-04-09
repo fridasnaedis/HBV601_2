@@ -43,6 +43,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             waiting_dialog.show();
 
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+
             if (result.isSuccess()) {
 
                 waiting_dialog.dismiss();
@@ -52,6 +53,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
                 AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
                 firebaseAuthWithGoogle(credential);
+
             } else {
                 
                 waiting_dialog.dismiss();
