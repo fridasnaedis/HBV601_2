@@ -10,9 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.softwareproject2.hi.lilbill.AccountLab;
 import com.softwareproject2.hi.lilbill.MainActivity;
 import com.softwareproject2.hi.lilbill.R;
-import com.softwareproject2.hi.lilbill.TransactionLab;
+import com.softwareproject2.hi.lilbill.features.transactionlist.TransactionListActivity;
 
 import org.w3c.dom.Text;
 
@@ -38,9 +39,11 @@ public class AccountListFragment extends Fragment {
     }
 
     private void updateUI() {
-        TransactionLab transactionLab = TransactionLab.get(getActivity());
 
-        List<Account> accounts = transactionLab.getAccounts();
+
+        AccountLab accountLab = AccountLab.get(getActivity());
+
+        List<Account> accounts = accountLab.getAccounts();
 
         mAdapter = new AccountAdapter(accounts);
         mCrimeRecyclerView.setAdapter(mAdapter);
@@ -72,7 +75,8 @@ public class AccountListFragment extends Fragment {
             //TO DO
             //Tengja við fragment
 
-            Intent intent = MainActivity.newIntent(getActivity(), mAccount.getId());
+            //Intent intent = MainActivity.newAccountIntent(getActivity(), mAccount.getId());
+            Intent intent = TransactionListActivity.newIntent(getActivity(), mAccount.getId());
             startActivity(intent);
 
         }
@@ -83,7 +87,7 @@ public class AccountListFragment extends Fragment {
             Float balance = account.getNetBalance();
             String mAccountNetBalance = String.format("%.02f", balance)+ " kr.";
 
-            //mAccount = account;
+            mAccount = account;
             mTileTextView.setText(mAccountNetBalance);
 
             //gerum það sama fyrir user2

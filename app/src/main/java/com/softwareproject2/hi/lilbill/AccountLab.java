@@ -51,18 +51,22 @@ public class AccountLab {
         Float balance;
         //Populate-um með dummy gögnum
 
-        for (int i = 0; i < 10; i++) {
+        //for (int i = 0; i < 10; i++) {
             User user1 = new User("Palli", "páll", "sson", "palli@palli.is");
             User user2 = new User("Jonni", "jón", "son", "jón@jón.is");
 
             Account account = new Account();
             account.setUser1("user1");
             account.setUser2("user2");
-            //account.setTransactionsList(mTransactions);
+
+            for (Transaction transaction : mTransactions) {
+                transaction.setAccountId(account.getId());
+            }
+            account.setTransactionsList(mTransactions);
             balance = (float) Math.random()*100;
             account.setNetBalance(balance);
             mAccounts.add(account);
-        }
+        //}
     }
 
 
@@ -71,10 +75,10 @@ public class AccountLab {
     }
 
 
-    //ná í eitt transaction út frá transactionUUID og account UUID
+    /*ná í eitt transaction út frá transactionUUID og account UUID
     public Transaction getTransaction(UUID accountId, UUID transactionId){
 
-        Account account = getAccount(accountId);
+        //Account account = getAccount(accountId);
         //List<Transaction> mTransactions = account.getTransactionsList();
         for(Transaction transaction : mTransactions){
             if (transaction.getId().equals(transactionId)){
@@ -82,6 +86,17 @@ public class AccountLab {
             }
         }
         return null;
+    }*/
+
+
+    //to do, laga það að sækja account id extra svo að hægt sé að nota fallið fyrir ofan
+    public Transaction getTransaction(UUID id) {
+        for (Transaction transaction : mTransactions) {
+            if (transaction.getId().equals(id)) {
+                return transaction;
+            }
+        }
+        return  null;
     }
 
     //ná í einn Account

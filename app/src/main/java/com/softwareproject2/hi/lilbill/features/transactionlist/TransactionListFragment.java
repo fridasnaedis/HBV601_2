@@ -10,25 +10,36 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.softwareproject2.hi.lilbill.AccountLab;
 import com.softwareproject2.hi.lilbill.MainActivity;
 import com.softwareproject2.hi.lilbill.R;
 import com.softwareproject2.hi.lilbill.TransactionLab;
+import com.softwareproject2.hi.lilbill.features.account.Account;
 import com.softwareproject2.hi.lilbill.features.transaction.Transaction;
 
 import java.util.List;
+import java.util.UUID;
 
 public class TransactionListFragment extends Fragment {
 
-    private RecyclerView mCrimeRecyclerView;
+
+    private RecyclerView mTransactionRecyclerView;
     private TransactionAdapter mAdapter;
+    private Account mAccount;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_transaction_list, container, false);
 
-        mCrimeRecyclerView = (RecyclerView) view.findViewById(R.id.transaction_recycler_view);
+        UUID accountId = (UUID) getActivity().getIntent()
+                .getSerializableExtra(TransactionListActivity.EXTRA_ACCOUNT_ID);
+
+        mAccount = AccountLab.get(getActivity()).getAccount(accountId);
+
+
+        mTransactionRecyclerView = (RecyclerView) view.findViewById(R.id.transaction_recycler_view);
         //Gera layout manager til þess að sjá um að positiona items, líka til grid
-        mCrimeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mTransactionRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         updateUI();
 
@@ -38,14 +49,14 @@ public class TransactionListFragment extends Fragment {
 
     private void updateUI() {
         //ýtra í öfugri röð
-        TransactionLab transactionLab = TransactionLab.get(getActivity());
 
-        List<Transaction> transactions = transactionLab.getTransactions();
+        List<Transaction> transactions = mAccount.getTransactionsList();
 
         mAdapter = new TransactionAdapter(transactions);
-        mCrimeRecyclerView.setAdapter(mAdapter);
+        mTransactionRecyclerView.setAdapter(mAdapter);
     }
 
+    //Holder sér um að inflate-a layout
     private class TransactionHolder extends RecyclerView.ViewHolder implements View.OnClickListener  {
 
         private TextView mTileTextView;
@@ -63,14 +74,14 @@ public class TransactionListFragment extends Fragment {
 
         @Override
         public void onClick(View view) {
-            //TO DO
-            //Tengja við fragment
 
-            Intent intent = MainActivity.newIntent(getActivity(), mTransaction.getId());
+
+            Intent intent = MainActivity.newIntent(getActivity(), mTransaction.getId(), mAccount.getId());
             startActivity(intent);
 
         }
 
+        //bindur Java kóða og tengir við widget
         public void bind(Transaction transaction) {
             String mTransactionAmount = transaction.getAmount().toString() + " kr.";
             mTransaction = transaction;
@@ -79,23 +90,28 @@ public class TransactionListFragment extends Fragment {
         }
     }
 
+    //Adapter sér um að gefa RecyclerView upplýsingar um transactions
     private class TransactionAdapter extends RecyclerView.Adapter<TransactionHolder> {
+
         private List<Transaction> mTransactions;
 
         public TransactionAdapter(List<Transaction> transactions) {
             mTransactions = transactions;
         }
 
+        //recyclerviewer kallar á onCreateViewHolder til þess að birta hlut
         @Override
         public TransactionHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
+
             return new TransactionHolder(layoutInflater, parent);
         }
 
+        //When the recyclerView request that a given transactionholder to be bound to a particular transaction
         @Override
         public void onBindViewHolder(TransactionHolder holder, int position) {
-            Transaction crime = mTransactions.get(position);
-            holder.bind(crime);
+            Transaction transaction = mTransactions.get(position);
+            holder.bind(transaction);
 
         }
 
