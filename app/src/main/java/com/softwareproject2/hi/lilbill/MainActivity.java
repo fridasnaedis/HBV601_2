@@ -18,10 +18,13 @@ import android.net.NetworkInfo;
 import android.view.View;
 
 import com.softwareproject2.hi.lilbill.features.account.Account;
+import com.softwareproject2.hi.lilbill.features.transaction.Transaction;
 import com.softwareproject2.hi.lilbill.features.transaction.TransactionConstructionActivity;
 import com.softwareproject2.hi.lilbill.features.transaction.TransactionFragment;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 
@@ -58,23 +61,34 @@ public class MainActivity extends SingleFragmentActivity {
 
         StrictMode.setThreadPolicy(policy);
 
-        String url = "https://lilbill.herokuapp.com/account/2";
-        Log.i(TAG, url);
-
-        try {
-           Account account = get.getAccountData(url);
-           String user1 = account.getUser1();
-           Log.i(TAG, "" + user1);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        String url1 = "https://lilbill.herokuapp.com/account/2";
+        String url2 = "https://postman-echo.com/post";
+        Log.i(TAG, url2);
 
 //        try {
-//            String response = post.postJsonFromAccount(url);
-//            Log.i(TAG, "" + response);
+//           Account account = get.getAccountData(url);
+//           String user1 = account.getUser1();
+//           Log.i(TAG, "" + user1);
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
+        Transaction transaction = new Transaction();
+        transaction.setDescription("dsa");
+
+        final List<Transaction> mTransactionList = new ArrayList<>();
+        mTransactionList.add(transaction);
+        Account account = new Account();
+        account.setUser1("user1");
+        account.setUser2("user2");
+
+        account.setTransactionsList(mTransactionList);
+
+        try {
+            String response = post.postJsonFromAccount(account, url2);
+            Log.i(TAG, "" + response);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
         FloatingActionButton createNewTransaction = findViewById(R.id.new_transaction_fab);
