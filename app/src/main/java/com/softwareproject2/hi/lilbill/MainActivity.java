@@ -58,7 +58,7 @@ public class MainActivity extends SingleFragmentActivity {
 
         StrictMode.setThreadPolicy(policy);
 
-        String url = "https://postman-echo.com/post";
+        String url = "https://lilbill.herokuapp.com/account/2";
         Log.i(TAG, url);
 
         try {
@@ -69,12 +69,12 @@ public class MainActivity extends SingleFragmentActivity {
             e.printStackTrace();
         }
 
-        try {
-            String response = post.postJsonFromAccount(url);
-            Log.i(TAG, "" + response);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            String response = post.postJsonFromAccount(url);
+//            Log.i(TAG, "" + response);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
 
         FloatingActionButton createNewTransaction = findViewById(R.id.new_transaction_fab);
