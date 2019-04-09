@@ -7,10 +7,19 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.softwareproject2.hi.lilbill.features.account.Account;
+import com.softwareproject2.hi.lilbill.features.transaction.Transaction;
+
+import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -51,12 +60,50 @@ public class Get {
 
                 Log.d(TAG, "line 62" + jsonData);
 
+
                 GsonBuilder builder = new GsonBuilder();
                 Gson gson = builder.create();
-                JsonParser parser = new JsonParser();
-                Account account = gson.fromJson(jsonData, Account.class);
-                Log.i(TAG, String.valueOf(account));
+
+                /*
+
+                JsonObject jsonObject = new JsonParser().parse(jsonData).getAsJsonObject();
+                final JsonArray data = jsonObject.getAsJsonArray("data");
+                Log.i(TAG, "" + data);
+
+                Account account = new Account();
+//
+                for(JsonElement element : data) {
+                    account.setUser1(((JsonObject) element).get("user1").getAsString());
+                }
+                */
+
+                JsonObject jsonObject = new JsonParser().parse(jsonData).getAsJsonObject();
+
+                final String mUser2 = jsonObject.get("user2").getAsString();
+                final String mUser1 = jsonObject.get("user1").getAsString();
+                final Float mNetBalance = jsonObject.get("netBalance").getAsFloat();
+
+                final JsonArray transactionsList = jsonObject.get("transactionList").getAsJsonArray();
+                final String[] transactions = new String[transactionsList.size()];
+                final List<Transaction> mTransactionList = new ArrayList<>();
+
+                for(int i = 0; i < transactions.length; i++) {
+                    Transaction transaction = new Transaction();
+                    transaction.setDescription("bla");
+                    mTransactionList.add(transaction);
+
+                }
+
+
+                Account account = new Account();
+                account.setUser1(mUser1);
+                account.setUser2(mUser2);
+                account.setNetBalance(mNetBalance);
+                account.setTransactionsList(mTransactionList);
+                Log.i(TAG, account.toString());
                 return account;
+
+
 
             } catch (IOException e) {
 

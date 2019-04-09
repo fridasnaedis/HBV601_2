@@ -54,4 +54,15 @@ public class Account {
     public void setNetBalance(Float netBalance) {
         mNetBalance = netBalance;
     }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "mId=" + mId +
+                ", mTransactionsList=" + mTransactionsList +
+                ", mUser1='" + mUser1 + '\'' +
+                ", mUser2='" + mUser2 + '\'' +
+                ", mNetBalance=" + mNetBalance +
+                '}';
+    }
 }
