@@ -1,0 +1,44 @@
+{
+  "project_info": {
+    "project_number": "73055842571",
+    "firebase_url": "https://lilbill-1554556904757.firebaseio.com",
+    "project_id": "lilbill-1554556904757",
+    "storage_bucket": "lilbill-1554556904757.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:73055842571:android:9a32c50ce2d276c8",
+        "android_client_info": {
+          "package_name": "is.hbv601g.hi.lilbill"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "73055842571-pr5ii4os4kah7r96rhu21q87u5lou1su.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "is.hbv601g.hi.lilbill",
+            "certificate_hash": "c7311ae51b52275cb2bc20aab6bd65421a8973d7"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDU4QxntlazBZ4caMyjLzy-sHrSYu1jhF4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "73055842571-27q4jh731uhhpl4uv3iih8de5eujnrdh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
