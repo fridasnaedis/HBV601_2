@@ -60,23 +60,6 @@ public class Get {
 
                 Log.d(TAG, "line 62" + jsonData);
 
-
-                GsonBuilder builder = new GsonBuilder();
-                Gson gson = builder.create();
-
-                /*
-
-                JsonObject jsonObject = new JsonParser().parse(jsonData).getAsJsonObject();
-                final JsonArray data = jsonObject.getAsJsonArray("data");
-                Log.i(TAG, "" + data);
-
-                Account account = new Account();
-//
-                for(JsonElement element : data) {
-                    account.setUser1(((JsonObject) element).get("user1").getAsString());
-                }
-                */
-
                 JsonObject jsonObject = new JsonParser().parse(jsonData).getAsJsonObject();
 
                 final String mUser2 = jsonObject.get("user2").getAsString();
@@ -94,7 +77,6 @@ public class Get {
 
                 }
 
-
                 Account account = new Account();
                 account.setUser1(mUser1);
                 account.setUser2(mUser2);
@@ -102,8 +84,6 @@ public class Get {
                 account.setTransactionsList(mTransactionList);
                 Log.i(TAG, account.toString());
                 return account;
-
-
 
             } catch (IOException e) {
 

@@ -20,6 +20,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -40,7 +42,7 @@ public class Post {
         this.mContext = mContext;
     }
 
-    public String postJsonFromAccount(/*Account acccount, */String url) throws IOException {
+    public String postJsonFromAccount(Account account, String url) throws IOException {
         /**
          * Þessi aðferð á að breyta java object, í þessu tilfelli Transaction object
          * yfir í json streng.
@@ -53,18 +55,21 @@ public class Post {
 //        JsonElement jsonElement = gson.toJsonTree(acccount);
 //        JsonObject jsonObject = (JsonObject) jsonElement;
 //        String json = jsonObject.toString();
-
-        String json = "{'winCondition':'HIGH_SCORE',"
-                + "'name':'Bowling',"
-                + "'round':4,"
-                + "'lastSaved':1367702411696,"
-                + "'dateStarted':1367702378785,"
-                + "'players':["
-                + "{'name':'" + "player1" + "','history':[10,8,6,7,8],'color':-13388315,'total':39},"
-                + "{'name':'" + "player2" + "','history':[6,10,5,10,10],'color':-48060,'total':41}"
-                + "]}";
+        final List<Transaction> mTransactionList = new ArrayList<>();
+        String[] transactionList = new String[mTransactionList.size()];
+        for (int i = 0; i < transactionList.length; i++) {
+            transactionList[i] = mTransactionList.get(i).getId().toString();
+        }
 
 
+        String json = "{'Id':" + account.getId() + ","
+                + "'transactionList':[" + transactionList + "],"
+                + "'user1': " + account.getUser1() + ","
+                + "'user2': " + account.getUser2() + ","
+                + "'netBalance': " + account.getNetBalance() + "}";
+
+        Log.i(TAG, ""+ transactionList);
+        Log.i(TAG, "" + json);
 
         if (isNetworkAvailable()) {
 
