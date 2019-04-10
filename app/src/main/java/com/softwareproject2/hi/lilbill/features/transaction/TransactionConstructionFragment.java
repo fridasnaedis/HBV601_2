@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.softwareproject2.hi.lilbill.features.account.Account;
 import com.softwareproject2.hi.lilbill.AccountLab;
 import com.softwareproject2.hi.lilbill.R;
 import com.softwareproject2.hi.lilbill.TransactionLab;
@@ -30,9 +31,12 @@ public class TransactionConstructionFragment extends Fragment {
     TextView mSelectedAccountsList;
     Button mSplitBetweenButton;
     Button mSubmitButton;
-    String[] listItems = {"Sara", "Fríða", "Ísak", "Júlli", "Palli"};
+    String[] listItems; //  = {"Sara", "Fríða", "Ísak", "Júlli", "Palli"}
+    String[] accountIdList;
     boolean[] checkedItems;
     ArrayList<Integer> mUserItems = new ArrayList<>();
+
+    AccountLab accountLab = AccountLab.get(getActivity());
 
 
 
@@ -48,7 +52,22 @@ public class TransactionConstructionFragment extends Fragment {
         mAmountField = (EditText) v.findViewById(R.id.transaction_amount);
         mDescriptionField = (EditText) v.findViewById(R.id.transaction_description);
 
-        AccountLab accountLab = AccountLab.get(getActivity());
+
+        // Load friend names into selection object
+        List<Account> accounts = accountLab.getAccounts();
+        String currUsername = accountLab.getUser().getUsername();
+        listItems = new String[accounts.size() + 1];
+        accountIdList = new String[accounts.size() + 1];
+        listItems[0] = "Me";
+        for (int i=1; i<=accounts.size(); i++){
+            if (currUsername.equals(accounts.get(i).getUser1())) {
+                listItems[i] = accounts.get(i).getUser2();
+            }
+            else {
+                listItems[i] = accounts.get(i).getUser2();
+            }
+            accountIdList[i] = accounts.get(i).getId();  // Held að sara hafi verið að fixa
+        }
 
 
         checkedItems = new boolean[listItems.length];
@@ -113,14 +132,24 @@ public class TransactionConstructionFragment extends Fragment {
         mSubmitButton = (Button) v.findViewById(R.id.submit_new_transaction);
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                mTransaction.setAmount(Float.valueOf(mAmountField.getText().toString()));
-                mTransaction.setDescription(mDescriptionField.getText().toString());
-                // TODO: Handle transaction things here
-                //TransactionLab.get(getActivity()).addTransaction(mTransaction);
+                // mTransaction.setAmount(Float.valueOf(mAmountField.getText().toString()));
+                // mTransaction.setDescription(mDescriptionField.getText().toString());
 
                 if (mDescriptionField.getText() == null || mDescriptionField.getText().toString().equals("")) {
                     mTransaction.setDescription("");
                 }
+
+                // TODO: Handle transaction things here
+
+                for (Integer checked: mUserItems){
+                    if (checked>0){
+                        mTransaction.setAmount(Float.valueOf(mAmountField.getText().toString())/mUserItems.size());
+                        mTransaction.getAccountId(accountIdList[checked]);
+                        accountLab.createTransaction(mTransaction, accountIdList[checked]);
+                    }
+                }
+
+                //TransactionLab.get(getActivity()).addTransaction(mTransaction);
                 getActivity().finish();
             }
         });
