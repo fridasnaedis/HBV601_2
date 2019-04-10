@@ -41,7 +41,7 @@ public class AccountLab {
 
         //get.getAccountData();
 
-        logIn("sara", "pw");
+        //logIn("sara", "pw");
 
         //Sækja lista yfir öll account ID fyrir þennann user
 
@@ -51,48 +51,7 @@ public class AccountLab {
 
         //mAccounts =
 
-        // Dummy stöff
 
-        mTransactions = new ArrayList<>();
-        Float value = new Float(2000);
-
-        //Populate 100 random transaction
-        for (int i = 0; i < 10; i++) {
-            Transaction transaction = new Transaction();
-            transaction.setAmount(value + i * 5);
-            transaction.setId(String.valueOf(i));
-            mTransactions.add(transaction);
-        }
-
-
-        // Búum til lista til þess að halda utanum alla accounts
-        mAccounts = new ArrayList<>();
-
-        List<String> friendList = new ArrayList<>();
-
-        friendList.add("1");
-
-        mUser.setFriends(friendList);
-
-        Float balance;
-
-        //Populate-um með dummy gögnum
-
-        //for (int i = 0; i < 10; i++) {
-            User user2 = new User("Jonni", "jón", "son", "jón@jón.is");
-
-            Account account = new Account();
-            account.setId("1");
-            account.setUser1(mUser.getUsername());
-            account.setUser2("Jonni");
-
-            for (Transaction transaction : mTransactions) {
-                transaction.setAccountId(account.getId());
-            }
-            account.setTransactionsList(mTransactions);
-            balance = (float) Math.random()*100;
-            account.setNetBalance(balance);
-            mAccounts.add(account);
     }
 
 
@@ -162,6 +121,49 @@ public class AccountLab {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        // Dummy stöff
+
+        mTransactions = new ArrayList<>();
+        Float value = new Float(2000);
+
+        //Populate 100 random transaction
+        for (int i = 0; i < 10; i++) {
+            Transaction transaction = new Transaction();
+            transaction.setAmount(value + i * 5);
+            transaction.setId(String.valueOf(i));
+            mTransactions.add(transaction);
+        }
+
+
+        // Búum til lista til þess að halda utanum alla accounts
+        mAccounts = new ArrayList<>();
+
+        List<String> friendList = new ArrayList<>();
+
+        friendList.add("1");
+
+        mUser.setFriends(friendList);
+
+        Float balance;
+
+        //Populate-um með dummy gögnum
+
+        //for (int i = 0; i < 10; i++) {
+        User user2 = new User("Jonni", "jón", "son", "jón@jón.is");
+
+        Account account = new Account();
+        account.setId("1");
+        account.setUser1(mUser.getUsername());
+        account.setUser2("Jonni");
+
+        for (Transaction transaction : mTransactions) {
+            transaction.setAccountId(account.getId());
+        }
+        account.setTransactionsList(mTransactions);
+        balance = (float) Math.random()*100;
+        account.setNetBalance(balance);
+        mAccounts.add(account);
     }
 }
 

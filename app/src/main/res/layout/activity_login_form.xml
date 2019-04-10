@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:gravity="center"
-        android:inputType="numberDecimal"
+        android:inputType="textPersonName"
         android:text="Username" />
 
     <EditText
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:gravity="center"
-        android:inputType="numberDecimal"
+        android:inputType="textPassword"
         android:text="Password" />
 
     <Button
