@@ -31,8 +31,8 @@ public class TransactionLab {
         mTransactions = new ArrayList<>();
         Float value = new Float(2000);
 
-        //Populate 100 random transaction
-        for (int i = 0; i < 10; i++) {
+        //Populate 10 random transaction
+        for (int i = 0; i < 5; i++) {
             Transaction transaction = new Transaction();
             transaction.setAmount(value + i * 5);
             mTransactions.add(transaction);
@@ -69,15 +69,6 @@ public class TransactionLab {
         return mTransactions;
     }
 
-    public Account getAccount(UUID id) {
-        for (Account account : mAccounts) {
-            if (account.getId().equals(id)) {
-                return account;
-            }
-        }
-        return null;
-    }
-
     public Transaction getTransaction(UUID id) {
         for (Transaction transaction : mTransactions) {
             if (transaction.getId().equals(id)) {
@@ -85,5 +76,9 @@ public class TransactionLab {
             }
         }
         return  null;
+    }
+
+    public void addTransaction(Transaction t){
+        mTransactions.add(t);
     }
 }

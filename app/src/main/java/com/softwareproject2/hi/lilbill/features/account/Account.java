@@ -30,6 +30,9 @@ public class Account {
     public void setTransactionsList(List<Transaction> transactionsList) {
         mTransactionsList = transactionsList;
     }
+    public void addTransaction(Transaction transaction){
+        mTransactionsList.add(transaction);
+    }
 
     public String getUser1() {
         return mUser1;

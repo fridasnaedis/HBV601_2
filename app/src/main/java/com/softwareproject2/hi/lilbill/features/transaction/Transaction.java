@@ -17,7 +17,6 @@ public class Transaction {
         mDate = new Date();
     }
 
-
     public Long getAccountId() {
         return accountId;
     }

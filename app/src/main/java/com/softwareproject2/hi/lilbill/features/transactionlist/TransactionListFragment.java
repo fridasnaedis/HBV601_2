@@ -36,14 +36,23 @@ public class TransactionListFragment extends Fragment {
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateUI();
+    }
+
     private void updateUI() {
         //ýtra í öfugri röð
         TransactionLab transactionLab = TransactionLab.get(getActivity());
 
         List<Transaction> transactions = transactionLab.getTransactions();
-
-        mAdapter = new TransactionAdapter(transactions);
-        mCrimeRecyclerView.setAdapter(mAdapter);
+        if (mAdapter == null) {
+            mAdapter = new TransactionAdapter(transactions);
+            mCrimeRecyclerView.setAdapter(mAdapter);
+        } else {
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
     private class TransactionHolder extends RecyclerView.ViewHolder implements View.OnClickListener  {

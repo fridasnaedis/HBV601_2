@@ -71,10 +71,10 @@ public class AccountLab {
     }
 
 
-    //ná í eitt transaction út frá transactionUUID og account UUID
+    // ná í eitt transaction út frá transactionUUID og account UUID
     public Transaction getTransaction(UUID accountId, UUID transactionId){
 
-        Account account = getAccount(accountId);
+        Account account = sAccountLab.getAccount(accountId);
         //List<Transaction> mTransactions = account.getTransactionsList();
         for(Transaction transaction : mTransactions){
             if (transaction.getId().equals(transactionId)){
@@ -84,7 +84,7 @@ public class AccountLab {
         return null;
     }
 
-    //ná í einn Account
+    // ná í einn Account
     public Account getAccount(UUID id) {
         for (Account account : mAccounts) {
             if (account.getId().equals(id)) {
@@ -92,6 +92,11 @@ public class AccountLab {
             }
         }
         return null;
+    }
+
+    public void createTransaction(Transaction t, UUID id){
+        Account account = sAccountLab.getAccount(id);
+        account.addTransaction(t);
     }
 
 }

@@ -15,19 +15,32 @@
         android:id="@+id/transaction_amount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
         android:hint="@string/transaction_amount_hint"/>
 
     <TextView
         style="?android:listSeparatorTextViewStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/transaction_description_label"/>
+        android:text="@string/transaction_description_label" />
 
     <EditText
-        android:id="@+id/transaction_title"
+        android:id="@+id/transaction_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/transaction_description_hint"/>
+
+    <Button
+        android:id="@+id/split_between"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/transaction_split_between_label" />
+
+    <TextView
+        android:id="@+id/selected_accounts"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" />
 
     <Button
         android:id="@+id/submit_new_transaction"

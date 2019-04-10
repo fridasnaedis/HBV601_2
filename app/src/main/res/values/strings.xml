@@ -13,4 +13,5 @@
     <string name="transaction_description_hint">Write a description of the transaction</string>
     <string name="transaction_date_label"><strong>Date:</strong></string>
     <string name="transaction_submit_new">Submit</string>
+    <string name="transaction_split_between_label">Split between</string>
 </resources>
