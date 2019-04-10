@@ -13,6 +13,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import com.softwareproject2.hi.lilbill.AccountLab;
 import com.softwareproject2.hi.lilbill.R;
+import com.softwareproject2.hi.lilbill.features.account.Account;
+
 import java.util.ArrayList;
 
 public class TransactionConstructionFragment extends Fragment {
@@ -106,7 +108,8 @@ public class TransactionConstructionFragment extends Fragment {
                 mTransaction.setAmount(Float.valueOf(mAmountField.getText().toString()));
                 mTransaction.setDescription(mDescriptionField.getText().toString());
                 // TODO: Handle transaction things here
-                //TransactionLab.get(getActivity()).addTransaction(mTransaction);
+                AccountLab lab = AccountLab.get(getActivity());
+                lab.createTransaction(mTransaction, "1");
 
                 if (mDescriptionField.getText() == null || mDescriptionField.getText().toString().equals("")) {
                     mTransaction.setDescription("");
