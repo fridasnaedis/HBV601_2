@@ -16,6 +16,8 @@ import android.widget.Toast;
 import com.softwareproject2.hi.lilbill.features.account.Account;
 import com.softwareproject2.hi.lilbill.AccountLab;
 import com.softwareproject2.hi.lilbill.R;
+import com.softwareproject2.hi.lilbill.features.account.Account;
+
 import java.util.ArrayList;
 import java.util.List;
 
