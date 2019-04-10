@@ -3,36 +3,27 @@ package com.softwareproject2.hi.lilbill;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.nfc.Tag;
-import android.os.AsyncTask;
-import android.os.StrictMode;
 import android.util.Log;
+import android.util.LogPrinter;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.softwareproject2.hi.lilbill.features.account.Account;
+import com.softwareproject2.hi.lilbill.features.account.User;
 import com.softwareproject2.hi.lilbill.features.transaction.Transaction;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.Call;
-import okhttp3.Callback;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import okhttp3.ResponseBody;
 
-import static com.softwareproject2.hi.lilbill.MainActivity.TAG;
+import static com.softwareproject2.hi.lilbill.TransactionActivity.TAG;
 
 public class Post {
 
@@ -42,9 +33,36 @@ public class Post {
         this.mContext = mContext;
     }
 
+    public String postJsonFromTransaction(Transaction transaction, String url) throws  IOException {
+        final MediaType JSON = MediaType.get("application/json; charset=utf-8");
+
+        /*
+        Post - / user / {userId} / transaction / new
+                example: / user / 5 / transaction / new
+
+                body:
+        {
+            "accountId": "6",
+                "amount": "500",
+                "descr": "test ---- "
+        }
+        response:
+        {
+            "id": 6,
+                "accountId": 6,
+                "amount": 500,
+                "descr": "test ---- ",
+                "date": "Apr 7, 2019 9:33:54 PM"
+        }
+
+        String json = "{
+        */
+        return null;
+    }
+
     public String postJsonFromAccount(Account account, String url) throws IOException {
         /**
-         * Þessi aðferð á að breyta java object, í þessu tilfelli Transaction object
+         * Þessi aðferð á að breyta java object, í þessu tilfelli Account object
          * yfir í json streng.
          */
         final MediaType JSON = MediaType.get("application/json; charset=utf-8");
@@ -87,6 +105,7 @@ public class Post {
         }
         return null;
     }
+
 
     private boolean isNetworkAvailable() {
         /**

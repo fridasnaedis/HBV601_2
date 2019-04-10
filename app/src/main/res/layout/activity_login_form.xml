@@ -13,8 +13,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:gravity="center"
-        android:inputType="numberDecimal"
-        android:text="Username" />
+        android:inputType="textPersonName"
+        android:hint="Username" />
 
     <EditText
         android:id="@+id/password_input"
@@ -22,8 +22,9 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:gravity="center"
-        android:inputType="numberDecimal"
-        android:text="Password" />
+        android:inputType="textPassword"
+        android:hint="password"
+        />
 
     <Button
         android:id="@+id/login_button"

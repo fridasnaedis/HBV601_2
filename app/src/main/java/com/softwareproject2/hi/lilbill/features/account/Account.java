@@ -1,26 +1,25 @@
 package com.softwareproject2.hi.lilbill.features.account;
 
 import com.softwareproject2.hi.lilbill.features.transaction.Transaction;
-
 import java.util.List;
-import java.util.UUID;
 
 public class Account {
 
-    private UUID mId;
-    private List<Transaction> mTransactionsList;
+    private String mId;
     private String mUser1;
     private String mUser2;
     private Float  mNetBalance;
-
+    private List<Transaction> mTransactionsList;
 
     public Account() {
-        mId = UUID.randomUUID();
-        mNetBalance = new Float(0);
     }
 
-    public UUID getId() {
+    public String getId() {
         return mId;
+    }
+
+    public void setId(String id) {
+        mId = id;
     }
 
     public List getTransactionsList() {

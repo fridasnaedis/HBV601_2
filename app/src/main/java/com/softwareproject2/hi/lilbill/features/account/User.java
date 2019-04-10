@@ -5,7 +5,7 @@ import java.util.UUID;
 
 public class User {
 
-    private UUID mId;
+    private String mId;
     private String mUsername;
     private String mFirstName;
     private String mLastName;
@@ -13,7 +13,6 @@ public class User {
     private List<String> mFriends;
 
     public User() {
-        mId = UUID.randomUUID();
     }
 
     public User(String username, String firstName, String lastName, String email) {
@@ -23,8 +22,12 @@ public class User {
         mEmail = email;
     }
 
-    public UUID getId() {
+    public String getId() {
         return mId;
+    }
+
+    public void setId(String id) {
+        mId = id;
     }
 
     public String getUsername() {

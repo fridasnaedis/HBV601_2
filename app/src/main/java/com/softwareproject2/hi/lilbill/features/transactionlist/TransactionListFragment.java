@@ -9,16 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.softwareproject2.hi.lilbill.AccountLab;
-import com.softwareproject2.hi.lilbill.MainActivity;
+import com.softwareproject2.hi.lilbill.TransactionActivity;
 import com.softwareproject2.hi.lilbill.R;
-import com.softwareproject2.hi.lilbill.TransactionLab;
 import com.softwareproject2.hi.lilbill.features.account.Account;
 import com.softwareproject2.hi.lilbill.features.transaction.Transaction;
-
 import java.util.List;
-import java.util.UUID;
 
 public class TransactionListFragment extends Fragment {
 
@@ -31,7 +27,8 @@ public class TransactionListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_transaction_list, container, false);
 
-        UUID accountId = (UUID) getActivity().getIntent()
+
+        String accountId = (String) getActivity().getIntent()
                 .getSerializableExtra(TransactionListActivity.EXTRA_ACCOUNT_ID);
 
         mAccount = AccountLab.get(getActivity()).getAccount(accountId);
@@ -82,7 +79,7 @@ public class TransactionListFragment extends Fragment {
         public void onClick(View view) {
 
 
-            Intent intent = MainActivity.newIntent(getActivity(), mTransaction.getId(), mAccount.getId());
+            Intent intent = TransactionActivity.newIntent(getActivity(), mTransaction.getId());
             startActivity(intent);
 
         }
@@ -92,7 +89,9 @@ public class TransactionListFragment extends Fragment {
             String mTransactionAmount = transaction.getAmount().toString() + " kr.";
             mTransaction = transaction;
             mTileTextView.setText(mTransactionAmount);
-            mDateTextView.setText(mTransaction.getDate().toString());
+            mDateTextView.setText("í dag");
+
+            //mDateTextView.setText(mTransaction.getDate().toString());
         }
     }
 
@@ -118,7 +117,6 @@ public class TransactionListFragment extends Fragment {
         public void onBindViewHolder(TransactionHolder holder, int position) {
             Transaction transaction = mTransactions.get(position);
             holder.bind(transaction);
-
         }
 
         @Override
