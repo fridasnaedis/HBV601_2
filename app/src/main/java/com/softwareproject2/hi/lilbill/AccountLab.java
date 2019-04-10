@@ -1,11 +1,13 @@
 package com.softwareproject2.hi.lilbill;
 
 import android.content.Context;
+import android.os.StrictMode;
 
 import com.softwareproject2.hi.lilbill.features.account.Account;
 import com.softwareproject2.hi.lilbill.features.account.User;
 import com.softwareproject2.hi.lilbill.features.transaction.Transaction;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -15,6 +17,8 @@ public class AccountLab {
 
     private static AccountLab sAccountLab;
     //bara fyrir dummy lista, laga í get transaction aðferð
+    private User mUser;
+    private List<String> mAccountIds;
     private List<Transaction> mTransactions;
     private List<Account> mAccounts;
 
@@ -28,9 +32,40 @@ public class AccountLab {
 
     private AccountLab(Context context) {
 
-        //kalla á network manager og sækja account sem inniheldur lista af öllum transaction
+        Get get = new Get(context);
 
-        //mAccounts = networkManager.getBLA
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+
+        StrictMode.setThreadPolicy(policy);
+
+
+        String url1 = "https://lilbill.herokuapp.com/user/";
+
+
+        //Fá EXTRA frá login activity með username og parsa við url1
+        //Erum núna að getta eftir userID
+        String EXTRA = "2";
+
+        //Kalla á GET með user Id
+        try {
+            User user = get.getUserData(url1 + EXTRA);
+            String username = user.getUsername();
+            //Log.i(TAG, "" + username);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        //Sækja lista yfir öll account ID fyrir þennann user
+
+        //mAccountIds =
+
+        //nota for lykkju og kalla á getAccountData fyrir hvert ID
+
+        //mAccounts =
+
+
+
 
         // Dummy stöff
 
@@ -49,15 +84,16 @@ public class AccountLab {
         mAccounts = new ArrayList<>();
 
         Float balance;
+
         //Populate-um með dummy gögnum
 
         //for (int i = 0; i < 10; i++) {
-            User user1 = new User("Palli", "páll", "sson", "palli@palli.is");
+            mUser = new User("Palli", "páll", "sson", "palli@palli.is");
             User user2 = new User("Jonni", "jón", "son", "jón@jón.is");
 
             Account account = new Account();
-            account.setUser1("user1");
-            account.setUser2("user2");
+            account.setUser1("Palli");
+            account.setUser2("Jonni");
 
             for (Transaction transaction : mTransactions) {
                 transaction.setAccountId(account.getId());
@@ -66,7 +102,6 @@ public class AccountLab {
             balance = (float) Math.random()*100;
             account.setNetBalance(balance);
             mAccounts.add(account);
-        //}
     }
 
 
@@ -75,21 +110,7 @@ public class AccountLab {
     }
 
 
-    /*ná í eitt transaction út frá transactionUUID og account UUID
-    public Transaction getTransaction(UUID accountId, UUID transactionId){
-
-        //Account account = getAccount(accountId);
-        //List<Transaction> mTransactions = account.getTransactionsList();
-        for(Transaction transaction : mTransactions){
-            if (transaction.getId().equals(transactionId)){
-                return transaction;
-            }
-        }
-        return null;
-    }*/
-
-
-    //to do, laga það að sækja account id extra svo að hægt sé að nota fallið fyrir ofan
+    //Ná í transaction eftir ID
     public Transaction getTransaction(UUID id) {
         for (Transaction transaction : mTransactions) {
             if (transaction.getId().equals(id)) {
@@ -99,10 +120,13 @@ public class AccountLab {
         return  null;
     }
 
-    //ná í einn Account
+    // Ná í account eftir ID
     public Account getAccount(UUID id) {
         for (Account account : mAccounts) {
             if (account.getId().equals(id)) {
+                //þegar að við náum í account og erum að skoða þeirra transactions þá viljum við +
+                //uppfæra labbið
+                mTransactions = account.getTransactionsList();
                 return account;
             }
         }

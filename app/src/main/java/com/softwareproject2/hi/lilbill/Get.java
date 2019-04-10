@@ -12,8 +12,10 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.softwareproject2.hi.lilbill.features.account.Account;
+import com.softwareproject2.hi.lilbill.features.account.User;
 import com.softwareproject2.hi.lilbill.features.transaction.Transaction;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -33,6 +35,66 @@ public class Get {
 
     public Get(Context mContext) {
         this.mContext = mContext;
+    }
+
+
+    public User getUserData(String url) throws IOException {
+
+        if (isNetworkAvailable()) {
+            // Establish connection
+            try {
+                OkHttpClient client = new OkHttpClient();
+                Request request = new Request.Builder()
+                        .url(url)
+                        .build();
+                Response responses = null;
+
+                try {
+                    responses = client.newCall(request).execute();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                String jsonData = responses.body().string();
+
+                Log.d(TAG, "line 62" + jsonData);
+
+                JsonObject jsonObject = new JsonParser().parse(jsonData).getAsJsonObject();
+
+
+                final String mUsername = jsonObject.get("username").getAsString();
+                final String mFirstname = jsonObject.get("firstname").getAsString();
+                final String mLastname = jsonObject.get("lastname").getAsString();
+                final String mEmail = jsonObject.get("email").getAsString();
+
+                final JsonArray jsonArray = jsonObject.get("friendlist").getAsJsonArray();
+                final String[] mFriendsArray  = new String[jsonArray.size()];
+                final List<String> mFriends = new ArrayList<>();
+
+                for (int i = 0; i < jsonArray.size(); i++) {
+                    mFriendsArray[i] = jsonArray.get(i).getAsString();
+                }
+
+                for(int i = 0; i < mFriendsArray.length; i++) {
+                    mFriends.add(mFriendsArray[i]);
+                    Log.i(TAG, mFriendsArray[i]);
+                }
+                User user = new User();
+                user.setEmail(mEmail);
+                user.setFirstName(mFirstname);
+                user.setLastName(mLastname);
+                user.setUsername(mUsername);
+                user.setFriends(mFriends);
+
+                Log.i(TAG, user.toString());
+                return user;
+
+            } catch (IOException e) {
+
+            }
+        }
+
+        return null;
+
     }
 
     public Account getAccountData(String url) throws IOException {

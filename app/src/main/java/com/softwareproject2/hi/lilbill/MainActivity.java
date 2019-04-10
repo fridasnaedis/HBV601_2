@@ -54,6 +54,7 @@ public class MainActivity extends SingleFragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment);
 
+        /*
         Post post = new Post(this);
         Get get = new Get(this);
 
@@ -61,17 +62,19 @@ public class MainActivity extends SingleFragmentActivity {
 
         StrictMode.setThreadPolicy(policy);
 
-        String url1 = "https://lilbill.herokuapp.com/account/2";
+        String url1 = "https://lilbill.herokuapp.com/user/";
         String url2 = "https://postman-echo.com/post";
         Log.i(TAG, url2);
 
-//        try {
-//           Account account = get.getAccountData(url);
-//           String user1 = account.getUser1();
-//           Log.i(TAG, "" + user1);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        try {
+          Account account = get.getAccountData(url1);
+          String user1 = account.getUser1();
+          Log.i(TAG, "" + user1);
+       } catch (IOException e) {
+             e.printStackTrace();
+        }
+
+        /*
         Transaction transaction = new Transaction();
         transaction.setDescription("dsa");
 
@@ -83,6 +86,8 @@ public class MainActivity extends SingleFragmentActivity {
 
         account.setTransactionsList(mTransactionList);
 
+
+
         try {
             String response = post.postJsonFromAccount(account, url2);
             Log.i(TAG, "" + response);
@@ -90,6 +95,7 @@ public class MainActivity extends SingleFragmentActivity {
             e.printStackTrace();
         }
 
+        */
 
         FloatingActionButton createNewTransaction = findViewById(R.id.new_transaction_fab);
         createNewTransaction.setOnClickListener(new View.OnClickListener() {

@@ -40,7 +40,6 @@ public class AccountListFragment extends Fragment {
 
     private void updateUI() {
 
-
         AccountLab accountLab = AccountLab.get(getActivity());
 
         List<Account> accounts = accountLab.getAccounts();
