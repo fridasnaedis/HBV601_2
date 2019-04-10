@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.softwareproject2.hi.lilbill.AccountLab;
 import com.softwareproject2.hi.lilbill.R;
 import com.softwareproject2.hi.lilbill.TransactionLab;
 import com.softwareproject2.hi.lilbill.features.transactionlist.TransactionListFragment;
@@ -29,7 +30,7 @@ public class TransactionConstructionFragment extends Fragment {
     TextView mSelectedAccountsList;
     Button mSplitBetweenButton;
     Button mSubmitButton;
-    String[] listItems = {"Sara", "Fríða", "Ísak", "Júlli", "Palli"};;
+    String[] listItems = {"Sara", "Fríða", "Ísak", "Júlli", "Palli"};
     boolean[] checkedItems;
     ArrayList<Integer> mUserItems = new ArrayList<>();
 
@@ -46,6 +47,9 @@ public class TransactionConstructionFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_transaction_construction, container, false);
         mAmountField = (EditText) v.findViewById(R.id.transaction_amount);
         mDescriptionField = (EditText) v.findViewById(R.id.transaction_description);
+
+        AccountLab accountLab = AccountLab.get(getActivity());
+
 
         checkedItems = new boolean[listItems.length];
         mSelectedAccountsList = (TextView) v.findViewById(R.id.selected_accounts);

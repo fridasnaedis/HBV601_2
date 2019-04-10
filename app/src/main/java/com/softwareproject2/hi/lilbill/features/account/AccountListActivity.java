@@ -19,7 +19,7 @@ public class AccountListActivity extends SingleFragmentActivity {
         return new AccountListFragment();
     }
 
-    @Override
+    /*@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment);
@@ -65,7 +65,7 @@ public class AccountListActivity extends SingleFragmentActivity {
             e.printStackTrace();
         }
 
-        */
-    }
+
+    }*/
 }
 
