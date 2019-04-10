@@ -48,6 +48,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="15dp"
-        android:text="@string/transaction_submit_new" />
+        android:text="@string/submit" />
 
 </LinearLayout>

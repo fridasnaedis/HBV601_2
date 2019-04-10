@@ -14,8 +14,8 @@
         android:layout_height="match_parent">
 
     </android.support.v7.widget.RecyclerView>
-    <TextView
-        android:id="@+id/transaction_recycler_view"
+   <TextView
+        android:id="@+id/account_balance"
         android:layout_width="wrap_content"
         android:layout_height="match_parent" />
 </LinearLayout>

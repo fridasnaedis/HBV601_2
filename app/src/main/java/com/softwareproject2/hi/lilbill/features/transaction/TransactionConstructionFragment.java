@@ -11,8 +11,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import com.softwareproject2.hi.lilbill.AccountLab;
 import com.softwareproject2.hi.lilbill.R;
-import com.softwareproject2.hi.lilbill.TransactionLab;
 import java.util.ArrayList;
 
 public class TransactionConstructionFragment extends Fragment {
@@ -22,7 +22,7 @@ public class TransactionConstructionFragment extends Fragment {
     TextView mSelectedAccountsList;
     Button mSplitBetweenButton;
     Button mSubmitButton;
-    String[] listItems = {"Sara", "Fríða", "Ísak", "Júlli", "Palli"};;
+    String[] listItems = {"Sara", "Fríða", "Ísak", "Júlli", "Palli"};
     boolean[] checkedItems;
     ArrayList<Integer> mUserItems = new ArrayList<>();
 
@@ -39,6 +39,9 @@ public class TransactionConstructionFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_transaction_construction, container, false);
         mAmountField = (EditText) v.findViewById(R.id.transaction_amount);
         mDescriptionField = (EditText) v.findViewById(R.id.transaction_description);
+
+        AccountLab accountLab = AccountLab.get(getActivity());
+
 
         checkedItems = new boolean[listItems.length];
         mSelectedAccountsList = (TextView) v.findViewById(R.id.selected_accounts);
@@ -102,7 +105,12 @@ public class TransactionConstructionFragment extends Fragment {
             public void onClick(View v) {
                 mTransaction.setAmount(Float.valueOf(mAmountField.getText().toString()));
                 mTransaction.setDescription(mDescriptionField.getText().toString());
-                TransactionLab.get(getActivity()).addTransaction(mTransaction);
+                // TODO: Handle transaction things here
+                //TransactionLab.get(getActivity()).addTransaction(mTransaction);
+
+                if (mDescriptionField.getText() == null || mDescriptionField.getText().toString().equals("")) {
+                    mTransaction.setDescription("");
+                }
                 getActivity().finish();
             }
         });

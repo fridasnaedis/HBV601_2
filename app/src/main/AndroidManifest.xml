@@ -12,6 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".LoginFormActivity"></activity>
         <activity android:name=".features.account.AccountListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,7 +22,8 @@
         </activity>
         <activity android:name=".TransactionActivity"></activity>
         <activity android:name=".features.transaction.TransactionConstructionActivity" />
-        <activity android:name=".features.transactionlist.TransactionListActivity"/>
+        <activity android:name=".features.transactionlist.TransactionListActivity" />
+        <activity android:name=".features.transaction.NewFriendActivity"></activity>
     </application>
 
 </manifest>

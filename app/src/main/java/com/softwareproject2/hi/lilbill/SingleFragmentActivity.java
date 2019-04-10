@@ -8,6 +8,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.softwareproject2.hi.lilbill.features.transaction.NewFriendActivity;
+import com.softwareproject2.hi.lilbill.features.transaction.Transaction;
 import com.softwareproject2.hi.lilbill.features.transaction.TransactionConstructionActivity;
 
 public abstract class SingleFragmentActivity extends AppCompatActivity {

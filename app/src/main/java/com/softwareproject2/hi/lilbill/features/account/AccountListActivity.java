@@ -9,6 +9,5 @@ public class AccountListActivity extends SingleFragmentActivity {
     protected Fragment createFragment() {
         return new AccountListFragment();
     }
-
 }
 
