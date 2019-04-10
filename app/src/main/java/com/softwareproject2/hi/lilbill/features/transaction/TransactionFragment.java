@@ -9,9 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.softwareproject2.hi.lilbill.AccountLab;
 import com.softwareproject2.hi.lilbill.MainActivity;
 import com.softwareproject2.hi.lilbill.R;
 import com.softwareproject2.hi.lilbill.TransactionLab;
+import com.softwareproject2.hi.lilbill.features.transactionlist.TransactionListActivity;
 
 import java.util.UUID;
 
@@ -29,9 +31,17 @@ public class TransactionFragment extends Fragment {
         super.onCreate(savedInstanceState);
         //mTransaction = new Transaction();
 
+        UUID accountId = (UUID) getActivity().getIntent()
+                .getSerializableExtra(TransactionListActivity.EXTRA_ACCOUNT_ID);
+
         UUID transactionId = (UUID) getActivity().getIntent()
                 .getSerializableExtra(MainActivity.EXTRA_TRANSACTION_ID);
-        mTransaction = TransactionLab.get(getActivity()).getTransaction(transactionId);
+
+        // TO FIX - tengja account id og kalla með báðum id's
+       // mTransaction = AccountLab.get(getActivity()).getTransaction(transactionId, accountId);
+
+        mTransaction = AccountLab.get(getActivity()).getTransaction(transactionId);
+
 
 //        Transaction transaction = new Transaction();
 //        transaction.setAccountId(Long.valueOf("1"));
@@ -60,11 +70,13 @@ public class TransactionFragment extends Fragment {
 
         mAmount = (TextView) v.findViewById(R.id.transaction_amount);
         mAmount.setText(mTransaction.getAmount().toString());
+        //mAmount.setText("1234");
 
 
 
         mDecription = (TextView) v.findViewById(R.id.transaction_description);
         mDecription.setText(mTransaction.getDescription());
+        //mDecription.setText("test");
 
 
         // android.text.format.DateFormat

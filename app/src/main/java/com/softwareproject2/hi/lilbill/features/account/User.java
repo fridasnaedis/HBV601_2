@@ -10,9 +10,10 @@ public class User {
     private String mFirstName;
     private String mLastName;
     private String mEmail;
-    private List mFriends;
+    private List<String> mFriends;
 
     public User() {
+        mId = UUID.randomUUID();
     }
 
     public User(String username, String firstName, String lastName, String email) {
@@ -62,7 +63,19 @@ public class User {
         return mFriends;
     }
 
-    public void setFriends(List friends) {
+    public void setFriends(List<String> friends) {
         mFriends = friends;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "mId=" + mId +
+                ", mUsername='" + mUsername + '\'' +
+                ", mFirstName='" + mFirstName + '\'' +
+                ", mLastName='" + mLastName + '\'' +
+                ", mEmail='" + mEmail + '\'' +
+                ", mFriends=" + mFriends +
+                '}';
     }
 }
