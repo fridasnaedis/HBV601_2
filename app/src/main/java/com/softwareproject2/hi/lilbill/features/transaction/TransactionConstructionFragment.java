@@ -117,6 +117,10 @@ public class TransactionConstructionFragment extends Fragment {
                 mTransaction.setDescription(mDescriptionField.getText().toString());
                 // TODO: Handle transaction things here
                 //TransactionLab.get(getActivity()).addTransaction(mTransaction);
+
+                if (mDescriptionField.getText() == null || mDescriptionField.getText().toString().equals("")) {
+                    mTransaction.setDescription("");
+                }
                 getActivity().finish();
             }
         });
