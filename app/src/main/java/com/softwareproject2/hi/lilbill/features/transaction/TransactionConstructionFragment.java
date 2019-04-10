@@ -17,6 +17,7 @@ import com.softwareproject2.hi.lilbill.features.account.Account;
 import com.softwareproject2.hi.lilbill.AccountLab;
 import com.softwareproject2.hi.lilbill.R;
 import java.util.ArrayList;
+import java.util.List;
 
 public class TransactionConstructionFragment extends Fragment {
     private Transaction mTransaction;
@@ -136,7 +137,7 @@ public class TransactionConstructionFragment extends Fragment {
                 for (Integer checked: mUserItems){
                     if (checked>0){
                         mTransaction.setAmount(Float.valueOf(mAmountField.getText().toString())/mUserItems.size());
-                        mTransaction.getAccountId(accountIdList[checked]);
+                        mTransaction.setAccountId(accountIdList[checked]);
                         accountLab.createTransaction(mTransaction, accountIdList[checked]);
                     }
                 }
