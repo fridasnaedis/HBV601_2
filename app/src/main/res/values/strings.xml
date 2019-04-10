@@ -6,13 +6,13 @@
     <style name="data_style">
         <item name="android:textSize">16sp</item>
     </style>
-
+    <!-- Strings related to new transaction -->
     <string name="transaction_amount_label"><strong>Amount:</strong></string>
     <string name="transaction_amount_hint">100</string>
     <string name="transaction_description_label"><strong>Description:</strong></string>
     <string name="transaction_description_hint">Write a description of the transaction</string>
     <string name="transaction_date_label"><strong>Date:</strong></string>
-    <string name="transaction_submit_new">Submit</string>
+    <string name="submit">Submit</string>
     <string name="transaction_split_between_label">Split between</string>
     <string name="title_activity_login">Sign in</string>
     <!-- Strings related to login -->
@@ -27,4 +27,8 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <!-- Strings related to adding new friend -->
+    <string name="enter_friend_username_label">Enter the username of your new friend</string>
+    <string name="friend_username_hint">palli</string>
+
 </resources>

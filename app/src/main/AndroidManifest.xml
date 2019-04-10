@@ -19,9 +19,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
         <activity android:name=".features.transaction.TransactionConstructionActivity" />
-        <activity android:name=".features.transactionlist.TransactionListActivity"/>
+        <activity android:name=".features.transactionlist.TransactionListActivity" />
+        <activity android:name=".features.transaction.NewFriendActivity"></activity>
     </application>
 
 </manifest>

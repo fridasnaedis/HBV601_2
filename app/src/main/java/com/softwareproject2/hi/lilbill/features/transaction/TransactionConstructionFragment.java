@@ -115,6 +115,7 @@ public class TransactionConstructionFragment extends Fragment {
             public void onClick(View v) {
                 mTransaction.setAmount(Float.valueOf(mAmountField.getText().toString()));
                 mTransaction.setDescription(mDescriptionField.getText().toString());
+                // TODO: Handle transaction things here
                 //TransactionLab.get(getActivity()).addTransaction(mTransaction);
                 getActivity().finish();
             }
