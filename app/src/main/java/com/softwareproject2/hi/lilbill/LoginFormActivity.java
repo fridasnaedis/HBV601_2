@@ -12,8 +12,8 @@ import com.softwareproject2.hi.lilbill.features.account.AccountListActivity;
 
 public class LoginFormActivity extends AppCompatActivity {
 
-    public EditText mUsername;
-    private EditText mPassword;
+    public EditText mUsernameField;
+    private EditText mPasswordField;
     AccountLab lab = AccountLab.get(this);
 
     @Override
@@ -21,10 +21,13 @@ public class LoginFormActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_form);
 
-        mUsername = (EditText) findViewById(R.id.username_input);
-        mPassword = (EditText) findViewById(R.id.password_input);
+        mUsernameField = (EditText) findViewById(R.id.username_input);
+        mPasswordField = (EditText) findViewById(R.id.password_input);
 
-        lab.login(mUsername);
+        String mUsername = mUsernameField.getText().toString();
+        String mPassword = mPasswordField.getText().toString();
+
+        lab.login(mUsername, mPassword);
 
         Button loginButton = (Button) findViewById(R.id.login_button);
         loginButton.setOnClickListener(new View.OnClickListener() {
