@@ -5,29 +5,22 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.softwareproject2.hi.lilbill.features.account.Account;
 import com.softwareproject2.hi.lilbill.features.account.User;
 import com.softwareproject2.hi.lilbill.features.transaction.Transaction;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-import static com.softwareproject2.hi.lilbill.MainActivity.TAG;
+import static com.softwareproject2.hi.lilbill.TransactionActivity.TAG;
 
 public class Get {
 
@@ -65,6 +58,7 @@ public class Get {
                 final String mFirstname = jsonObject.get("firstname").getAsString();
                 final String mLastname = jsonObject.get("lastname").getAsString();
                 final String mEmail = jsonObject.get("email").getAsString();
+                final String muserId = jsonObject.get("id").getAsString();
 
                 final JsonArray jsonArray = jsonObject.get("friendlist").getAsJsonArray();
                 final String[] mFriendsArray  = new String[jsonArray.size()];
@@ -79,6 +73,7 @@ public class Get {
                     Log.i(TAG, mFriendsArray[i]);
                 }
                 User user = new User();
+                user.setId(muserId);
                 user.setEmail(mEmail);
                 user.setFirstName(mFirstname);
                 user.setLastName(mLastname);
@@ -118,6 +113,7 @@ public class Get {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+
                 String jsonData = responses.body().string();
 
                 Log.d(TAG, "line 62" + jsonData);
@@ -126,6 +122,7 @@ public class Get {
 
                 final String mUser2 = jsonObject.get("user2").getAsString();
                 final String mUser1 = jsonObject.get("user1").getAsString();
+                final String mAccountId = jsonObject.get("id").getAsString();
                 final Float mNetBalance = jsonObject.get("netBalance").getAsFloat();
 
                 final JsonArray transactionsList = jsonObject.get("transactionList").getAsJsonArray();
@@ -140,6 +137,7 @@ public class Get {
                 }
 
                 Account account = new Account();
+                account.setId(mAccountId);
                 account.setUser1(mUser1);
                 account.setUser2(mUser2);
                 account.setNetBalance(mNetBalance);

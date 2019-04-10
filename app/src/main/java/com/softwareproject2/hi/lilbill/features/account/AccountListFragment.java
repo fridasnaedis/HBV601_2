@@ -11,11 +11,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.softwareproject2.hi.lilbill.AccountLab;
-import com.softwareproject2.hi.lilbill.MainActivity;
 import com.softwareproject2.hi.lilbill.R;
 import com.softwareproject2.hi.lilbill.features.transactionlist.TransactionListActivity;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -74,7 +71,7 @@ public class AccountListFragment extends Fragment {
             //TO DO
             //Tengja við fragment
 
-            //Intent intent = MainActivity.newAccountIntent(getActivity(), mAccount.getId());
+            //Intent intent = TransactionActivity.newAccountIntent(getActivity(), mAccount.getId());
             Intent intent = TransactionListActivity.newIntent(getActivity(), mAccount.getId());
             startActivity(intent);
 

@@ -1,35 +1,39 @@
 package com.softwareproject2.hi.lilbill.features.transaction;
 
-import java.util.Date;
-import java.util.UUID;
-
 public class Transaction {
 
-    private UUID mId;
-    private UUID accountId;
-    private Long splitId;
-    private Float amount;
+    private String mId;
+    private String accountId;
+    private String splitId;
     private String mDescription;
-    private Date mDate;
+    private Float amount;
+    private String mDate;
 
     public Transaction() {
-        mId = UUID.randomUUID();
-        mDate = new Date();
+
     }
 
-    public UUID getAccountId() {
+    public String getAccountId() {
         return accountId;
     }
 
-    public void setAccountId(UUID accountId) {
+    public void setAccountId(String accountId) {
         this.accountId = accountId;
     }
 
-    public Long getSplitId() {
+    public String getId() {
+        return mId;
+    }
+
+    public void setId(String id) {
+        mId = id;
+    }
+
+    public String getSplitId() {
         return splitId;
     }
 
-    public void setSplitId(Long splitId) {
+    public void setSplitId(String splitId) {
         this.splitId = splitId;
     }
 
@@ -49,15 +53,11 @@ public class Transaction {
         mDescription = description;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return mDate;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         mDate = date;
-    }
-
-    public UUID getId() {
-        return mId;
     }
 }

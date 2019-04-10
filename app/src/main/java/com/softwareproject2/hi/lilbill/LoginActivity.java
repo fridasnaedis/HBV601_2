@@ -70,7 +70,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                     @Override
                     public void onSuccess(AuthResult authResult) {
                         // Start new activity and pass email to new activity
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        Intent intent = new Intent(LoginActivity.this, TransactionActivity.class);
                         intent.putExtra("email", authResult.getUser().getEmail());
                         startActivity(intent);
                     }

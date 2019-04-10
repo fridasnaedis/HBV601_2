@@ -10,16 +10,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.softwareproject2.hi.lilbill.AccountLab;
-import com.softwareproject2.hi.lilbill.MainActivity;
+import com.softwareproject2.hi.lilbill.TransactionActivity;
 import com.softwareproject2.hi.lilbill.R;
-import com.softwareproject2.hi.lilbill.TransactionLab;
-import com.softwareproject2.hi.lilbill.features.transactionlist.TransactionListActivity;
-
-import java.util.UUID;
 
 public class TransactionFragment extends Fragment {
 
-    public static final String TAG = MainActivity.class.getSimpleName();
+    public static final String TAG = TransactionActivity.class.getSimpleName();
 
     private Transaction mTransaction;
     private TextView mDate;
@@ -29,36 +25,12 @@ public class TransactionFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //mTransaction = new Transaction();
 
-        UUID accountId = (UUID) getActivity().getIntent()
-                .getSerializableExtra(TransactionListActivity.EXTRA_ACCOUNT_ID);
-
-        UUID transactionId = (UUID) getActivity().getIntent()
-                .getSerializableExtra(MainActivity.EXTRA_TRANSACTION_ID);
-
-        // TO FIX - tengja account id og kalla með báðum id's
-       // mTransaction = AccountLab.get(getActivity()).getTransaction(transactionId, accountId);
+        String transactionId = (String) getActivity().getIntent()
+                .getSerializableExtra(TransactionActivity.EXTRA_TRANSACTION_ID);
 
         mTransaction = AccountLab.get(getActivity()).getTransaction(transactionId);
 
-
-//        Transaction transaction = new Transaction();
-//        transaction.setAccountId(Long.valueOf("1"));
-//        transaction.setAmount(Float.valueOf("1321321"));
-//        transaction.setDate(new Date());
-//        transaction.setDescription("this is a transaction");
-//        transaction.setSplitId(Long.valueOf("2"));
-//
-//        GsonBuilder builder = new GsonBuilder();
-//        Gson gson = builder.create();
-//
-//        Log.d(TAG, gson.toJson(transaction));
-
-        //Dummy data
-        //Float value = new Float(200000);
-        //mTransaction.setAmount(value);
-        //mTransaction.setDescription("Dominos Pizza er góð! Segir Ísak!");
     }
 
     @Override
@@ -70,20 +42,17 @@ public class TransactionFragment extends Fragment {
 
         mAmount = (TextView) v.findViewById(R.id.transaction_amount);
         mAmount.setText(mTransaction.getAmount().toString());
-        //mAmount.setText("1234");
-
 
 
         mDecription = (TextView) v.findViewById(R.id.transaction_description);
         mDecription.setText(mTransaction.getDescription());
-        //mDecription.setText("test");
 
 
         // android.text.format.DateFormat
         // setja dagsettningu á læsilegra form
         mDate = (TextView) v.findViewById(R.id.transaction_date);
-        mDate.setText(mTransaction.getDate().toString());
-
+        mDate.setText("í dag");
+        //mDate.setText(mTransaction.getDate().toString());
 
         return v;
 
