@@ -48,9 +48,7 @@ public class AccountLab {
 
         //Kalla á GET með user Id
         try {
-            User user = get.getUserData(url1 + EXTRA);
-            String username = user.getUsername();
-            //Log.i(TAG, "" + username);
+            mUser = get.getUserData(url1 + EXTRA);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -131,6 +129,14 @@ public class AccountLab {
             }
         }
         return null;
+    }
+
+    public User getUser() {
+        return mUser;
+    }
+
+    public void setUser(User user) {
+        mUser = user;
     }
 
     public void createTransaction(Transaction t, UUID id){
