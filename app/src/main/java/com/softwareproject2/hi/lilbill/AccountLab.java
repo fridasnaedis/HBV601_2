@@ -2,9 +2,11 @@ package com.softwareproject2.hi.lilbill;
 
 import android.content.Context;
 import android.os.StrictMode;
+
 import com.softwareproject2.hi.lilbill.features.account.Account;
 import com.softwareproject2.hi.lilbill.features.account.User;
 import com.softwareproject2.hi.lilbill.features.transaction.Transaction;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +57,7 @@ public class AccountLab {
     }
 
 
-    public List<Account> getAccounts(){
+    public List<Account> getAccounts() {
         return mAccounts;
     }
 
@@ -66,7 +68,7 @@ public class AccountLab {
                 return transaction;
             }
         }
-        return  null;
+        return null;
     }
 
 
@@ -92,23 +94,22 @@ public class AccountLab {
     }
 
     // set
-    public void createTransaction(Transaction t, String id){
-        Account account = sAccountLab.getAccount(id);
-        account.addTransaction(t);
-        //postJsonFromAccount(account, t);
+    // set
+    public void createTransaction(Transaction t, String id) {
+//       Account account = getAccount("1")
+//        Account randomAcc = new Account();
+//        account.addTransaction(t);
 
-    /*
         try {
-            String response = post.postJsonFromAccount(account, url2);
-            Log.i(TAG, "" + response);
+            post.postJsonFromTransaction(t, mUser.getId());
         } catch (IOException e) {
             e.printStackTrace();
         }
-        */
+
     }
 
 
-    public void logIn (String username, String password) {
+    public void logIn(String username, String password) {
         //Gera post request á /login
         //setja mUser = user sem kemur úr response
 
@@ -116,7 +117,7 @@ public class AccountLab {
 
         //Kalla á GET með user Id
         try {
-             mUser = get.getUserData(login + username);
+            mUser = get.getUserData(login + username);
             //Log.i(TAG, "" + username);
         } catch (IOException e) {
             e.printStackTrace();
@@ -161,7 +162,7 @@ public class AccountLab {
             transaction.setAccountId(account.getId());
         }
         account.setTransactionsList(mTransactions);
-        balance = (float) Math.random()*100;
+        balance = (float) Math.random() * 100;
         account.setNetBalance(balance);
         mAccounts.add(account);
     }
