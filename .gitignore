@@ -17,6 +17,7 @@
 .idea/**/dictionaries
 .idea/**/shelf
 .idea/caches/build_file_checksum.ser
+.idea/assetWizardSettings.xml
 
 # Sensitive or high-churn files
 .idea/**/dataSources/
