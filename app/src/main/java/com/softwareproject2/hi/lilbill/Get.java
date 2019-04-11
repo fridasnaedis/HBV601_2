@@ -159,8 +159,13 @@ public class Get {
                 final String mAccountId = jsonObject.get("accountId").getAsString();
                 final String mAmountString = jsonObject.get("amount").getAsString();
                 final Float mAmount = Float.parseFloat(mAmountString);
-                //final String mDescr = jsonObject.get("descr").getAsString();
-                final String mDescr = "fokk you";
+                final String mDescr;
+                if(jsonObject.get("descr") == null){
+                    mDescr = "null";
+                }
+                else {
+                    mDescr = jsonObject.get("descr").getAsString();
+                }
                 final String mDate = jsonObject.get("date").getAsString();
 
                 Transaction transaction = new Transaction();
