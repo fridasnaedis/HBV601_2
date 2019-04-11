@@ -50,6 +50,8 @@ public class AccountLab {
         return mAccounts;
     }
 
+
+
     //Ná í transaction eftir ID
     public Transaction getTransaction(String id) {
         for (Transaction transaction : mTransactions) {
@@ -90,7 +92,7 @@ public class AccountLab {
 //        account.addTransaction(t);
         Account account = getAccount(id);
         account.addTransaction(t);
-        mTransactions = account.getTransactionsList();
+        // mTransactions.add(t);
 
 
         try {
@@ -98,6 +100,8 @@ public class AccountLab {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
 
     }
 

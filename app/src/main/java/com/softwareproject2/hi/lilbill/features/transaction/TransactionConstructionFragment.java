@@ -56,24 +56,22 @@ public class TransactionConstructionFragment extends Fragment {
         String currUsername = accountLab.getUser().getUsername();
         Integer maxSplit = 1;
         try {
-            maxSplit = accounts.size();
+            maxSplit = accounts.size()+1;
         } catch (Exception e){
         }
 
-        System.out.print("------------------------------------------------");
-        System.out.print(maxSplit);
-        System.out.print("------------------------------------------------");
+
         listItems = new String[maxSplit];
         accountIdList = new String[maxSplit];
         listItems[0] = "Me";
         for (int i=1; i<maxSplit; i++){
-            if (currUsername.equals(accounts.get(i).getUser1())) {
-                listItems[i] = accounts.get(i).getUser2();
+            if (currUsername.equals(accounts.get(i-1).getUser1())) {
+                listItems[i] = accounts.get(i-1).getUser2();
             }
             else {
-                listItems[i] = accounts.get(i).getUser2();
+                listItems[i] = accounts.get(i-1).getUser1();
             }
-            accountIdList[i] = accounts.get(i).getId();  // Held að sara hafi verið að fixa
+            accountIdList[i] = accounts.get(i-1).getId();  // Held að sara hafi verið að fixa
         }
 
 
@@ -141,7 +139,7 @@ public class TransactionConstructionFragment extends Fragment {
                 // mTransaction.setDescription(mDescriptionField.getText().toString());
 
                 if (mDescriptionField.getText() == null || mDescriptionField.getText().toString().equals("")) {
-                    mTransaction.setDescription("");
+                    mTransaction.setDescription("-");
                 }
 
                 else {

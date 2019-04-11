@@ -5,6 +5,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -153,7 +154,9 @@ public class Get {
 
 //                Log.d(TAG, "line 62" + jsonData);
 
-                JsonObject jsonObject = new JsonParser().parse(jsonData).getAsJsonObject();
+                Gson gson = new Gson();
+
+                /*JsonObject jsonObject = new JsonParser().parse(jsonData).getAsJsonObject();
 
                 final String mId = jsonObject.get("id").getAsString();
                 final String mAccountId = jsonObject.get("accountId").getAsString();
@@ -166,14 +169,16 @@ public class Get {
                 else {
                     mDescr = jsonObject.get("descr").getAsString();
                 }
-                final String mDate = jsonObject.get("date").getAsString();
+                final String mDate = jsonObject.get("date").getAsString();*/
 
-                Transaction transaction = new Transaction();
-                transaction.setId(mId);
+
+                //Transaction transaction = new Transaction();
+                Transaction transaction = gson.fromJson(jsonData, Transaction.class);
+                /*transaction.setId(mId);
                 transaction.setAccountId(mAccountId);
                 transaction.setAmount(mAmount);
                 transaction.setDescription(mDescr);
-                transaction.setDate(mDate);
+                transaction.setDate(mDate);*/
 
 
                 return transaction;

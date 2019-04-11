@@ -6,6 +6,7 @@ import android.net.NetworkInfo;
 import android.util.Log;
 import android.util.LogPrinter;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -81,7 +82,7 @@ public class Post {
         final MediaType JSON = MediaType.get("application/json; charset=utf-8");
 
 //        GsonBuilder builder = new GsonBuilder();
-//
+          Gson gson = new Gson();
 //        Gson gson = builder.create();
 //        JsonElement jsonElement = gson.toJsonTree(acccount);
 //        JsonObject jsonObject = (JsonObject) jsonElement;
@@ -92,9 +93,9 @@ public class Post {
 //            transactionList[i] = mTransactionList.get(i).getId().toString();
 //        }
 
-        String id = transaction.getAccountId();
-        String a = transaction.getAmount().toString();
-        String d = transaction.getDescription();
+        //String id = transaction.getAccountId();
+        //String a = transaction.getAmount().toString();
+        //String d = transaction.getDescription();
 
         //Post - / user / {userId} / transaction / new
 
@@ -114,9 +115,10 @@ public class Post {
         }
         */
 
-        String json = "{accountId:" + id + ","
-                + "amount:" + a +  ","
-                + "descr:"  + d + "}";
+        // String json = "{accountId:" + id + ","
+         //       + "amount:" + a +  ","
+        //      + "descr:"  + d + "}";
+
 
 //        Log.i(TAG, ""+ transactionList);
 //        Log.i(TAG, "" + json);
@@ -125,7 +127,9 @@ public class Post {
 
             OkHttpClient client = new OkHttpClient();
 
-            RequestBody body = RequestBody.create(JSON, json);
+            RequestBody body = RequestBody.create(JSON, gson.toJson(transaction));
+            //String body = ;
+
             Request request = new Request.Builder()
                     .url(url)
                     .post(body)

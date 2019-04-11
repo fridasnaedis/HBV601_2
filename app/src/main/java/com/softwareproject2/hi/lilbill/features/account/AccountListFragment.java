@@ -26,6 +26,9 @@ public class AccountListFragment extends Fragment {
     private RecyclerView mCrimeRecyclerView;
     private AccountListFragment.AccountAdapter mAdapter;
 
+    AccountLab accountLab = AccountLab.get(getActivity());
+
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
@@ -72,7 +75,6 @@ public class AccountListFragment extends Fragment {
 
     private void updateUI() {
 
-        AccountLab accountLab = AccountLab.get(getActivity());
 
         List<Account> accounts = accountLab.getAccounts();
 
@@ -121,9 +123,14 @@ public class AccountListFragment extends Fragment {
             mAccount = account;
             mTileTextView.setText(mAccountNetBalance);
 
-            //gerum það sama fyrir user2
-            String mAccountUser2 = account.getUser2();
-            mUserTextView.setText(mAccountUser2);
+            //gerum það sama fyrir friend
+            // ATH hvort curr user sé user1 eða user2
+
+            String friend = account.getUser1();
+            if (accountLab.getUser().getUsername().equals(friend)){
+                friend = account.getUser2();
+            }
+            mUserTextView.setText(friend);
 
         }
     }
