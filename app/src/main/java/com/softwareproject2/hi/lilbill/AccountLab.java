@@ -92,9 +92,8 @@ public class AccountLab {
 //        account.addTransaction(t);
         Account account = getAccount(id);
         account.addTransaction(t);
-        // mTransactions.add(t);
-
-
+        account.setNetBalance(account.getNetBalance()+t.getAmount());
+        mTransactions = account.getTransactionsList();
         try {
             post.postJsonFromTransaction(t, mUser.getId());
         } catch (IOException e) {

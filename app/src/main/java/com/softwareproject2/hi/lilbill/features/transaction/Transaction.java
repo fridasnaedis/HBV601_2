@@ -5,7 +5,7 @@ public class Transaction {
     private String mId;
     private String accountId;
     private String splitId;
-    private String deskr;
+    private String descr;
     private Float amount;
     private String mDate;
 
@@ -46,11 +46,11 @@ public class Transaction {
     }
 
     public String getDescription() {
-        return deskr;
+        return descr;
     }
 
     public void setDescription(String description) {
-        deskr = description;
+        this.descr = description;
     }
 
     public String getDate() {

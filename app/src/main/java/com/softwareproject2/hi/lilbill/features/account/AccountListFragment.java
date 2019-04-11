@@ -122,7 +122,6 @@ public class AccountListFragment extends Fragment {
 
             mAccount = account;
             mTileTextView.setText(mAccountNetBalance);
-
             //gerum það sama fyrir friend
             // ATH hvort curr user sé user1 eða user2
 

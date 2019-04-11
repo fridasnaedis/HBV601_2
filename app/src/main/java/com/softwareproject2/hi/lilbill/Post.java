@@ -123,11 +123,13 @@ public class Post {
 //        Log.i(TAG, ""+ transactionList);
 //        Log.i(TAG, "" + json);
 
+        String json = gson.toJson(transaction);
+        Log.e("json-transaction", json);
         if (isNetworkAvailable()) {
 
             OkHttpClient client = new OkHttpClient();
 
-            RequestBody body = RequestBody.create(JSON, gson.toJson(transaction));
+            RequestBody body = RequestBody.create(JSON,json);
             //String body = ;
 
             Request request = new Request.Builder()
