@@ -12,18 +12,36 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginFormActivity">
+        <activity
+            android:name=".LoginFormActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".features.account.AccountListActivity"></activity>
-        <activity android:name=".TransactionActivity"></activity>
-        <activity android:name=".features.transaction.TransactionConstructionActivity" />
-        <activity android:name=".features.transactionlist.TransactionListActivity" />
-        <activity android:name=".features.transaction.NewFriendActivity"></activity>
+        <activity
+            android:name=".features.account.AccountListActivity"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".LoginFormActivity"></activity>
+        <activity
+            android:name=".TransactionActivity"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".features.transactionlist.TransactionListActivity"></activity>
+        <activity
+            android:name=".features.transaction.TransactionConstructionActivity"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".features.account.AccountListActivity"/>
+        <activity
+            android:name=".features.transactionlist.TransactionListActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            android:parentActivityName=".features.account.AccountListActivity"/>
+        <activity
+            android:name=".features.transaction.NewFriendActivity"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".features.account.AccountListActivity"></activity>
     </application>
 
 </manifest>

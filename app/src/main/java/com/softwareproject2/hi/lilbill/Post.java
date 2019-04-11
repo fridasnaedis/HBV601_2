@@ -33,6 +33,7 @@ public class Post {
         this.mContext = mContext;
     }
 
+
     public String postJsonFromAddFriend(String userId, String friendName) throws IOException {
         final MediaType JSON = MediaType.get("application/json; charset=utf-8");
 
@@ -71,32 +72,55 @@ public class Post {
         }*/
     }
 
-    public String postJsonFromTransaction(Transaction transaction, String url) throws  IOException {
+    public String postJsonFromTransaction(Transaction transaction, String userId) throws IOException {
+        /**
+         * Þessi aðferð á að breyta java object, í þessu tilfelli Transaction object
+         * yfir í json streng.
+         */
         final MediaType JSON = MediaType.get("application/json; charset=utf-8");
 
-        /*
-        Post - / user / {userId} / transaction / new
-                example: / user / 5 / transaction / new
+//        GsonBuilder builder = new GsonBuilder();
+//
+//        Gson gson = builder.create();
+//        JsonElement jsonElement = gson.toJsonTree(acccount);
+//        JsonObject jsonObject = (JsonObject) jsonElement;
+//        String json = jsonObject.toString();
+//        final List<Transaction> mTransactionList = new ArrayList<>();
+//        String[] transactionList = new String[mTransactionList.size()];
+//        for (int i = 0; i < transactionList.length; i++) {
+//            transactionList[i] = mTransactionList.get(i).getId().toString();
+//        }
 
-                body:
-        {
-            "accountId": "6",
-                "amount": "500",
-                "descr": "test ---- "
-        }
-        response:
-        {
-            "id": 6,
-                "accountId": 6,
-                "amount": 500,
-                "descr": "test ---- ",
-                "date": "Apr 7, 2019 9:33:54 PM"
-        }
+        String accountId = transaction.getAccountId();
+        String amount = transaction.getAmount().toString();
+        String desc = transaction.getDescription();
 
-        String json = "{
-        */
+        String url = "http://lilbill.herokuapp.com/user/" + userId + "/new";
+
+        String json = "{'id':" + accountId + ","
+                + "'amount':" + amount +  ","
+                + "'descr':" + desc + "}";
+
+//        Log.i(TAG, ""+ transactionList);
+//        Log.i(TAG, "" + json);
+
+        if (isNetworkAvailable()) {
+
+            OkHttpClient client = new OkHttpClient();
+
+            RequestBody body = RequestBody.create(JSON, json);
+            Request request = new Request.Builder()
+                    .url(url)
+                    .post(body)
+                    .build();
+            try (Response response = client.newCall(request).execute()) {
+//                Log.i(TAG, response.body().string());
+                return response.body().string();
+            }
+        }
         return null;
     }
+
 
     public String postJsonFromAccount(Account account, String url) throws IOException {
         /**
