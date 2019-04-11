@@ -99,6 +99,8 @@ public class AccountLab {
 //       Account account = getAccount("1")
 //        Account randomAcc = new Account();
 //        account.addTransaction(t);
+        Account account = sAccountLab.getAccount(id);
+        account.addTransaction(t);
 
         try {
             post.postJsonFromTransaction(t, mUser.getId());
