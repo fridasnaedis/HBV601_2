@@ -8,7 +8,7 @@
     </style>
     <!-- Strings related to new transaction -->
     <string name="transaction_amount_label"><strong>Amount:</strong></string>
-    <string name="transaction_amount_hint">100</string>
+    <string name="transaction_amount_hint">Enter an amount e.g. 100</string>
     <string name="transaction_description_label"><strong>Description:</strong></string>
     <string name="transaction_description_hint">Write a description of the transaction</string>
     <string name="transaction_date_label"><strong>Date:</strong></string>
@@ -24,13 +24,15 @@
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
+    <string name="username">Enter username</string>
+    <string name="password">Enter password</string>
     <string name="login">Login</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
     <!-- Strings related to adding new friend -->
     <string name="enter_friend_username_label">Add friend by username</string>
-    <string name="friend_username_hint">palli</string>
+    <string name="friend_username_hint">Enter username e.g. palli</string>
     <!-- Strings related to toolbar -->
     <string name="menu_new_transaction">New Transaction</string>
     <string name="menu_add_friend">Add friend</string>
