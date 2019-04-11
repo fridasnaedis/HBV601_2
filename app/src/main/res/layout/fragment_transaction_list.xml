@@ -6,6 +6,43 @@
     android:layout_height="match_parent"
     android:layout_margin="16dp"
     android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:textColor="@color/dark"
+        android:textSize="18dp"
+        android:layout_height="wrap_content"
+        android:text="@string/account_with"/>
+
+    <TextView
+        android:id="@+id/account_name"
+        android:layout_width="wrap_content"
+        android:layout_marginEnd="30dp"
+        android:textColor="@color/dark"
+        android:textSize="18dp"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:textSize="18dp"
+        android:text="@string/account_balance"
+        android:layout_marginEnd="5dp"
+        android:textColor="@color/dark" />
+
+    <TextView
+        android:id="@+id/account_balance"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="10dp"
+        android:textSize="18dp"
+        android:textColor="@color/dark" />
+    </LinearLayout>
     <android.support.v7.widget.RecyclerView
 
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -14,9 +51,4 @@
         android:layout_height="match_parent">
 
     </android.support.v7.widget.RecyclerView>
-   <TextView
-        android:id="@+id/account_balance"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:textColor="@color/dark"/>
 </LinearLayout>

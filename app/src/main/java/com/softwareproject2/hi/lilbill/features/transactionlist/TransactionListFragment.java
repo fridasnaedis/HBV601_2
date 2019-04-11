@@ -28,6 +28,8 @@ public class TransactionListFragment extends Fragment {
     private RecyclerView mTransactionRecyclerView;
     private TransactionAdapter mAdapter;
     private Account mAccount;
+    TextView mBalance;
+    TextView mAccountName;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +45,16 @@ public class TransactionListFragment extends Fragment {
                 .getSerializableExtra(TransactionListActivity.EXTRA_ACCOUNT_ID);
 
         mAccount = AccountLab.get(getActivity()).getAccount(accountId);
+
+        mBalance = (TextView) view.findViewById(R.id.account_balance);
+        mAccountName = (TextView) view.findViewById(R.id.account_name);
+        mBalance.setText(mAccount.getNetBalance().toString());
+
+        String friend = mAccount.getUser1();
+        if (AccountLab.get(getActivity()).getUser().getUsername().equals(friend)){
+            friend = mAccount.getUser2();
+        }
+        mAccountName.setText(friend);
 
 
         mTransactionRecyclerView = (RecyclerView) view.findViewById(R.id.transaction_recycler_view);
