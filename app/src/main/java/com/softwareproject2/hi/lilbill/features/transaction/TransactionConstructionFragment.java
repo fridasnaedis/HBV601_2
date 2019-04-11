@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,10 +54,19 @@ public class TransactionConstructionFragment extends Fragment {
         // Load friend names into selection object
         List<Account> accounts = accountLab.getAccounts();
         String currUsername = accountLab.getUser().getUsername();
-        listItems = new String[accounts.size() + 1];
-        accountIdList = new String[accounts.size() + 1];
+        Integer maxSplit = 1;
+        try {
+            maxSplit = accounts.size();
+        } catch (Exception e){
+        }
+
+        System.out.print("------------------------------------------------");
+        System.out.print(maxSplit);
+        System.out.print("------------------------------------------------");
+        listItems = new String[maxSplit];
+        accountIdList = new String[maxSplit];
         listItems[0] = "Me";
-        for (int i=1; i<=accounts.size(); i++){
+        for (int i=1; i<maxSplit; i++){
             if (currUsername.equals(accounts.get(i).getUser1())) {
                 listItems[i] = accounts.get(i).getUser2();
             }
