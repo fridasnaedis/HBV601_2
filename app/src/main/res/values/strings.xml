@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-    <string name="app_name">LilBill</string>
+    <string name="app_name">Lil Bill</string>
 
     <style name="data_style">
         <item name="android:textSize">16sp</item>
@@ -29,7 +29,7 @@
         completions."
     </string>
     <!-- Strings related to adding new friend -->
-    <string name="enter_friend_username_label">Enter the username of your new friend</string>
+    <string name="enter_friend_username_label">Add friend by username</string>
     <string name="friend_username_hint">palli</string>
     <!-- Strings related to toolbar -->
     <string name="menu_new_transaction">New Transaction</string>

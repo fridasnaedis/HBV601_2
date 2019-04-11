@@ -9,6 +9,9 @@
         style="?android:listSeparatorTextViewStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/dark"
+        android:textSize="16sp"
+        android:layout_marginBottom="10dp"
         android:text="@string/transaction_amount_label"/>
 
     <EditText
@@ -16,30 +19,49 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="numberDecimal"
+        android:layout_marginBottom="20dp"
+        android:textSize="16sp"
         android:hint="@string/transaction_amount_hint"/>
 
     <TextView
         style="?android:listSeparatorTextViewStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/dark"
+        android:textSize="16sp"
+        android:layout_marginBottom="10dp"
         android:text="@string/transaction_description_label" />
 
     <EditText
         android:id="@+id/transaction_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/transaction_description_hint"/>
+        android:layout_marginBottom="25dp"
+        android:textSize="16sp"
+        android:hint="@string/transaction_description_hint" />
 
     <Button
         android:id="@+id/split_between"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:gravity="center"
+        android:padding="10dp"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:textAllCaps="true"
+        android:textSize="18sp"
+        android:textColor="@color/light"
         android:text="@string/transaction_split_between_label" />
 
     <TextView
         android:id="@+id/selected_accounts"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/dark"
+        android:textSize="16sp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         android:gravity="center" />
 
     <Button
@@ -47,6 +69,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:padding="15dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:textAllCaps="true"
+        android:textColor="@color/light"
+        android:textSize="24sp"
         android:layout_margin="15dp"
         android:text="@string/submit" />
 

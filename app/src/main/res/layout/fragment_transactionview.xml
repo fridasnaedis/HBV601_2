@@ -12,6 +12,9 @@
         style="?android:listSeparatorTextViewStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/dark"
+        android:textSize="16sp"
+        android:layout_marginBottom="10dp"
         android:text="@string/transaction_amount_label" />
 
     <TextView
@@ -19,13 +22,18 @@
         android:id="@+id/transaction_amount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/dark"
         android:layout_marginStart="9dp"
+        android:textSize="16sp"
         android:layout_marginBottom="20dp"/>
 
     <TextView
         style="?android:listSeparatorTextViewStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/dark"
+        android:textSize="16sp"
+        android:layout_marginBottom="10dp"
         android:text="@string/transaction_description_label"/>
 
     <TextView
@@ -34,6 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="9dp"
+        android:textSize="16sp"
         android:layout_marginBottom="20dp"/>
 
 
@@ -41,6 +50,7 @@
         style="?android:listSeparatorTextViewStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/dark"
         android:text="@string/transaction_date_label"/>
 
     <TextView
@@ -48,6 +58,7 @@
         android:id="@+id/transaction_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/dark"
         android:layout_marginStart="9dp"
         android:layout_marginBottom="20dp"/>
 
