@@ -61,14 +61,14 @@ public class Get {
                 final String muserId = jsonObject.get("id").getAsString();
 
                 final JsonArray jsonArray = jsonObject.get("friendlist").getAsJsonArray();
-                final String[] mFriendsArray  = new String[jsonArray.size()];
+                final String[] mFriendsArray = new String[jsonArray.size()];
                 final List<String> mFriends = new ArrayList<>();
 
                 for (int i = 0; i < jsonArray.size(); i++) {
                     mFriendsArray[i] = jsonArray.get(i).getAsString();
                 }
 
-                for(int i = 0; i < mFriendsArray.length; i++) {
+                for (int i = 0; i < mFriendsArray.length; i++) {
                     mFriends.add(mFriendsArray[i]);
                     Log.i(TAG, mFriendsArray[i]);
                 }
@@ -90,6 +90,93 @@ public class Get {
 
         return null;
 
+    }
+
+    public List<String> getAccounts(String url) throws IOException {
+
+        if(isNetworkAvailable()) {
+            // Establish connection
+            try {
+                OkHttpClient client = new OkHttpClient();
+                Request request = new Request.Builder()
+                        .url(url)
+                        .build();
+                Response responses = null;
+
+                try {
+                    responses = client.newCall(request).execute();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+                String jsonData = responses.body().string();
+
+                Log.d(TAG, "account Id list" + jsonData);
+
+                JsonObject jsonObject = new JsonParser().parse(jsonData).getAsJsonObject();
+
+                final JsonArray accountList = jsonObject.get("accounts").getAsJsonArray();
+                final String[] accounts = new String[accountList.size()];
+                final List<String> accountIds = new ArrayList<>();
+
+                for(int i = 0; i < accountList.size(); i++) {
+                    accountIds.add(accountList.get(i).toString());
+                }
+
+                return  accountIds;
+
+            } catch (IOException e) {
+
+            }
+        }
+        return null;
+    }
+
+    public Transaction getTransaction(String url) throws IOException {
+
+        if (isNetworkAvailable()) {
+            // Establish connection
+            try {
+                OkHttpClient client = new OkHttpClient();
+                Request request = new Request.Builder()
+                        .url(url)
+                        .build();
+                Response responses = null;
+
+                try {
+                    responses = client.newCall(request).execute();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                String jsonData = responses.body().string();
+
+//                Log.d(TAG, "line 62" + jsonData);
+
+                JsonObject jsonObject = new JsonParser().parse(jsonData).getAsJsonObject();
+
+                final String mId = jsonObject.get("id").getAsString();
+                final String mAccountId = jsonObject.get("accountId").getAsString();
+                final String mAmountString = jsonObject.get("amount").getAsString();
+                final Float mAmount = Float.parseFloat(mAmountString);
+                final String mDescr = jsonObject.get("descr").getAsString();
+                final String mDate = jsonObject.get("date").getAsString();
+
+                Transaction transaction = new Transaction();
+                transaction.setId(mId);
+                transaction.setAccountId(mAccountId);
+                transaction.setAmount(mAmount);
+                transaction.setDescription(mDescr);
+                transaction.setDate(mDate);
+
+
+                return transaction;
+
+            } catch (IOException e) {
+
+            }
+        }
+        return null;
     }
 
     public Account getAccountData(String url) throws IOException {
@@ -130,10 +217,9 @@ public class Get {
                 final List<Transaction> mTransactionList = new ArrayList<>();
 
                 for(int i = 0; i < transactions.length; i++) {
-                    Transaction transaction = new Transaction();
-                    transaction.setDescription("bla");
-                    mTransactionList.add(transaction);
+                    String transUrl = "https://lilbill.herokuapp.com/user/2/transaction/" + i;
 
+                    mTransactionList.add(getTransaction(transUrl));
                 }
 
                 Account account = new Account();
