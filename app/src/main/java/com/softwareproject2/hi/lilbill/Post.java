@@ -51,8 +51,9 @@ public class Post {
                     .post(body)
                     .build();
             try (Response response = client.newCall(request).execute()) {
-//                Log.i(TAG, response.body().string());
-                return response.body().string();
+                String r = response.body().string();
+                Log.i(TAG, r);
+                return r;
             }
         }
         return null;

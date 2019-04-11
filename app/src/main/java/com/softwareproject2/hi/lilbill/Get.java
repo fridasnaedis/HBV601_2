@@ -117,18 +117,15 @@ public class Get {
 
                    JsonObject jsonObject = new JsonParser().parse(jsonData).getAsJsonObject();
 
-                   /*
-                   final JsonArray jsonArray = jsonObject.get("").getAsJsonArray();
-                   final String[] mAccountIdAray = new String[jsonArray.size()];
+                   final JsonArray accountList = jsonObject.get("accounts").getAsJsonArray();
+                   final String[] accounts = new String[accountList.size()];
                    final List<String> accountIds = new ArrayList<>();
 
-                   for (int i = 0; i < jsonData.length(); i++) {
-                       mAccountIdAray[i] = jsonData[i];
-                       accountIds.add(mAccountIdAray[i]);
-                   }*/
+                   for(int i = 0; i < accountList.size(); i++) {
+                      accountIds.add(accountList.get(i).toString());
+                   }
 
-                  // return  accountIds;
-                   return  null;
+                   return  accountIds;
 
                } catch (IOException e) {
 

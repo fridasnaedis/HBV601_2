@@ -2,7 +2,10 @@ package com.softwareproject2.hi.lilbill;
 
 import android.content.Context;
 import android.os.StrictMode;
+import android.util.Log;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.softwareproject2.hi.lilbill.features.account.Account;
 import com.softwareproject2.hi.lilbill.features.account.User;
 import com.softwareproject2.hi.lilbill.features.transaction.Transaction;
@@ -96,13 +99,16 @@ public class AccountLab {
 
     }
 
-    public void addFriend(String userId, String friendUserName){
+    public String addFriend(String userId, String friendUserName){
 
         try {
-            post.postJsonFromAddFriend(userId, friendUserName);
+            String response = post.postJsonFromAddFriend(userId, friendUserName);
+            return response;
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        return null;
     }
 
 
@@ -127,7 +133,7 @@ public class AccountLab {
         //Kalla á GET með user Id
         //fyrir all account Id's
         //Get - / user / {userId} / accounts
-        /*
+
         try {
             mAccountIds = get.getAccounts(getAccountIds + mUser.getId() + "/accounts");
             //Log.i(TAG, "" + username);
@@ -138,20 +144,24 @@ public class AccountLab {
         //nota for lykkju og kalla á getAccountData fyrir hvert ID
         // Get - / user / {userID} / account / {accountId}
         String account = "https://lilbill.herokuapp.com/user/";
+        mAccounts = new ArrayList<>();
 
-        for(String id : mAccountIds){
+
+
+        for(int i = 0; i < mAccountIds.size(); i++){
             try {
-                Account a = get.getAccountData(account + mUser.getId() + "/account" + id);
+                Account a = get.getAccountData(account + mUser.getId() + "/account/" + mAccountIds.get(i));
+                Log.i("account:", a.toString());
                 mAccounts.add(a);
                 //Log.i(TAG, "" + response);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-*/
 
 
 
+        /*
         // Dummy stöff
 
         mTransactions = new ArrayList<>();
@@ -194,7 +204,7 @@ public class AccountLab {
         balance = (float) Math.random() * 100;
         account.setNetBalance(balance);
         mAccounts.add(account);
-
+        */
     }
 }
 
