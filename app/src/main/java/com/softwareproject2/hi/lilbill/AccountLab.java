@@ -18,6 +18,7 @@ public class AccountLab {
     //bara fyrir dummy lista, laga í get transaction aðferð
     private User mUser;
     private List<Transaction> mTransactions;
+    private List<String> mAccountIds;
     private List<Account> mAccounts;
     private Get get;
     private Post post;
@@ -38,21 +39,6 @@ public class AccountLab {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 
         StrictMode.setThreadPolicy(policy);
-
-        //Get - / user / {userId} / accounts
-
-        //get.getAccountData();
-
-        //logIn("sara", "pw");
-
-        //Sækja lista yfir öll account ID fyrir þennann user
-
-        //mAccountIds =
-
-        //nota for lykkju og kalla á getAccountData fyrir hvert ID
-
-        //mAccounts =
-
 
     }
 
@@ -99,6 +85,8 @@ public class AccountLab {
 //       Account account = getAccount("1")
 //        Account randomAcc = new Account();
 //        account.addTransaction(t);
+        Account account = sAccountLab.getAccount(id);
+        account.addTransaction(t);
 
         try {
             post.postJsonFromTransaction(t, mUser.getId());
@@ -106,6 +94,15 @@ public class AccountLab {
             e.printStackTrace();
         }
 
+    }
+
+    public void addFriend(String userId, String friendUserName){
+
+        try {
+            post.postJsonFromAddFriend(userId, friendUserName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -122,6 +119,38 @@ public class AccountLab {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        String getAccountIds = "https://lilbill.herokuapp.com/user/";
+
+
+        //Sækja lista yfir öll account ID fyrir þennann user
+        //Kalla á GET með user Id
+        //fyrir all account Id's
+        //Get - / user / {userId} / accounts
+        /*
+        try {
+            mAccountIds = get.getAccounts(getAccountIds + mUser.getId() + "/accounts");
+            //Log.i(TAG, "" + username);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //nota for lykkju og kalla á getAccountData fyrir hvert ID
+        // Get - / user / {userID} / account / {accountId}
+        String account = "https://lilbill.herokuapp.com/user/";
+
+        for(String id : mAccountIds){
+            try {
+                Account a = get.getAccountData(account + mUser.getId() + "/account" + id);
+                mAccounts.add(a);
+                //Log.i(TAG, "" + response);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+*/
+
+
 
         // Dummy stöff
 
@@ -165,6 +194,7 @@ public class AccountLab {
         balance = (float) Math.random() * 100;
         account.setNetBalance(balance);
         mAccounts.add(account);
+
     }
 }
 

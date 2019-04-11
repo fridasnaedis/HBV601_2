@@ -5,17 +5,22 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.softwareproject2.hi.lilbill.features.account.Account;
 import com.softwareproject2.hi.lilbill.AccountLab;
 import com.softwareproject2.hi.lilbill.R;
 import com.softwareproject2.hi.lilbill.features.account.Account;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TransactionConstructionFragment extends Fragment {
     private Transaction mTransaction;
@@ -24,9 +29,12 @@ public class TransactionConstructionFragment extends Fragment {
     TextView mSelectedAccountsList;
     Button mSplitBetweenButton;
     Button mSubmitButton;
-    String[] listItems = {"Sara", "Fríða", "Ísak", "Júlli", "Palli"};
+    String[] listItems; //  = {"Sara", "Fríða", "Ísak", "Júlli", "Palli"}
+    String[] accountIdList;
     boolean[] checkedItems;
     ArrayList<Integer> mUserItems = new ArrayList<>();
+
+    AccountLab accountLab = AccountLab.get(getActivity());
 
 
 
@@ -42,7 +50,31 @@ public class TransactionConstructionFragment extends Fragment {
         mAmountField = (EditText) v.findViewById(R.id.transaction_amount);
         mDescriptionField = (EditText) v.findViewById(R.id.transaction_description);
 
-        AccountLab accountLab = AccountLab.get(getActivity());
+
+        // Load friend names into selection object
+        List<Account> accounts = accountLab.getAccounts();
+        String currUsername = accountLab.getUser().getUsername();
+        Integer maxSplit = 1;
+        try {
+            maxSplit = accounts.size();
+        } catch (Exception e){
+        }
+
+        System.out.print("------------------------------------------------");
+        System.out.print(maxSplit);
+        System.out.print("------------------------------------------------");
+        listItems = new String[maxSplit];
+        accountIdList = new String[maxSplit];
+        listItems[0] = "Me";
+        for (int i=1; i<maxSplit; i++){
+            if (currUsername.equals(accounts.get(i).getUser1())) {
+                listItems[i] = accounts.get(i).getUser2();
+            }
+            else {
+                listItems[i] = accounts.get(i).getUser2();
+            }
+            accountIdList[i] = accounts.get(i).getId();  // Held að sara hafi verið að fixa
+        }
 
 
         checkedItems = new boolean[listItems.length];
@@ -105,15 +137,24 @@ public class TransactionConstructionFragment extends Fragment {
         mSubmitButton = (Button) v.findViewById(R.id.submit_new_transaction);
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                mTransaction.setAmount(Float.valueOf(mAmountField.getText().toString()));
-                mTransaction.setDescription(mDescriptionField.getText().toString());
-                // TODO: Handle transaction things here
-                AccountLab lab = AccountLab.get(getActivity());
-                lab.createTransaction(mTransaction, "1");
+                // mTransaction.setAmount(Float.valueOf(mAmountField.getText().toString()));
+                // mTransaction.setDescription(mDescriptionField.getText().toString());
 
                 if (mDescriptionField.getText() == null || mDescriptionField.getText().toString().equals("")) {
                     mTransaction.setDescription("");
                 }
+
+                // TODO: Handle transaction things here
+
+                for (Integer checked: mUserItems){
+                    if (checked>0){
+                        mTransaction.setAmount(Float.valueOf(mAmountField.getText().toString())/mUserItems.size());
+                        mTransaction.setAccountId(accountIdList[checked]);
+                        accountLab.createTransaction(mTransaction, accountIdList[checked]);
+                    }
+                }
+
+                //TransactionLab.get(getActivity()).addTransaction(mTransaction);
                 getActivity().finish();
             }
         });

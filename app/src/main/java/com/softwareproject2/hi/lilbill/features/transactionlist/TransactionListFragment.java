@@ -6,6 +6,9 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -13,7 +16,10 @@ import com.softwareproject2.hi.lilbill.AccountLab;
 import com.softwareproject2.hi.lilbill.TransactionActivity;
 import com.softwareproject2.hi.lilbill.R;
 import com.softwareproject2.hi.lilbill.features.account.Account;
+import com.softwareproject2.hi.lilbill.features.transaction.NewFriendActivity;
 import com.softwareproject2.hi.lilbill.features.transaction.Transaction;
+import com.softwareproject2.hi.lilbill.features.transaction.TransactionConstructionActivity;
+
 import java.util.List;
 
 public class TransactionListFragment extends Fragment {
@@ -22,6 +28,11 @@ public class TransactionListFragment extends Fragment {
     private RecyclerView mTransactionRecyclerView;
     private TransactionAdapter mAdapter;
     private Account mAccount;
+
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -35,7 +46,7 @@ public class TransactionListFragment extends Fragment {
 
 
         mTransactionRecyclerView = (RecyclerView) view.findViewById(R.id.transaction_recycler_view);
-        //Gera layout manager til þess að sjá um að positiona items, líka til grid
+        // Gera layout manager til þess að sjá um að positiona items, líka til grid
         mTransactionRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         updateUI();
@@ -48,6 +59,26 @@ public class TransactionListFragment extends Fragment {
     public void onResume() {
         super.onResume();
         updateUI();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.fragment_account_list, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_new_transaction:
+                startActivity(new Intent(getActivity(), TransactionConstructionActivity.class));
+                return true;
+            case R.id.menu_add_friend:
+                startActivity(new Intent(getActivity(), NewFriendActivity.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private void updateUI() {

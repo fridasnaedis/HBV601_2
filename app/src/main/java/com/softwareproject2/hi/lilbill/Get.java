@@ -61,14 +61,14 @@ public class Get {
                 final String muserId = jsonObject.get("id").getAsString();
 
                 final JsonArray jsonArray = jsonObject.get("friendlist").getAsJsonArray();
-                final String[] mFriendsArray  = new String[jsonArray.size()];
+                final String[] mFriendsArray = new String[jsonArray.size()];
                 final List<String> mFriends = new ArrayList<>();
 
                 for (int i = 0; i < jsonArray.size(); i++) {
                     mFriendsArray[i] = jsonArray.get(i).getAsString();
                 }
 
-                for(int i = 0; i < mFriendsArray.length; i++) {
+                for (int i = 0; i < mFriendsArray.length; i++) {
                     mFriends.add(mFriendsArray[i]);
                     Log.i(TAG, mFriendsArray[i]);
                 }

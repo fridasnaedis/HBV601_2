@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.softwareproject2.hi.lilbill.AccountLab;
 import com.softwareproject2.hi.lilbill.R;
 
 
@@ -35,6 +36,10 @@ public class NewFriendFragment extends Fragment {
                 Toast toast = Toast.makeText(getActivity(), "This has not been implemented yet", Toast.LENGTH_SHORT);
                 toast.show();
                 // TODO: Do the stuff here
+                AccountLab lab = AccountLab.get(getContext());
+                String userId = lab.getUser().getId();
+                String friendUsername = mFriendUsername.getText().toString();
+                lab.addFriend(userId, friendUsername);
                 getActivity().finish();
             }
         });
