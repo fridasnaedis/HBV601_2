@@ -37,7 +37,6 @@ public class NewFriendFragment extends Fragment {
         mSubmitButton = (Button) v.findViewById(R.id.submit_new_friend);
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
                 // TODO: Do the stuff here
                 AccountLab lab = AccountLab.get(getContext());
                 String userId = lab.getUser().getId();

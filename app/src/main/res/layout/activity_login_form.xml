@@ -14,7 +14,7 @@
         android:layout_margin="10dp"
         android:gravity="center"
         android:inputType="textPersonName"
-        android:hint="Username" />
+        android:hint="@string/username" />
 
     <EditText
         android:id="@+id/password_input"
@@ -23,7 +23,7 @@
         android:layout_margin="10dp"
         android:gravity="center"
         android:inputType="textPassword"
-        android:hint="password"
+        android:hint="@string/password"
         />
 
     <Button
@@ -34,9 +34,9 @@
         android:layout_margin="10dp"
         android:background="@color/colorPrimary"
         android:gravity="center"
-        android:padding="10dp"
+        android:padding="15dp"
         android:textAllCaps="true"
-        android:textColor="@android:color/white"
+        android:textColor="@color/light"
         android:textSize="24sp"
         android:onClick="login"
         android:text="@string/login" />

@@ -9,12 +9,20 @@
         style="?android:listSeparatorTextViewStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="@color/dark"
+        android:layout_marginTop="10dp"
+        android:textSize="18sp"
         android:text="@string/enter_friend_username_label"/>
 
     <EditText
         android:id="@+id/friend_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="18sp"
+        android:layout_margin="10dp"
+        android:layout_marginBottom="20dp"
         android:hint="@string/friend_username_hint"/>
 
     <Button
@@ -23,6 +31,14 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="15dp"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:padding="15dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:textAllCaps="true"
+        android:textColor="@color/light"
+        android:textSize="24sp"
         android:text="@string/submit" />
 
 </LinearLayout>
