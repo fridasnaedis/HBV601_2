@@ -33,6 +33,44 @@ public class Post {
         this.mContext = mContext;
     }
 
+    public String postJsonFromAddFriend(String userId, String friendName) throws IOException {
+        final MediaType JSON = MediaType.get("application/json; charset=utf-8");
+
+        String url = "https://lilbill.herokuapp.com/user/" + userId + "/add/"+ friendName;
+
+        if (isNetworkAvailable()) {
+
+            OkHttpClient client = new OkHttpClient();
+
+            String json = "{}";
+
+            RequestBody body = RequestBody.create(JSON, json);
+            Request request = new Request.Builder()
+                    .url(url)
+                    .post(body)
+                    .build();
+            try (Response response = client.newCall(request).execute()) {
+//                Log.i(TAG, response.body().string());
+                return response.body().string();
+            }
+        }
+        return null;
+
+        /*
+        Post - / user / {userId} / add / {friendName}
+        example: / user / 5 / add / isak
+
+        body:
+        response:
+        {
+            "id": 6,
+                "transactionList": [],
+            "user1": "test",
+                "user2": "isak",
+                "netBalance": 0
+        }*/
+    }
+
     public String postJsonFromTransaction(Transaction transaction, String url) throws  IOException {
         final MediaType JSON = MediaType.get("application/json; charset=utf-8");
 

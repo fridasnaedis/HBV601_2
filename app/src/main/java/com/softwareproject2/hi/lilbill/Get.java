@@ -61,14 +61,14 @@ public class Get {
                 final String muserId = jsonObject.get("id").getAsString();
 
                 final JsonArray jsonArray = jsonObject.get("friendlist").getAsJsonArray();
-                final String[] mFriendsArray  = new String[jsonArray.size()];
+                final String[] mFriendsArray = new String[jsonArray.size()];
                 final List<String> mFriends = new ArrayList<>();
 
                 for (int i = 0; i < jsonArray.size(); i++) {
                     mFriendsArray[i] = jsonArray.get(i).getAsString();
                 }
 
-                for(int i = 0; i < mFriendsArray.length; i++) {
+                for (int i = 0; i < mFriendsArray.length; i++) {
                     mFriends.add(mFriendsArray[i]);
                     Log.i(TAG, mFriendsArray[i]);
                 }
@@ -92,6 +92,54 @@ public class Get {
 
     }
 
+
+    public List<String> getAccounts(String url) throws IOException {
+
+           if(isNetworkAvailable()) {
+               // Establish connection
+               try {
+                   OkHttpClient client = new OkHttpClient();
+                   Request request = new Request.Builder()
+                           .url(url)
+                           .build();
+                   Response responses = null;
+
+                   try {
+                       responses = client.newCall(request).execute();
+                   } catch (IOException e) {
+                       e.printStackTrace();
+                   }
+
+
+                   String jsonData = responses.body().string();
+
+                   Log.d(TAG, "account Id list" + jsonData);
+
+                   JsonObject jsonObject = new JsonParser().parse(jsonData).getAsJsonObject();
+
+                   /*
+                   final JsonArray jsonArray = jsonObject.get("").getAsJsonArray();
+                   final String[] mAccountIdAray = new String[jsonArray.size()];
+                   final List<String> accountIds = new ArrayList<>();
+
+                   for (int i = 0; i < jsonData.length(); i++) {
+                       mAccountIdAray[i] = jsonData[i];
+                       accountIds.add(mAccountIdAray[i]);
+                   }*/
+
+                  // return  accountIds;
+                   return  null;
+
+               } catch (IOException e) {
+
+               }
+           }
+           return null;
+    }
+
+
+
+    //Get one account from ID
     public Account getAccountData(String url) throws IOException {
 
         /* Strengur sem er url sem samsvarar hvert á að sækja gögn
