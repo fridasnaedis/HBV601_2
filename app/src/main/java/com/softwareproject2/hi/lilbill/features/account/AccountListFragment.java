@@ -143,6 +143,7 @@ public class AccountListFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(AccountListFragment.AccountHolder holder, int position) {
+
             Account account = mAccounts.get(position);
             holder.bind(account);
         }

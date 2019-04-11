@@ -159,7 +159,8 @@ public class Get {
                 final String mAccountId = jsonObject.get("accountId").getAsString();
                 final String mAmountString = jsonObject.get("amount").getAsString();
                 final Float mAmount = Float.parseFloat(mAmountString);
-                final String mDescr = jsonObject.get("descr").getAsString();
+                //final String mDescr = jsonObject.get("descr").getAsString();
+                final String mDescr = "fokk you";
                 final String mDate = jsonObject.get("date").getAsString();
 
                 Transaction transaction = new Transaction();
@@ -179,7 +180,7 @@ public class Get {
         return null;
     }
 
-    public Account getAccountData(String url) throws IOException {
+    public Account getAccountData(String url, String userId) throws IOException {
 
         /* Strengur sem er url sem samsvarar hvert á að sækja gögn
            urlið væri root/user/json eða eh álíka, þar sem user er sá sem er logged in
@@ -213,11 +214,13 @@ public class Get {
                 final Float mNetBalance = jsonObject.get("netBalance").getAsFloat();
 
                 final JsonArray transactionsList = jsonObject.get("transactionList").getAsJsonArray();
-                final String[] transactions = new String[transactionsList.size()];
+                //final String[] transactions = new String[transactionsList.size()];
                 final List<Transaction> mTransactionList = new ArrayList<>();
 
-                for(int i = 0; i < transactions.length; i++) {
-                    String transUrl = "https://lilbill.herokuapp.com/user/2/transaction/" + i;
+                //Get - / user / {userId} / transaction / {transactionId}
+
+                for(int i = 0; i < transactionsList.size(); i++) {
+                    String transUrl = "https://lilbill.herokuapp.com/user/" + userId + "/transaction/" + transactionsList.get(i);
 
                     mTransactionList.add(getTransaction(transUrl));
                 }
@@ -228,6 +231,7 @@ public class Get {
                 account.setUser2(mUser2);
                 account.setNetBalance(mNetBalance);
                 account.setTransactionsList(mTransactionList);
+
                 Log.i(TAG, account.toString());
                 return account;
 

@@ -144,12 +144,17 @@ public class TransactionConstructionFragment extends Fragment {
                     mTransaction.setDescription("");
                 }
 
+                else {
+                    mTransaction.setDescription(mDescriptionField.getText().toString());
+                }
+
                 // TODO: Handle transaction things here
 
                 for (Integer checked: mUserItems){
                     if (checked>0){
                         mTransaction.setAmount(Float.valueOf(mAmountField.getText().toString())/mUserItems.size());
                         mTransaction.setAccountId(accountIdList[checked]);
+                        Log.i("id",accountIdList[checked]);
                         accountLab.createTransaction(mTransaction, accountIdList[checked]);
                     }
                 }

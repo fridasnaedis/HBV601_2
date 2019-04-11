@@ -88,8 +88,10 @@ public class AccountLab {
 //       Account account = getAccount("1")
 //        Account randomAcc = new Account();
 //        account.addTransaction(t);
-        Account account = sAccountLab.getAccount(id);
+        Account account = getAccount(id);
         account.addTransaction(t);
+        mTransactions = account.getTransactionsList();
+
 
         try {
             post.postJsonFromTransaction(t, mUser.getId());
@@ -147,10 +149,9 @@ public class AccountLab {
         mAccounts = new ArrayList<>();
 
 
-
         for(int i = 0; i < mAccountIds.size(); i++){
             try {
-                Account a = get.getAccountData(account + mUser.getId() + "/account/" + mAccountIds.get(i));
+                Account a = get.getAccountData(account + mUser.getId() + "/account/" + mAccountIds.get(i), mUser.getId());
                 Log.i("account:", a.toString());
                 mAccounts.add(a);
                 //Log.i(TAG, "" + response);

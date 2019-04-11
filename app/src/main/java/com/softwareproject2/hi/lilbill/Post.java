@@ -92,15 +92,31 @@ public class Post {
 //            transactionList[i] = mTransactionList.get(i).getId().toString();
 //        }
 
-        String accountId = transaction.getAccountId();
-        String amount = transaction.getAmount().toString();
-        String desc = transaction.getDescription();
+        String id = transaction.getAccountId();
+        String a = transaction.getAmount().toString();
+        String d = transaction.getDescription();
 
-        String url = "http://lilbill.herokuapp.com/user/" + userId + "/new";
+        //Post - / user / {userId} / transaction / new
 
-        String json = "{'id':" + accountId + ","
-                + "'amount':" + amount +  ","
-                + "'descr':" + desc + "}";
+        String url = "http://lilbill.herokuapp.com/user/" + userId + "/transaction/new";
+
+        /*
+        body:
+        {
+            "accountId": "6",
+            "amount": "500",
+            "descr": "test ---- "
+}
+        {
+            "accountId": "6",
+                "amount": "500",
+                "descr": "test ---- "
+        }
+        */
+
+        String json = "{accountId:" + id + ","
+                + "amount:" + a +  ","
+                + "descr:"  + d + "}";
 
 //        Log.i(TAG, ""+ transactionList);
 //        Log.i(TAG, "" + json);
@@ -115,8 +131,9 @@ public class Post {
                     .post(body)
                     .build();
             try (Response response = client.newCall(request).execute()) {
-//                Log.i(TAG, response.body().string());
-                return response.body().string();
+                String r = response.body().string();
+                Log.i(TAG, r);
+                return r;
             }
         }
         return null;

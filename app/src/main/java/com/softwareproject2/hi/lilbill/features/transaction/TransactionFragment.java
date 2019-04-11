@@ -51,8 +51,7 @@ public class TransactionFragment extends Fragment {
         // android.text.format.DateFormat
         // setja dagsettningu á læsilegra form
         mDate = (TextView) v.findViewById(R.id.transaction_date);
-        mDate.setText("í dag");
-        //mDate.setText(mTransaction.getDate().toString());
+        mDate.setText(mTransaction.getDate());
 
         return v;
 
