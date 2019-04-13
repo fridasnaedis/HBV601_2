@@ -122,11 +122,32 @@ public class AccountLab {
     public String addFriend(String userId, String friendUserName){
 
         try {
-            String response = post.postJsonFromAddFriend(userId, friendUserName);
+            String response =  post.postJsonFromAddFriend(userId, friendUserName);
+            String error1 = "no user with username:";
+            String error2 = "user with username:";
+
+            if(!response.contains(error1) && !response.contains(error2)) {
+
+                JsonObject jsonObject = new JsonParser().parse(response).getAsJsonObject();
+                Account a = new Account();
+                final String mUser2 = jsonObject.get("user2").getAsString();
+                final String mUser1 = jsonObject.get("user1").getAsString();
+                final String mAccountId = jsonObject.get("id").getAsString();
+
+                a.setId(mAccountId);
+
+                a.setUser1(mUser1);
+                a.setUser2(mUser2);
+
+                mAccounts.add(a);
+            }
+
             return response;
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
 
 
         return null;

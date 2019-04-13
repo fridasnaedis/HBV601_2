@@ -134,9 +134,7 @@ public class TransactionListFragment extends Fragment {
             String mTransactionAmount = transaction.getAmount().toString() + " kr.";
             mTransaction = transaction;
             mTileTextView.setText(mTransactionAmount);
-            mDateTextView.setText("í dag");
-
-            //mDateTextView.setText(mTransaction.getDate().toString());
+            mDateTextView.setText(transaction.getDate());
         }
     }
 

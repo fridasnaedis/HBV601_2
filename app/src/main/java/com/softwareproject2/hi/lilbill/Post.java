@@ -39,6 +39,7 @@ public class Post {
         final MediaType JSON = MediaType.get("application/json; charset=utf-8");
 
         String url = "https://lilbill.herokuapp.com/user/" + userId + "/add/"+ friendName;
+        final String accountId;
 
         if (isNetworkAvailable()) {
 
@@ -54,24 +55,12 @@ public class Post {
             try (Response response = client.newCall(request).execute()) {
                 String r = response.body().string();
                 Log.i(TAG, r);
-                return r;
+
+               return r;
             }
         }
         return null;
 
-        /*
-        Post - / user / {userId} / add / {friendName}
-        example: / user / 5 / add / isak
-
-        body:
-        response:
-        {
-            "id": 6,
-                "transactionList": [],
-            "user1": "test",
-                "user2": "isak",
-                "netBalance": 0
-        }*/
     }
 
     public String postJsonFromTransaction(Transaction transaction, String userId) throws IOException {
@@ -117,12 +106,6 @@ public class Post {
          */
         final MediaType JSON = MediaType.get("application/json; charset=utf-8");
 
-//        GsonBuilder builder = new GsonBuilder();
-//
-//        Gson gson = builder.create();
-//        JsonElement jsonElement = gson.toJsonTree(acccount);
-//        JsonObject jsonObject = (JsonObject) jsonElement;
-//        String json = jsonObject.toString();
         final List<Transaction> mTransactionList = new ArrayList<>();
         String[] transactionList = new String[mTransactionList.size()];
         for (int i = 0; i < transactionList.length; i++) {

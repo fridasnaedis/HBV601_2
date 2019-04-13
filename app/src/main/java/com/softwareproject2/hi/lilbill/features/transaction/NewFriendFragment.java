@@ -1,6 +1,7 @@
 package com.softwareproject2.hi.lilbill.features.transaction;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,6 +17,12 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.softwareproject2.hi.lilbill.AccountLab;
 import com.softwareproject2.hi.lilbill.R;
+import com.softwareproject2.hi.lilbill.SingleFragmentActivity;
+import com.softwareproject2.hi.lilbill.features.account.Account;
+import com.softwareproject2.hi.lilbill.features.account.AccountListActivity;
+import com.softwareproject2.hi.lilbill.features.account.AccountListFragment;
+
+import org.json.JSONException;
 
 import java.io.IOException;
 
@@ -38,28 +45,31 @@ public class NewFriendFragment extends Fragment {
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // TODO: Do the stuff here
+                final String accountId;
                 AccountLab lab = AccountLab.get(getContext());
                 String userId = lab.getUser().getId();
                 String friendUsername = mFriendUsername.getText().toString();
+                String response = new String();
+                Toast toast;
+                String error1 = "no user with username:";
+                String error2 = "user with username:";
 
-                String response = lab.addFriend(userId, friendUsername);
-
-                JsonObject jsonObject = new JsonParser().parse(response).getAsJsonObject();
-
-                final String error = jsonObject.get("error").getAsString();
-                if(error.isEmpty())
-                {
-                    Toast toast = Toast.makeText(getActivity(), "User added!", Toast.LENGTH_SHORT);
+                try{
+                    response = lab.addFriend(userId, friendUsername);
+                    toast = Toast.makeText(getActivity(), "User added!", Toast.LENGTH_SHORT);
                     toast.show();
-                    getActivity().finish();
+                }catch (Exception e){
+                    if(response.contains(error1)){
+                        toast = Toast.makeText(getActivity(), "This user does not exist", Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+                    else if (response.contains(error2)){
+                        toast = Toast.makeText(getActivity(), "This user is already your friend", Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+                    e.printStackTrace();
                 }
-                else {
-                    Toast toast = Toast.makeText(getActivity(), "This user does not exist", Toast.LENGTH_SHORT);
-                    toast.show();
-                }
-
-                //Toast toast = Toast.makeText(getActivity(), "This has not been implemented yet", Toast.LENGTH_SHORT);
-                //toast.show();
+                startActivity(new Intent(getActivity(), AccountListActivity.class));
             }
         });
 

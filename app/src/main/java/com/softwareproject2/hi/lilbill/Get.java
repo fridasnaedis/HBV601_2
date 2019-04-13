@@ -156,8 +156,8 @@ public class Get {
 
                 JsonObject jsonObject = new JsonParser().parse(jsonData).getAsJsonObject();
 
-                final String mAmmount = jsonObject.get("id").getAsString();
-                final String mId = jsonObject.get("amount").getAsString();
+                final String mAmmount = jsonObject.get("amount").getAsString();
+                final String mId = jsonObject.get("id").getAsString();
                 final String mDescr = jsonObject.get("descr").getAsString();
                 final String mDate = jsonObject.get("date").getAsString();
 
