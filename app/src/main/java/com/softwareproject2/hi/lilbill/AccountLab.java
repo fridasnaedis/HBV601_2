@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.softwareproject2.hi.lilbill.TransactionActivity.TAG;
+
 public class AccountLab {
 
 
@@ -89,31 +91,66 @@ public class AccountLab {
     // set
     // set
     public void createTransaction(Transaction t, String id) {
-//       Account account = getAccount("1")
-//        Account randomAcc = new Account();
-//        account.addTransaction(t);
+
+        final String response;
+        final String transactionId;
+        final String date;
+
         Account account = getAccount(id);
-        account.addTransaction(t);
-        account.setNetBalance(account.getNetBalance() + t.getAmount());
-        mTransactions = account.getTransactionsList();
+        account.setNetBalance(account.getNetBalance()+t.getAmount());
         try {
-            post.postJsonFromTransaction(t, mUser.getId());
+            response = post.postJsonFromTransaction(t, mUser.getId());
+            Log.d(TAG, "line 62" + response);
+
+            JsonObject jsonObject = new JsonParser().parse(response).getAsJsonObject();
+
+            transactionId = jsonObject.get("id").getAsString();
+            date = jsonObject.get("date").getAsString();
+            t.setId(transactionId);
+            t.setDate(date);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
+        account.addTransaction(t);
+        mTransactions = account.getTransactionsList();
 
 
 
     }
 
-    public String addFriend(String userId, String friendUserName) {
+    public String addFriend(String userId, String friendUserName){
 
         try {
-            String response = post.postJsonFromAddFriend(userId, friendUserName);
+            String response =  post.postJsonFromAddFriend(userId, friendUserName);
+            String error1 = "no user with username:";
+            String error2 = "user with username:";
+
+            if(!response.contains(error1) && !response.contains(error2)) {
+
+                JsonObject jsonObject = new JsonParser().parse(response).getAsJsonObject();
+                Account a = new Account();
+                final String mUser2 = jsonObject.get("user2").getAsString();
+                final String mUser1 = jsonObject.get("user1").getAsString();
+                final String mAccountId = jsonObject.get("id").getAsString();
+
+                a.setId(mAccountId);
+
+                a.setUser1(mUser1);
+                a.setUser2(mUser2);
+
+                mAccounts.add(a);
+            }
+
             return response;
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
+
 
         return null;
     }
@@ -127,12 +164,12 @@ public class AccountLab {
 
         //Kalla á GET með user Id
         try {
-            mUser = get.getUserData(login + username);
-        } catch (IOException e) {
+        mUser = get.getUserData(login + username);
+        } catch (IOException e){
             e.printStackTrace();
         }
 
-        if (mUser == null) {
+        if(mUser == null){
             Toast toast = Toast.makeText(context, "User or password incorrect", Toast.LENGTH_SHORT);
             toast.show();
         } else {

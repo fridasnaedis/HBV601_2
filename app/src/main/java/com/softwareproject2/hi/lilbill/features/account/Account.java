@@ -1,6 +1,8 @@
 package com.softwareproject2.hi.lilbill.features.account;
 
 import com.softwareproject2.hi.lilbill.features.transaction.Transaction;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class Account {
@@ -12,7 +14,10 @@ public class Account {
     private List<Transaction> mTransactionsList;
 
     public Account() {
-    }
+        mNetBalance = Float.valueOf(0);
+        mTransactionsList = new ArrayList<>();
+
+        }
 
     public String getId() {
         return mId;

@@ -3,15 +3,15 @@ package com.softwareproject2.hi.lilbill.features.transaction;
 public class Transaction {
 
     private String mId;
-    private String accountId;
-    private String splitId;
     private String descr;
     private Float amount;
     private String mDate;
+    private String accountId;
 
     public Transaction() {
 
     }
+
 
     public String getAccountId() {
         return accountId;
@@ -29,13 +29,6 @@ public class Transaction {
         mId = id;
     }
 
-    public String getSplitId() {
-        return splitId;
-    }
-
-    public void setSplitId(String splitId) {
-        this.splitId = splitId;
-    }
 
     public Float getAmount() {
         return amount;
