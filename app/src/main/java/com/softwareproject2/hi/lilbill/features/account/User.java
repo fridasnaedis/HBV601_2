@@ -70,6 +70,8 @@ public class User {
         mFriends = friends;
     }
 
+    public void addFriend(String friend) {mFriends.add(friend);}
+
     @Override
     public String toString() {
         return "User{" +

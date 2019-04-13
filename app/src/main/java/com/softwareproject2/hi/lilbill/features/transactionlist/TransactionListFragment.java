@@ -96,6 +96,8 @@ public class TransactionListFragment extends Fragment {
     private void updateUI() {
         //ýtra í öfugri röð
 
+
+
         List<Transaction> transactions = mAccount.getTransactionsList();
 
         mAdapter = new TransactionAdapter(transactions);
@@ -132,9 +134,7 @@ public class TransactionListFragment extends Fragment {
             String mTransactionAmount = transaction.getAmount().toString() + " kr.";
             mTransaction = transaction;
             mTileTextView.setText(mTransactionAmount);
-            mDateTextView.setText("í dag");
-
-            //mDateTextView.setText(mTransaction.getDate().toString());
+            mDateTextView.setText(transaction.getDate());
         }
     }
 
