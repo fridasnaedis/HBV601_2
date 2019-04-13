@@ -41,11 +41,13 @@ public class LoginFormActivity extends AppCompatActivity {
 
                 try {
                     lab.logIn(mUsername, mPassword, context);
+                    startActivity(new Intent(LoginFormActivity.this, AccountListActivity.class));
                 }
                 catch (Exception e){
                     e.printStackTrace();
                 }
             }
+
         });
     }
 }
