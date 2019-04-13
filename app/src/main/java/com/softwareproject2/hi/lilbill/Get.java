@@ -1,9 +1,11 @@
 package com.softwareproject2.hi.lilbill;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -33,10 +35,14 @@ public class Get {
 
 
     public User getUserData(String url) throws IOException {
-
+        /**
+         * getUserData takes a String "url" and performs a get request to get user data.
+         * Returns data as a User object.
+         */
         if (isNetworkAvailable()) {
             // Establish connection
             try {
+                // Create client, Request and Response objects
                 OkHttpClient client = new OkHttpClient();
                 Request request = new Request.Builder()
                         .url(url)
@@ -44,58 +50,64 @@ public class Get {
                 Response responses = null;
 
                 try {
+                    // Make the request and store as repsonse object
                     responses = client.newCall(request).execute();
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                // Convert response to string
                 String jsonData = responses.body().string();
+                if (jsonData.contains("null") || jsonData.contains("error")) {
+                    return null;
+                } else {
 
-                Log.d(TAG, "line 62" + jsonData);
+                    Log.d(TAG, "line 62" + jsonData);
+                    // Create a JsonObject from the jsonData String ----------------------------------
+                    JsonObject jsonObject = new JsonParser().parse(jsonData).getAsJsonObject();
 
-                JsonObject jsonObject = new JsonParser().parse(jsonData).getAsJsonObject();
+                    final String mUsername = jsonObject.get("username").getAsString();
+                    final String mFirstname = jsonObject.get("firstname").getAsString();
+                    final String mLastname = jsonObject.get("lastname").getAsString();
+                    final String mEmail = jsonObject.get("email").getAsString();
+                    final String muserId = jsonObject.get("id").getAsString();
 
+                    final JsonArray jsonArray = jsonObject.get("friendlist").getAsJsonArray();
+                    final String[] mFriendsArray = new String[jsonArray.size()];
+                    final List<String> mFriends = new ArrayList<>();
 
-                final String mUsername = jsonObject.get("username").getAsString();
-                final String mFirstname = jsonObject.get("firstname").getAsString();
-                final String mLastname = jsonObject.get("lastname").getAsString();
-                final String mEmail = jsonObject.get("email").getAsString();
-                final String muserId = jsonObject.get("id").getAsString();
+                    for (int i = 0; i < jsonArray.size(); i++) {
+                        mFriendsArray[i] = jsonArray.get(i).getAsString();
+                    }
 
-                final JsonArray jsonArray = jsonObject.get("friendlist").getAsJsonArray();
-                final String[] mFriendsArray = new String[jsonArray.size()];
-                final List<String> mFriends = new ArrayList<>();
+                    for (int i = 0; i < mFriendsArray.length; i++) {
+                        mFriends.add(mFriendsArray[i]);
+                        Log.i(TAG, mFriendsArray[i]);
+                    }
 
-                for (int i = 0; i < jsonArray.size(); i++) {
-                    mFriendsArray[i] = jsonArray.get(i).getAsString();
+                    User user = new User();
+                    user.setId(muserId);
+                    user.setEmail(mEmail);
+                    user.setFirstName(mFirstname);
+                    user.setLastName(mLastname);
+                    user.setUsername(mUsername);
+                    user.setFriends(mFriends);
+
+                    Log.i(TAG, user.toString());
+                    return user;
                 }
-
-                for (int i = 0; i < mFriendsArray.length; i++) {
-                    mFriends.add(mFriendsArray[i]);
-                    Log.i(TAG, mFriendsArray[i]);
-                }
-                User user = new User();
-                user.setId(muserId);
-                user.setEmail(mEmail);
-                user.setFirstName(mFirstname);
-                user.setLastName(mLastname);
-                user.setUsername(mUsername);
-                user.setFriends(mFriends);
-
-                Log.i(TAG, user.toString());
-                return user;
 
             } catch (IOException e) {
-
+                e.printStackTrace();
             }
         }
-
+        // Return null if Network not available
         return null;
-
     }
 
     public List<String> getAccounts(String url) throws IOException {
 
-        if(isNetworkAvailable()) {
+        if (isNetworkAvailable()) {
             // Establish connection
             try {
                 OkHttpClient client = new OkHttpClient();
@@ -121,11 +133,11 @@ public class Get {
                 final String[] accounts = new String[accountList.size()];
                 final List<String> accountIds = new ArrayList<>();
 
-                for(int i = 0; i < accountList.size(); i++) {
+                for (int i = 0; i < accountList.size(); i++) {
                     accountIds.add(accountList.get(i).toString());
                 }
 
-                return  accountIds;
+                return accountIds;
 
             } catch (IOException e) {
 
@@ -215,7 +227,7 @@ public class Get {
 
                 //Get - / user / {userId} / transaction / {transactionId}
 
-                for(int i = 0; i < transactionsList.size(); i++) {
+                for (int i = 0; i < transactionsList.size(); i++) {
                     String transUrl = "https://lilbill.herokuapp.com/user/" + userId + "/transaction/" + transactionsList.get(i);
 
                     mTransactionList.add(getTransaction(transUrl));

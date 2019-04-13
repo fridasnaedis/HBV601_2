@@ -1,5 +1,6 @@
 package com.softwareproject2.hi.lilbill;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -8,8 +9,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.softwareproject2.hi.lilbill.features.account.AccountListActivity;
+
+import java.io.IOException;
 
 public class LoginFormActivity extends AppCompatActivity {
 
@@ -32,10 +36,15 @@ public class LoginFormActivity extends AppCompatActivity {
                 String mPassword = mPasswordField.getText().toString();
 
                 AccountLab lab = AccountLab.get(LoginFormActivity.this);
+                Context context = getApplicationContext();
 
-                lab.logIn(mUsername, mPassword);
 
-                startActivity(new Intent(LoginFormActivity.this, AccountListActivity.class));
+                try {
+                    lab.logIn(mUsername, mPassword, context);
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
             }
         });
     }

@@ -3,6 +3,8 @@ package com.softwareproject2.hi.lilbill;
 import android.content.Context;
 import android.os.StrictMode;
 import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -154,7 +156,7 @@ public class AccountLab {
     }
 
 
-    public void logIn(String username, String password) {
+    public void logIn(String username, String password, Context context) {
         //Gera post request á /login
         //setja mUser = user sem kemur úr response
 
@@ -162,42 +164,46 @@ public class AccountLab {
 
         //Kalla á GET með user Id
         try {
-            mUser = get.getUserData(login + username);
-            //Log.i(TAG, "" + username);
-        } catch (IOException e) {
+        mUser = get.getUserData(login + username);
+        } catch (IOException e){
             e.printStackTrace();
         }
 
-        String getAccountIds = "https://lilbill.herokuapp.com/user/";
+        if(mUser == null){
+            Toast toast = Toast.makeText(context, "User or password incorrect", Toast.LENGTH_SHORT);
+            toast.show();
+        } else {
+
+            String getAccountIds = "https://lilbill.herokuapp.com/user/";
 
 
-        //Sækja lista yfir öll account ID fyrir þennann user
-        //Kalla á GET með user Id
-        //fyrir all account Id's
-        //Get - / user / {userId} / accounts
+            //Sækja lista yfir öll account ID fyrir þennann user
+            //Kalla á GET með user Id
+            //fyrir all account Id's
+            //Get - / user / {userId} / accounts
 
-        try {
-            mAccountIds = get.getAccounts(getAccountIds + mUser.getId() + "/accounts");
-            //Log.i(TAG, "" + username);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        //nota for lykkju og kalla á getAccountData fyrir hvert ID
-        // Get - / user / {userID} / account / {accountId}
-        String account = "https://lilbill.herokuapp.com/user/";
-        mAccounts = new ArrayList<>();
-
-
-        for(int i = 0; i < mAccountIds.size(); i++){
             try {
-                Account a = get.getAccountData(account + mUser.getId() + "/account/" + mAccountIds.get(i), mUser.getId());
-                Log.i("account:", a.toString());
-                mAccounts.add(a);
-                mTransactions = a.getTransactionsList();
-                //Log.i(TAG, "" + response);
+                mAccountIds = get.getAccounts(getAccountIds + mUser.getId() + "/accounts");
+                //Log.i(TAG, "" + username);
             } catch (IOException e) {
                 e.printStackTrace();
+            }
+
+            //nota for lykkju og kalla á getAccountData fyrir hvert ID
+            // Get - / user / {userID} / account / {accountId}
+            String account = "https://lilbill.herokuapp.com/user/";
+            mAccounts = new ArrayList<>();
+
+
+            for (int i = 0; i < mAccountIds.size(); i++) {
+                try {
+                    Account a = get.getAccountData(account + mUser.getId() + "/account/" + mAccountIds.get(i), mUser.getId());
+                    Log.i("account:", a.toString());
+                    mAccounts.add(a);
+                    //Log.i(TAG, "" + response);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
