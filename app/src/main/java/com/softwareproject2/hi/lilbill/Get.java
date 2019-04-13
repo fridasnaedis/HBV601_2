@@ -152,34 +152,20 @@ public class Get {
                 }
                 String jsonData = responses.body().string();
 
-//                Log.d(TAG, "line 62" + jsonData);
+                Log.d(TAG, "line 62" + jsonData);
 
-                Gson gson = new Gson();
+                JsonObject jsonObject = new JsonParser().parse(jsonData).getAsJsonObject();
 
-                /*JsonObject jsonObject = new JsonParser().parse(jsonData).getAsJsonObject();
+                final String mAmmount = jsonObject.get("id").getAsString();
+                final String mId = jsonObject.get("amount").getAsString();
+                final String mDescr = jsonObject.get("descr").getAsString();
+                final String mDate = jsonObject.get("date").getAsString();
 
-                final String mId = jsonObject.get("id").getAsString();
-                final String mAccountId = jsonObject.get("accountId").getAsString();
-                final String mAmountString = jsonObject.get("amount").getAsString();
-                final Float mAmount = Float.parseFloat(mAmountString);
-                final String mDescr;
-                if(jsonObject.get("descr") == null){
-                    mDescr = "null";
-                }
-                else {
-                    mDescr = jsonObject.get("descr").getAsString();
-                }
-                final String mDate = jsonObject.get("date").getAsString();*/
-
-
-                //Transaction transaction = new Transaction();
-                Transaction transaction = gson.fromJson(jsonData, Transaction.class);
-                /*transaction.setId(mId);
-                transaction.setAccountId(mAccountId);
-                transaction.setAmount(mAmount);
+                Transaction transaction = new Transaction();
+                transaction.setDate(mDate);
+                transaction.setId(mId);
                 transaction.setDescription(mDescr);
-                transaction.setDate(mDate);*/
-
+                transaction.setAmount(Float.valueOf(mAmmount));
 
                 return transaction;
 

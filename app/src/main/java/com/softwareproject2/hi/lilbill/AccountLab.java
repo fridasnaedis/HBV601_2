@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.softwareproject2.hi.lilbill.TransactionActivity.TAG;
+
 public class AccountLab {
 
 
@@ -87,18 +89,31 @@ public class AccountLab {
     // set
     // set
     public void createTransaction(Transaction t, String id) {
-//       Account account = getAccount("1")
-//        Account randomAcc = new Account();
-//        account.addTransaction(t);
+
+        final String response;
+        final String transactionId;
+        final String date;
+
         Account account = getAccount(id);
-        account.addTransaction(t);
         account.setNetBalance(account.getNetBalance()+t.getAmount());
-        mTransactions = account.getTransactionsList();
         try {
-            post.postJsonFromTransaction(t, mUser.getId());
+            response = post.postJsonFromTransaction(t, mUser.getId());
+            Log.d(TAG, "line 62" + response);
+
+            JsonObject jsonObject = new JsonParser().parse(response).getAsJsonObject();
+
+            transactionId = jsonObject.get("id").getAsString();
+            date = jsonObject.get("date").getAsString();
+            t.setId(transactionId);
+            t.setDate(date);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
+        account.addTransaction(t);
+        mTransactions = account.getTransactionsList();
 
 
 
@@ -112,6 +127,7 @@ public class AccountLab {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
 
         return null;
     }
@@ -157,6 +173,7 @@ public class AccountLab {
                 Account a = get.getAccountData(account + mUser.getId() + "/account/" + mAccountIds.get(i), mUser.getId());
                 Log.i("account:", a.toString());
                 mAccounts.add(a);
+                mTransactions = a.getTransactionsList();
                 //Log.i(TAG, "" + response);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -165,50 +182,6 @@ public class AccountLab {
 
 
 
-        /*
-        // Dummy stöff
-
-        mTransactions = new ArrayList<>();
-        Float value = new Float(2000);
-
-        //Populate 100 random transaction
-        for (int i = 0; i < 10; i++) {
-            Transaction transaction = new Transaction();
-            transaction.setAmount(value + i * 5);
-            transaction.setId(String.valueOf(i));
-            mTransactions.add(transaction);
-        }
-
-
-        // Búum til lista til þess að halda utanum alla accounts
-        mAccounts = new ArrayList<>();
-
-        List<String> friendList = new ArrayList<>();
-
-        friendList.add("1");
-
-        mUser.setFriends(friendList);
-
-        Float balance;
-
-        //Populate-um með dummy gögnum
-
-        //for (int i = 0; i < 10; i++) {
-        User user2 = new User("Jonni", "jón", "son", "jón@jón.is");
-
-        Account account = new Account();
-        account.setId("1");
-        account.setUser1(mUser.getUsername());
-        account.setUser2("Jonni");
-
-        for (Transaction transaction : mTransactions) {
-            transaction.setAccountId(account.getId());
-        }
-        account.setTransactionsList(mTransactions);
-        balance = (float) Math.random() * 100;
-        account.setNetBalance(balance);
-        mAccounts.add(account);
-        */
     }
 }
 

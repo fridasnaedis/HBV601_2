@@ -81,49 +81,13 @@ public class Post {
          */
         final MediaType JSON = MediaType.get("application/json; charset=utf-8");
 
-//        GsonBuilder builder = new GsonBuilder();
-          Gson gson = new Gson();
-//        Gson gson = builder.create();
-//        JsonElement jsonElement = gson.toJsonTree(acccount);
-//        JsonObject jsonObject = (JsonObject) jsonElement;
-//        String json = jsonObject.toString();
-//        final List<Transaction> mTransactionList = new ArrayList<>();
-//        String[] transactionList = new String[mTransactionList.size()];
-//        for (int i = 0; i < transactionList.length; i++) {
-//            transactionList[i] = mTransactionList.get(i).getId().toString();
-//        }
-
-        //String id = transaction.getAccountId();
-        //String a = transaction.getAmount().toString();
-        //String d = transaction.getDescription();
-
-        //Post - / user / {userId} / transaction / new
-
         String url = "http://lilbill.herokuapp.com/user/" + userId + "/transaction/new";
 
-        /*
-        body:
-        {
-            "accountId": "6",
-            "amount": "500",
-            "descr": "test ---- "
-}
-        {
-            "accountId": "6",
-                "amount": "500",
-                "descr": "test ---- "
-        }
-        */
 
-        // String json = "{accountId:" + id + ","
-         //       + "amount:" + a +  ","
-        //      + "descr:"  + d + "}";
-
-
-//        Log.i(TAG, ""+ transactionList);
-//        Log.i(TAG, "" + json);
-
+        //Breytum transaction yfir í json
+        Gson gson = new Gson();
         String json = gson.toJson(transaction);
+
         Log.e("json-transaction", json);
         if (isNetworkAvailable()) {
 

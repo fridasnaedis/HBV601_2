@@ -96,6 +96,8 @@ public class TransactionListFragment extends Fragment {
     private void updateUI() {
         //ýtra í öfugri röð
 
+
+
         List<Transaction> transactions = mAccount.getTransactionsList();
 
         mAdapter = new TransactionAdapter(transactions);
