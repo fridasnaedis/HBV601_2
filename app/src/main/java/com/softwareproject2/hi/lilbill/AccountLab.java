@@ -94,7 +94,7 @@ public class AccountLab {
 //        account.addTransaction(t);
         Account account = getAccount(id);
         account.addTransaction(t);
-        account.setNetBalance(account.getNetBalance()+t.getAmount());
+        account.setNetBalance(account.getNetBalance() + t.getAmount());
         mTransactions = account.getTransactionsList();
         try {
             post.postJsonFromTransaction(t, mUser.getId());
@@ -106,7 +106,7 @@ public class AccountLab {
 
     }
 
-    public String addFriend(String userId, String friendUserName){
+    public String addFriend(String userId, String friendUserName) {
 
         try {
             String response = post.postJsonFromAddFriend(userId, friendUserName);
@@ -127,12 +127,12 @@ public class AccountLab {
 
         //Kalla á GET með user Id
         try {
-        mUser = get.getUserData(login + username);
-        } catch (IOException e){
+            mUser = get.getUserData(login + username);
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
-        if(mUser == null){
+        if (mUser == null) {
             Toast toast = Toast.makeText(context, "User or password incorrect", Toast.LENGTH_SHORT);
             toast.show();
         } else {
