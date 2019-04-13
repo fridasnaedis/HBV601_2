@@ -54,21 +54,21 @@ public class NewFriendFragment extends Fragment {
                 String error1 = "no user with username:";
                 String error2 = "user with username:";
 
-                try{
-                    response = lab.addFriend(userId, friendUsername);
+
+                response = lab.addFriend(userId, friendUsername);
+                if(response.contains(error1)){
+                    toast = Toast.makeText(getActivity(), "This user does not exist", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+                else if (response.contains(error2)){
+                    toast = Toast.makeText(getActivity(), "This user is already your friend", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+                else {
                     toast = Toast.makeText(getActivity(), "User added!", Toast.LENGTH_SHORT);
                     toast.show();
-                }catch (Exception e){
-                    if(response.contains(error1)){
-                        toast = Toast.makeText(getActivity(), "This user does not exist", Toast.LENGTH_SHORT);
-                        toast.show();
-                    }
-                    else if (response.contains(error2)){
-                        toast = Toast.makeText(getActivity(), "This user is already your friend", Toast.LENGTH_SHORT);
-                        toast.show();
-                    }
-                    e.printStackTrace();
                 }
+
                 startActivity(new Intent(getActivity(), AccountListActivity.class));
             }
         });
