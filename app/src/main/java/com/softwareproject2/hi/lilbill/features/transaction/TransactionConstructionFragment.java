@@ -15,10 +15,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.softwareproject2.hi.lilbill.SingleFragmentActivity;
 import com.softwareproject2.hi.lilbill.features.account.Account;
 import com.softwareproject2.hi.lilbill.AccountLab;
 import com.softwareproject2.hi.lilbill.R;
-import com.softwareproject2.hi.lilbill.features.account.Account;
+import com.softwareproject2.hi.lilbill.features.account.AccountListActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,22 +28,21 @@ public class TransactionConstructionFragment extends Fragment {
     private Transaction mTransaction;
     private EditText mAmountField;
     private EditText mDescriptionField;
-    TextView mSelectedAccountsList;
-    Button mSplitBetweenButton;
-    Button mSubmitButton;
-    String[] listItems; //  = {"Sara", "Fríða", "Ísak", "Júlli", "Palli"}
-    String[] accountIdList;
-    boolean[] checkedItems;
-    ArrayList<Integer> mUserItems = new ArrayList<>();
+    private TextView mSelectedAccountsList;
+    private Button mSplitBetweenButton;
+    private Button mSubmitButton;
+    private String[] mListOfAccounts; //  = {"Sara", "Fríða", "Ísak", "Júlli", "Palli"}
+    private String[] accountIdList;
+    boolean[] mCheckedAccounts;
+    private ArrayList<Integer> mChosenAccounts = new ArrayList<>();
 
-    AccountLab accountLab = AccountLab.get(getActivity());
+    private AccountLab accountLab = AccountLab.get(getActivity());
 
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mTransaction = new Transaction();
     }
 
     @Override
@@ -62,37 +62,39 @@ public class TransactionConstructionFragment extends Fragment {
         }
 
 
-        listItems = new String[maxSplit];
+        mListOfAccounts = new String[maxSplit];
         accountIdList = new String[maxSplit];
-        listItems[0] = "Me";
+        mListOfAccounts[0] = "Me";
+        // Create a list of my accounts
         for (int i=1; i<maxSplit; i++){
             if (currUsername.equals(accounts.get(i-1).getUser1())) {
-                listItems[i] = accounts.get(i-1).getUser2();
+                mListOfAccounts[i] = accounts.get(i-1).getUser2();
             }
             else {
-                listItems[i] = accounts.get(i-1).getUser1();
+                mListOfAccounts[i] = accounts.get(i-1).getUser1();
             }
-            accountIdList[i] = accounts.get(i-1).getId();  // Held að sara hafi verið að fixa
+            accountIdList[i] = accounts.get(i-1).getId();
         }
 
 
-        checkedItems = new boolean[listItems.length];
+        mCheckedAccounts = new boolean[mListOfAccounts.length];
         mSelectedAccountsList = (TextView) v.findViewById(R.id.selected_accounts);
         mSplitBetweenButton =  (Button) v.findViewById(R.id.split_between);
         mSplitBetweenButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                // Creates a pop-up view where accounts can be chosen from a list
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(getActivity());
                 mBuilder.setTitle("Split between:");
-                mBuilder.setMultiChoiceItems(listItems, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
+                mBuilder.setMultiChoiceItems(mListOfAccounts, mCheckedAccounts, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int position, boolean isChecked) {
                         if(isChecked) {
-                            if (!mUserItems.contains(position)) {
-                                mUserItems.add(position);
+                            if (!mChosenAccounts.contains(position)) {
+                                mChosenAccounts.add(position);
                             }
                         } else {
-                            if (mUserItems.contains(position)) {
-                                mUserItems.remove(mUserItems.indexOf(position));
+                            if (mChosenAccounts.contains(position)) {
+                                mChosenAccounts.remove(mChosenAccounts.indexOf(position));
                             }
                         }
                     }
@@ -100,15 +102,16 @@ public class TransactionConstructionFragment extends Fragment {
                 mBuilder.setCancelable(false);
                 mBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
+                    // Handling which accounts have been chosen and showing them
                     public void onClick(DialogInterface dialog, int position) {
-                        String itemNames = "";
-                        for (int i = 0; i < mUserItems.size(); i++) {
-                            itemNames += listItems[mUserItems.get(i)];
-                            if(i != mUserItems.size()-1){
-                                itemNames+=", ";
+                        String chosenAccountsString = "";
+                        for (int i = 0; i < mChosenAccounts.size(); i++) {
+                            chosenAccountsString += mListOfAccounts[mChosenAccounts.get(i)];
+                            if(i != mChosenAccounts.size()-1){
+                                chosenAccountsString+=", ";
                             }
                         }
-                        mSelectedAccountsList.setText(itemNames);
+                        mSelectedAccountsList.setText(chosenAccountsString);
                     }
                 });
                 mBuilder.setNegativeButton("Dismiss", new DialogInterface.OnClickListener() {
@@ -119,11 +122,12 @@ public class TransactionConstructionFragment extends Fragment {
                 });
                 mBuilder.setNeutralButton("Clear all", new DialogInterface.OnClickListener() {
                     @Override
+                    // Removing all accounts from lisst of selected
                     public void onClick(DialogInterface dialog, int position) {
-                        for( int i = 0; i < checkedItems.length; i++){
-                           checkedItems[i] = false;
+                        for(int i = 0; i < mCheckedAccounts.length; i++){
+                           mCheckedAccounts[i] = false;
                         }
-                        mUserItems.clear();
+                        mChosenAccounts.clear();
                         mSelectedAccountsList.setText("");
                     }
                 });
@@ -136,35 +140,35 @@ public class TransactionConstructionFragment extends Fragment {
         mSubmitButton = (Button) v.findViewById(R.id.submit_new_transaction);
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // mTransaction.setAmount(Float.valueOf(mAmountField.getText().toString()));
-                // mTransaction.setDescription(mDescriptionField.getText().toString());
+                mTransaction = new Transaction();
 
-                if (mDescriptionField.getText() == null || mDescriptionField.getText().toString().equals("")) {
-                    mTransaction.setDescription("-");
+                if (mDescriptionField.getText(
+                ) == null || mDescriptionField.getText().toString().equals("")) {
+                    mTransaction.setDescription("No description");
                 }
-
                 else {
                     mTransaction.setDescription(mDescriptionField.getText().toString());
                 }
-
-                // TODO: Handle transaction things here
-
-                for (Integer checked: mUserItems){
-                    if (checked>0 && !mAmountField.getText().toString().isEmpty()){
-                        mTransaction.setAmount(Float.valueOf(mAmountField.getText().toString())/mUserItems.size());
+                Boolean worked = true;
+                // Send Transaction to chosen accounts
+                for (Integer checked: mChosenAccounts){
+                    if (checked>0 && !(mAmountField.getText().toString().isEmpty())){
+                        mTransaction.setAmount(Float.valueOf(mAmountField.getText().toString())/mChosenAccounts.size());
                         mTransaction.setAccountId(accountIdList[checked]);
-                        Log.i("id",accountIdList[checked]);
                         accountLab.createTransaction(mTransaction, accountIdList[checked]);
-                        getActivity().finish();
                     }
                     else {
                         Toast toast = Toast.makeText(getActivity(), "You must specify an amount!", Toast.LENGTH_SHORT);
                         toast.show();
+                        worked = false;
+                        break;
                     }
                 }
-
-                //TransactionLab.get(getActivity()).addTransaction(mTransaction);
-
+                if(worked){
+                    Toast toast = Toast.makeText(getActivity(), "Transaction added", Toast.LENGTH_SHORT);
+                    toast.show();
+                    startActivity(new Intent(getActivity(), AccountListActivity.class));
+                }
             }
         });
 

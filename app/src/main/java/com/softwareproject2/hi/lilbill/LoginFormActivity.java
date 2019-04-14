@@ -37,15 +37,18 @@ public class LoginFormActivity extends AppCompatActivity {
 
                 AccountLab lab = AccountLab.get(LoginFormActivity.this);
                 Context context = getApplicationContext();
-
-
+                Log.wtf("tag","test: before try");
                 try {
+                    Log.wtf("tag", "test: in try");
                     lab.logIn(mUsername, mPassword, context);
+                    Log.wtf("tag", "test: after log");
                     startActivity(new Intent(LoginFormActivity.this, AccountListActivity.class));
                 }
                 catch (Exception e){
                     e.printStackTrace();
+                    Log.wtf("tag","test: in catch");
                 }
+                Log.wtf("tag","test: after try");
             }
 
         });
