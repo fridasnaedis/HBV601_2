@@ -21,9 +21,12 @@ import com.softwareproject2.hi.lilbill.features.transactionlist.TransactionListA
 
 import java.util.List;
 
+/**
+ * RecyclerViewer for all accounts
+ */
 public class AccountListFragment extends Fragment {
 
-    private RecyclerView mCrimeRecyclerView;
+    private RecyclerView mTransactionRecyclerViewer;
     private AccountListFragment.AccountAdapter mAdapter;
 
     AccountLab accountLab = AccountLab.get(getActivity());
@@ -38,14 +41,12 @@ public class AccountListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_account_list, container, false);
 
-        mCrimeRecyclerView = (RecyclerView) view.findViewById(R.id.account_recycler_view);
-        //Gera layout manager til þess að sjá um að positiona items, líka til grid
-        mCrimeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mTransactionRecyclerViewer = (RecyclerView) view.findViewById(R.id.account_recycler_view);
+        //Layout manager to position the items in the recycler viewer
+        mTransactionRecyclerViewer.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         updateUI();
-
         return view;
-
     }
 
     public void onResume() {
@@ -59,6 +60,11 @@ public class AccountListFragment extends Fragment {
         inflater.inflate(R.menu.fragment_account_list, menu);
     }
 
+    /**
+     * Menu bar
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -73,21 +79,24 @@ public class AccountListFragment extends Fragment {
         }
     }
 
+    /**
+     * Get the current data to populate
+     */
     private void updateUI() {
-
 
         List<Account> accounts = accountLab.getAccounts();
 
         mAdapter = new AccountAdapter(accounts);
-        mCrimeRecyclerView.setAdapter(mAdapter);
+        mTransactionRecyclerViewer.setAdapter(mAdapter);
     }
 
-
+    /**
+     * Recycler list holder
+     */
     private class AccountHolder extends RecyclerView.ViewHolder implements View.OnClickListener  {
 
         private TextView mTileTextView;
         private TextView mUserTextView;
-        private TextView mDateTextView;
 
         private Account mAccount;
 
@@ -95,45 +104,38 @@ public class AccountListFragment extends Fragment {
             super(inflater.inflate(R.layout.list_item_account, parent, false));
             itemView.setOnClickListener(this);
 
-            //Ná í view layout í list_item_account
-            //Búa til TextView til þess að populate-a recycle viewer
-
             mTileTextView = (TextView) itemView.findViewById(R.id.account_netbalance);
             mUserTextView = (TextView) itemView.findViewById(R.id.account_user2);
-
         }
 
         @Override
         public void onClick(View view) {
-            //TO DO
-            //Tengja við fragment
 
-            //Intent intent = TransactionActivity.newAccountIntent(getActivity(), mAccount.getId());
+            //Set the intent for the transactionlist activity
             Intent intent = TransactionListActivity.newIntent(getActivity(), mAccount.getId());
             startActivity(intent);
-
         }
 
         public void bind(Account account) {
 
-            //náum í netbalance og setjum í textViewið okkar og látum strenginn aðeins sýna 2 aukastafi
             Float balance = account.getNetBalance();
             String mAccountNetBalance = String.format("%.02f", balance)+ " kr.";
 
             mAccount = account;
             mTileTextView.setText(mAccountNetBalance);
-            //gerum það sama fyrir friend
-            // ATH hvort curr user sé user1 eða user2
 
+            //Check which user is the one using the app
             String friend = account.getUser1();
             if (accountLab.getUser().getUsername().equals(friend)){
                 friend = account.getUser2();
             }
             mUserTextView.setText(friend);
-
         }
     }
 
+    /**
+     * Recyclerlist adapter
+     */
     private class AccountAdapter extends RecyclerView.Adapter<AccountHolder> {
         private List<Account> mAccounts;
 

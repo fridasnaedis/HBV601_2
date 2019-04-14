@@ -26,7 +26,7 @@
             android:screenOrientation="portrait"
             android:parentActivityName=".LoginFormActivity"></activity>
         <activity
-            android:name=".TransactionActivity"
+            android:name=".features.transaction.TransactionActivity"
             android:screenOrientation="portrait"
             android:parentActivityName=".features.transactionlist.TransactionListActivity"></activity>
         <activity

@@ -152,17 +152,21 @@ public class TransactionConstructionFragment extends Fragment {
                 Boolean worked = true;
                 // Send Transaction to chosen accounts
                 for (Integer checked: mChosenAccounts){
-                    if (checked>0 && !(mAmountField.getText().toString().isEmpty())){
-                        mTransaction.setAmount(Float.valueOf(mAmountField.getText().toString())/mChosenAccounts.size());
-                        mTransaction.setAccountId(accountIdList[checked]);
-                        accountLab.createTransaction(mTransaction, accountIdList[checked]);
+                    if (checked>0){
+                        if(!(mAmountField.getText().toString().isEmpty())){
+                            mTransaction.setAmount(Float.valueOf(mAmountField.getText().toString())/mChosenAccounts.size());
+                            mTransaction.setAccountId(accountIdList[checked]);
+                            accountLab.createTransaction(mTransaction, accountIdList[checked]);
+                        }
+                        else {
+                            Toast toast = Toast.makeText(getActivity(), "You must specify an amount!", Toast.LENGTH_SHORT);
+                            toast.show();
+                            worked = false;
+                            break;
+                        }
+
                     }
-                    else {
-                        Toast toast = Toast.makeText(getActivity(), "You must specify an amount!", Toast.LENGTH_SHORT);
-                        toast.show();
-                        worked = false;
-                        break;
-                    }
+
                 }
                 if(worked){
                     Toast toast = Toast.makeText(getActivity(), "Transaction added", Toast.LENGTH_SHORT);

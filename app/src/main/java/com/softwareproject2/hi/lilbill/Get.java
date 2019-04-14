@@ -1,13 +1,10 @@
 package com.softwareproject2.hi.lilbill;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -23,7 +20,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-import static com.softwareproject2.hi.lilbill.TransactionActivity.TAG;
+import static com.softwareproject2.hi.lilbill.features.transaction.TransactionActivity.TAG;
 
 public class Get {
 
@@ -36,13 +33,12 @@ public class Get {
 
     public User getUserData(String url) throws IOException {
         /**
-         * getUserData takes a String "url" and performs a get request to get user data.
-         * Returns data as a User object.
+         * Aðgerð sem tekur inn url sem String og framkvæmir get request til að ná í upplýsingar fyrir User object
+         * Skilar User
          */
         if (isNetworkAvailable()) {
-            // Establish connection
             try {
-                // Create client, Request and Response objects
+                // Búa til instance af client og request
                 OkHttpClient client = new OkHttpClient();
                 Request request = new Request.Builder()
                         .url(url)
@@ -50,20 +46,20 @@ public class Get {
                 Response responses = null;
 
                 try {
-                    // Make the request and store as repsonse object
+                    // Framkvæma request og geyma í Response object
                     responses = client.newCall(request).execute();
 
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                // Convert response to string
+                // Breyta response yfir í String
                 String jsonData = responses.body().string();
                 if (jsonData.contains("null") || jsonData.contains("error")) {
                     return null;
                 } else {
 
                     Log.d(TAG, "line 62" + jsonData);
-                    // Create a JsonObject from the jsonData String ----------------------------------
+                    // Ná í gögn úr Json Object  ----------------------------------
                     JsonObject jsonObject = new JsonParser().parse(jsonData).getAsJsonObject();
 
                     final String mUsername = jsonObject.get("username").getAsString();
@@ -85,6 +81,7 @@ public class Get {
                         Log.i(TAG, mFriendsArray[i]);
                     }
 
+                    // Setja gögn inn í User object
                     User user = new User();
                     user.setId(muserId);
                     user.setEmail(mEmail);
@@ -101,14 +98,17 @@ public class Get {
                 e.printStackTrace();
             }
         }
-        // Return null if Network not available
+        // Skila null ef engin nettenging
         return null;
     }
 
     public List<String> getAccounts(String url) throws IOException {
+        /**
+         * Fall sem framkvæmir get request til að ná í Account IDs fyrir innskráðan user
+         * Skilar lista af AccountIDs
+         */
 
         if (isNetworkAvailable()) {
-            // Establish connection
             try {
                 OkHttpClient client = new OkHttpClient();
                 Request request = new Request.Builder()
@@ -147,9 +147,11 @@ public class Get {
     }
 
     public Transaction getTransaction(String url) throws IOException {
+        /**
+         * Aðferð sem framkvæmir Get request með url Streng og skilar Transaction object
+         */
 
         if (isNetworkAvailable()) {
-            // Establish connection
             try {
                 OkHttpClient client = new OkHttpClient();
                 Request request = new Request.Builder()
@@ -168,11 +170,13 @@ public class Get {
 
                 JsonObject jsonObject = new JsonParser().parse(jsonData).getAsJsonObject();
 
+                // Sækja gögn úr JsonObject
                 final String mAmmount = jsonObject.get("amount").getAsString();
                 final String mId = jsonObject.get("id").getAsString();
                 final String mDescr = jsonObject.get("descr").getAsString();
                 final String mDate = jsonObject.get("date").getAsString();
 
+                // Setja gildi í nýtt Transaction hlut
                 Transaction transaction = new Transaction();
                 transaction.setDate(mDate);
                 transaction.setId(mId);
@@ -222,10 +226,7 @@ public class Get {
                 final Float mNetBalance = jsonObject.get("netBalance").getAsFloat();
 
                 final JsonArray transactionsList = jsonObject.get("transactionList").getAsJsonArray();
-                //final String[] transactions = new String[transactionsList.size()];
                 final List<Transaction> mTransactionList = new ArrayList<>();
-
-                //Get - / user / {userId} / transaction / {transactionId}
 
                 for (int i = 0; i < transactionsList.size(); i++) {
                     String transUrl = "https://lilbill.herokuapp.com/user/" + userId + "/transaction/" + transactionsList.get(i);
