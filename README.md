@@ -7,7 +7,7 @@ To run this project clone or download the repository.
 
 ## Current state of project: 
 
-On opening the app a login screen is presented. Login requires a valid username. The password does not matter. Valid usernames are listed in the backend readme https://github.com/isakkolbeins/HBV601_2.backend
+On opening the app a login screen is presented. Login requires a valid username. The password does not matter. Valid usernames are listed in the backend readme: https://github.com/isakkolbeins/HBV601_2.backend
 
 After Login you see a list of all accounts owned by the user. clicking an account brings up a list of all transactions contained within the account. 
 The list consists of an amount and date. with a description if you click on the transaction. In this activity you are also able to create a new transaction by clicking on the + button in the lower right corner. 
