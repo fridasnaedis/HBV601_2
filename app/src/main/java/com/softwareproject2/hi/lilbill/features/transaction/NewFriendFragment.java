@@ -1,8 +1,6 @@
 package com.softwareproject2.hi.lilbill.features.transaction;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,19 +11,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.softwareproject2.hi.lilbill.AccountLab;
 import com.softwareproject2.hi.lilbill.R;
-import com.softwareproject2.hi.lilbill.SingleFragmentActivity;
-import com.softwareproject2.hi.lilbill.features.account.Account;
 import com.softwareproject2.hi.lilbill.features.account.AccountListActivity;
-import com.softwareproject2.hi.lilbill.features.account.AccountListFragment;
-
-import org.json.JSONException;
-
-import java.io.IOException;
-
 
 public class NewFriendFragment extends Fragment {
     private EditText mFriendUsername;
@@ -44,17 +32,21 @@ public class NewFriendFragment extends Fragment {
         mSubmitButton = (Button) v.findViewById(R.id.submit_new_friend);
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // TODO: Do the stuff here
-                final String accountId;
+
+                //Get the current lab and user
                 AccountLab lab = AccountLab.get(getContext());
                 String userId = lab.getUser().getId();
+
+                //Get the name of the friend to add
                 String friendUsername = mFriendUsername.getText().toString();
-                String response = new String();
+
+                //Initialize strings
+                String response;
                 Toast toast;
                 String error1 = "no user with username:";
                 String error2 = "user with username:";
 
-
+                //Get the json response from the lab and handle corresponting errors
                 response = lab.addFriend(userId, friendUsername);
                 if(response.contains(error1)){
                     toast = Toast.makeText(getActivity(), "This user does not exist", Toast.LENGTH_SHORT);
@@ -69,6 +61,7 @@ public class NewFriendFragment extends Fragment {
                     toast.show();
                 }
 
+                //Go back to the AccountList Activity
                 startActivity(new Intent(getActivity(), AccountListActivity.class));
             }
         });
