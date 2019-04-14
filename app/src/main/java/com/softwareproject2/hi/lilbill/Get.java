@@ -231,10 +231,7 @@ public class Get {
                 final Float mNetBalance = jsonObject.get("netBalance").getAsFloat();
 
                 final JsonArray transactionsList = jsonObject.get("transactionList").getAsJsonArray();
-                //final String[] transactions = new String[transactionsList.size()];
                 final List<Transaction> mTransactionList = new ArrayList<>();
-
-                //Get - / user / {userId} / transaction / {transactionId}
 
                 for (int i = 0; i < transactionsList.size(); i++) {
                     String transUrl = "https://lilbill.herokuapp.com/user/" + userId + "/transaction/" + transactionsList.get(i);

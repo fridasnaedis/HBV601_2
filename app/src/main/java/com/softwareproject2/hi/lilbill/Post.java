@@ -87,7 +87,6 @@ public class Post {
             OkHttpClient client = new OkHttpClient();
 
             RequestBody body = RequestBody.create(JSON,json);
-            //String body = ;
 
             Request request = new Request.Builder()
                     .url(url)
