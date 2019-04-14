@@ -4,6 +4,8 @@ Lil bill is your go to transaction management service!
 
 To run this project clone or download the repository.
 
+Checkout the backend here: https://github.com/isakkolbeins/HBV601_2.backend
+
 
 ## How to use: 
 
