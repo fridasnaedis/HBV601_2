@@ -174,9 +174,10 @@ public class AccountLab {
      * @param password
      * @param context
      */
-    public void logIn(String username, String password, Context context) {
+    public String logIn(String username, String password, Context context) {
 
         String login = "https://lilbill.herokuapp.com/login/";
+        String response = "";
 
         //Get the user by username
         try {
@@ -186,13 +187,11 @@ public class AccountLab {
         }
 
         if(mUser == null){
-            Toast toast = Toast.makeText(context, "User or password incorrect", Toast.LENGTH_SHORT);
-            toast.show();
+            response = "null";
+            return response;
+
         } else {
-
             String getAccountIds = "https://lilbill.herokuapp.com/user/";
-
-
             //Send a get request for all account Id's for that user
             try {
                 mAccountIds = get.getAccounts(getAccountIds + mUser.getId() + "/accounts");
@@ -213,6 +212,7 @@ public class AccountLab {
                 }
             }
         }
+        return response;
     }
 }
 
