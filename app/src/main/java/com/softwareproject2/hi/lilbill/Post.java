@@ -3,15 +3,9 @@ package com.softwareproject2.hi.lilbill;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.util.Log;
-import android.util.LogPrinter;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.softwareproject2.hi.lilbill.features.account.Account;
-import com.softwareproject2.hi.lilbill.features.account.User;
 import com.softwareproject2.hi.lilbill.features.transaction.Transaction;
 
 import java.io.IOException;
@@ -37,16 +31,17 @@ public class Post {
 
     public String postJsonFromAddFriend(String userId, String friendName) throws IOException {
         /**
-         * Aðferð sem framkvæmir post request til að bæta við í friendslist í user object
-         * Skilar response og er unnið úr því annarstaðar.
+         * Method which performs a post request to add a friend to a users friendslist
+         * Returns a response which is processed elsewhere.
          */
         final MediaType JSON = MediaType.get("application/json; charset=utf-8");
 
+        // Create url for post request
         String url = "https://lilbill.herokuapp.com/user/" + userId + "/add/"+ friendName;
-        final String accountId;
 
+        // Check if network is available.
         if (isNetworkAvailable()) {
-
+            // Instanciate the client
             OkHttpClient client = new OkHttpClient();
 
             String json = "{}";
@@ -56,32 +51,34 @@ public class Post {
                     .url(url)
                     .post(body)
                     .build();
+
+            // Try to perform post request
             try (Response response = client.newCall(request).execute()) {
                 String r = response.body().string();
-                Log.i(TAG, r);
 
+                // return response
                return r;
             }
         }
+        // Return null if no network
         return null;
 
     }
 
     public String postJsonFromTransaction(Transaction transaction, String userId) throws IOException {
         /**
-         * Þessi aðferð á að breyta java object, í þessu tilfelli Transaction object
-         * yfir í json streng.
+         * Method which transforms a Transaction object to a json String and performs a
+         * Post request to make a new Transaction
          */
         final MediaType JSON = MediaType.get("application/json; charset=utf-8");
 
         String url = "http://lilbill.herokuapp.com/user/" + userId + "/transaction/new";
 
 
-        //Breytum transaction yfir í json
+        //Turn Transaction object into a json String
         Gson gson = new Gson();
         String json = gson.toJson(transaction);
 
-        Log.e("json-transaction", json);
         if (isNetworkAvailable()) {
 
             OkHttpClient client = new OkHttpClient();
@@ -92,12 +89,16 @@ public class Post {
                     .url(url)
                     .post(body)
                     .build();
+
+            // Try to perform Post request
             try (Response response = client.newCall(request).execute()) {
                 String r = response.body().string();
-                Log.i(TAG, r);
+
+                // return response
                 return r;
             }
         }
+        // Return null if no network
         return null;
     }
 
@@ -122,8 +123,6 @@ public class Post {
                 + "'user2': " + account.getUser2() + ","
                 + "'netBalance': " + account.getNetBalance() + "}";
 
-        Log.i(TAG, ""+ transactionList);
-        Log.i(TAG, "" + json);
 
         if (isNetworkAvailable()) {
 
@@ -135,7 +134,6 @@ public class Post {
                     .post(body)
                     .build();
             try (Response response = client.newCall(request).execute()) {
-//                Log.i(TAG, response.body().string());
                 return response.body().string();
             }
         }
@@ -145,7 +143,7 @@ public class Post {
 
     private boolean isNetworkAvailable() {
         /**
-         * Fall sem athugar að allt sé í lagi með network manager.
+         * Method that checks if network is available.
          */
         ConnectivityManager manager = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();

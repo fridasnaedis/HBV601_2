@@ -1,13 +1,9 @@
 package com.softwareproject2.hi.lilbill;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.util.Log;
-import android.widget.Toast;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -23,7 +19,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-import static com.softwareproject2.hi.lilbill.TransactionActivity.TAG;
 
 public class Get {
 
@@ -36,12 +31,14 @@ public class Get {
 
     public User getUserData(String url) throws IOException {
         /**
-         * Aðgerð sem tekur inn url sem String og framkvæmir get request til að ná í upplýsingar fyrir User object
-         * Skilar User
+         * Methods which takes an URL as a parameter and perfomrs a Get request to fetch
+         * User data
+         * Returns a User object
          */
         if (isNetworkAvailable()) {
+            // Check if network is available
             try {
-                // Búa til instance af client og request
+                // Instanciate client
                 OkHttpClient client = new OkHttpClient();
                 Request request = new Request.Builder()
                         .url(url)
@@ -49,20 +46,19 @@ public class Get {
                 Response responses = null;
 
                 try {
-                    // Framkvæma request og geyma í Response object
+                    // Do Get request
                     responses = client.newCall(request).execute();
 
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                // Breyta response yfir í String
+                // Convert response into String
                 String jsonData = responses.body().string();
                 if (jsonData.contains("null") || jsonData.contains("error")) {
                     return null;
                 } else {
 
-                    Log.d(TAG, "line 62" + jsonData);
-                    // Ná í gögn úr Json Object  ----------------------------------
+                    // Fetch Data from jsonObject  ----------------------------------
                     JsonObject jsonObject = new JsonParser().parse(jsonData).getAsJsonObject();
 
                     final String mUsername = jsonObject.get("username").getAsString();
@@ -81,10 +77,9 @@ public class Get {
 
                     for (int i = 0; i < mFriendsArray.length; i++) {
                         mFriends.add(mFriendsArray[i]);
-                        Log.i(TAG, mFriendsArray[i]);
                     }
 
-                    // Setja gögn inn í User object
+                    // Populate fields in new User object
                     User user = new User();
                     user.setId(muserId);
                     user.setEmail(mEmail);
@@ -93,7 +88,6 @@ public class Get {
                     user.setUsername(mUsername);
                     user.setFriends(mFriends);
 
-                    Log.i(TAG, user.toString());
                     return user;
                 }
 
@@ -101,18 +95,20 @@ public class Get {
                 e.printStackTrace();
             }
         }
-        // Skila null ef engin nettenging
+        // Return null if no network available
         return null;
     }
 
     public List<String> getAccounts(String url) throws IOException {
         /**
-         * Fall sem framkvæmir get request til að ná í Account IDs fyrir innskráðan user
-         * Skilar lista af AccountIDs
+         * Method to perform Get request to get a list of account IDs for the signed in user
+         * returns a List of AccountId's
          */
 
         if (isNetworkAvailable()) {
+            // Check if network is available
             try {
+                // Instanciate client
                 OkHttpClient client = new OkHttpClient();
                 Request request = new Request.Builder()
                         .url(url)
@@ -127,8 +123,6 @@ public class Get {
 
 
                 String jsonData = responses.body().string();
-
-                Log.d(TAG, "account Id list" + jsonData);
 
                 JsonObject jsonObject = new JsonParser().parse(jsonData).getAsJsonObject();
 
@@ -151,7 +145,8 @@ public class Get {
 
     public Transaction getTransaction(String url) throws IOException {
         /**
-         * Aðferð sem framkvæmir Get request með url Streng og skilar Transaction object
+         * Uses a String URL to Perform a Get request to fetch data on a Transaction
+         * Returns a Transaction object
          */
 
         if (isNetworkAvailable()) {
@@ -169,17 +164,15 @@ public class Get {
                 }
                 String jsonData = responses.body().string();
 
-                Log.d(TAG, "line 62" + jsonData);
-
                 JsonObject jsonObject = new JsonParser().parse(jsonData).getAsJsonObject();
 
-                // Sækja gögn úr JsonObject
+                // Fetch data from jsonObject
                 final String mAmmount = jsonObject.get("amount").getAsString();
                 final String mId = jsonObject.get("id").getAsString();
                 final String mDescr = jsonObject.get("descr").getAsString();
                 final String mDate = jsonObject.get("date").getAsString();
 
-                // Setja gildi í nýtt Transaction hlut
+                // Populate fields in a new Transaction Object
                 Transaction transaction = new Transaction();
                 transaction.setDate(mDate);
                 transaction.setId(mId);
@@ -192,15 +185,17 @@ public class Get {
 
             }
         }
+        // Return null if no network available
         return null;
     }
 
     public Account getAccountData(String url, String userId) throws IOException {
 
-        /* Strengur sem er url sem samsvarar hvert á að sækja gögn
-           urlið væri root/user/json eða eh álíka, þar sem user er sá sem er logged in
-           og json er þá json viewið.
-        */
+        /**
+         * Method that has a String Url and a String UserId to fetch data on an account
+         * that the user owns with a Get request.
+         * Returns an Account object
+         */
 
         if (isNetworkAvailable()) {
             // Establish connection
@@ -219,8 +214,6 @@ public class Get {
 
                 String jsonData = responses.body().string();
 
-                Log.d(TAG, "line 62" + jsonData);
-
                 JsonObject jsonObject = new JsonParser().parse(jsonData).getAsJsonObject();
 
                 final String mUser2 = jsonObject.get("user2").getAsString();
@@ -236,6 +229,7 @@ public class Get {
 
                     mTransactionList.add(getTransaction(transUrl));
                 }
+                // Populate a new Account object with data from Json Object
 
                 Account account = new Account();
                 account.setId(mAccountId);
@@ -244,7 +238,6 @@ public class Get {
                 account.setNetBalance(mNetBalance);
                 account.setTransactionsList(mTransactionList);
 
-                Log.i(TAG, account.toString());
                 return account;
 
             } catch (IOException e) {
@@ -257,7 +250,7 @@ public class Get {
 
     private boolean isNetworkAvailable() {
         /**
-         * Fall sem athugar að allt sé í lagi með network manager.
+         * A method which checks if network is available.
          */
         ConnectivityManager manager = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();
