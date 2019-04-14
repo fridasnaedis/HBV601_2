@@ -13,6 +13,10 @@ public class Account {
     private Float  mNetBalance;
     private List<Transaction> mTransactionsList;
 
+    /**
+     * Constructor for Accounts
+     * Initialize the new balance and transactionlist
+     */
     public Account() {
         mNetBalance = Float.valueOf(0);
         mTransactionsList = new ArrayList<>();

@@ -21,9 +21,12 @@ import com.softwareproject2.hi.lilbill.features.transactionlist.TransactionListA
 
 import java.util.List;
 
+/**
+ * RecyclerViewer for all accounts
+ */
 public class AccountListFragment extends Fragment {
 
-    private RecyclerView mCrimeRecyclerView;
+    private RecyclerView mTransactionRecyclerViewer;
     private AccountListFragment.AccountAdapter mAdapter;
 
     AccountLab accountLab = AccountLab.get(getActivity());
@@ -38,14 +41,12 @@ public class AccountListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_account_list, container, false);
 
-        mCrimeRecyclerView = (RecyclerView) view.findViewById(R.id.account_recycler_view);
-        //Gera layout manager til þess að sjá um að positiona items, líka til grid
-        mCrimeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mTransactionRecyclerViewer = (RecyclerView) view.findViewById(R.id.account_recycler_view);
+        //Layout manager to position the items in the recycler viewer
+        mTransactionRecyclerViewer.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         updateUI();
-
         return view;
-
     }
 
     public void onResume() {
@@ -59,6 +60,11 @@ public class AccountListFragment extends Fragment {
         inflater.inflate(R.menu.fragment_account_list, menu);
     }
 
+    /**
+     * Menu bar
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -73,13 +79,15 @@ public class AccountListFragment extends Fragment {
         }
     }
 
+    /**
+     * Get the current data to populate
+     */
     private void updateUI() {
-
 
         List<Account> accounts = accountLab.getAccounts();
 
         mAdapter = new AccountAdapter(accounts);
-        mCrimeRecyclerView.setAdapter(mAdapter);
+        mTransactionRecyclerViewer.setAdapter(mAdapter);
     }
 
 

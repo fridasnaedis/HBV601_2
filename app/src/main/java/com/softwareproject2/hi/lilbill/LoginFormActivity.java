@@ -38,13 +38,13 @@ public class LoginFormActivity extends AppCompatActivity {
                 AccountLab lab = AccountLab.get(LoginFormActivity.this);
                 Context context = getApplicationContext();
 
+                String result = lab.logIn(mUsername, mPassword, context);
 
-                try {
-                    lab.logIn(mUsername, mPassword, context);
+                if(result.equals("null")) {
+                    Toast toast = Toast.makeText(context, "User or password incorrect", Toast.LENGTH_SHORT);
+                    toast.show();
+                } else {
                     startActivity(new Intent(LoginFormActivity.this, AccountListActivity.class));
-                }
-                catch (Exception e){
-                    e.printStackTrace();
                 }
             }
 
