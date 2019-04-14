@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,13 +12,12 @@ import android.widget.Toast;
 
 import com.softwareproject2.hi.lilbill.features.account.AccountListActivity;
 
-import java.io.IOException;
 
 public class LoginFormActivity extends AppCompatActivity {
 
     /**
-     * Activity sem keyrist fyrst við opnun á appi. Inniheldur form þar sem hægt er að logga sig
-     * inn með username, ef að User er til í gagnagrunni, framkvæmir toast ef User er ekki til.
+     * Activity which runs when you start the app. It contains a Login screen where you can enter a username
+     * which exists in the database to login. If the username doesn't match an existing user, you get a Toast.
      */
 
     public EditText mUsernameField;
@@ -43,12 +41,11 @@ public class LoginFormActivity extends AppCompatActivity {
                 AccountLab lab = AccountLab.get(LoginFormActivity.this);
                 Context context = getApplicationContext();
 
-                // result er response frá login falli sem skilar User ef rétt username
-                // hefur verið stimplað inn.
+                // result is a String which contains Account data if a correct username
+                // has been enterd in the login form. Otherwise it is null
                 String result = lab.logIn(mUsername, mPassword, context);
 
-                // Ef results er null. Framkæma Toast og gera ekkert annað
-                // Annars sýna AccountList Activity.
+                // if results is null, perform toast.
                 if(result.equals("null")) {
                     Toast toast = Toast.makeText(context, "User or password incorrect", Toast.LENGTH_SHORT);
                     toast.show();
