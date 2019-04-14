@@ -1,5 +1,9 @@
 package com.softwareproject2.hi.lilbill.features.transaction;
 
+
+/**
+ * Transaction entity
+ */
 public class Transaction {
 
     private String mId;
@@ -11,7 +15,6 @@ public class Transaction {
     public Transaction() {
 
     }
-
 
     public String getAccountId() {
         return accountId;

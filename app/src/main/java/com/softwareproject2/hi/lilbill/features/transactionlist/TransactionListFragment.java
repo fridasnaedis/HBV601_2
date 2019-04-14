@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.softwareproject2.hi.lilbill.AccountLab;
-import com.softwareproject2.hi.lilbill.TransactionActivity;
+import com.softwareproject2.hi.lilbill.features.transaction.TransactionActivity;
 import com.softwareproject2.hi.lilbill.R;
 import com.softwareproject2.hi.lilbill.features.account.Account;
 import com.softwareproject2.hi.lilbill.features.transaction.NewFriendActivity;

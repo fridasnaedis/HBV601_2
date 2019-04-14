@@ -10,9 +10,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.softwareproject2.hi.lilbill.AccountLab;
-import com.softwareproject2.hi.lilbill.TransactionActivity;
 import com.softwareproject2.hi.lilbill.R;
 
+/**
+ * Transaction fragment
+ */
 public class TransactionFragment extends Fragment {
 
     public static final String TAG = TransactionActivity.class.getSimpleName();
@@ -28,9 +30,7 @@ public class TransactionFragment extends Fragment {
 
         String transactionId = (String) getActivity().getIntent()
                 .getSerializableExtra(TransactionActivity.EXTRA_TRANSACTION_ID);
-
         mTransaction = AccountLab.get(getActivity()).getTransaction(transactionId);
-
     }
 
     @Override
@@ -47,14 +47,10 @@ public class TransactionFragment extends Fragment {
         mDecription = (TextView) v.findViewById(R.id.transaction_description);
         mDecription.setText(mTransaction.getDescription());
 
-
-        // android.text.format.DateFormat
-        // setja dagsettningu á læsilegra form
         mDate = (TextView) v.findViewById(R.id.transaction_date);
         mDate.setText(mTransaction.getDate());
 
         return v;
-
     }
 
 }

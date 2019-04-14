@@ -1,13 +1,10 @@
 package com.softwareproject2.hi.lilbill;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -23,7 +20,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-import static com.softwareproject2.hi.lilbill.TransactionActivity.TAG;
+import static com.softwareproject2.hi.lilbill.features.transaction.TransactionActivity.TAG;
 
 public class Get {
 
