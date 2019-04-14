@@ -9,14 +9,15 @@ To run this project clone or download the repository.
 
 On opening the app a login screen is presented. Login requires a valid username. The password does not matter. 
 
-example users, pw {
-palli, 		palli
-isak, 		isak
-frida,		frida 
-sara, 		sara
-julli, 		julli
-andri, 		andri
-matthias,	matthias
+example users,  {
+palli, 		
+
+isak, 		
+frida,		 
+sara, 		
+julli, 		
+andri, 		
+matthias,	
 }
 
 After Login you see a list of all accounts owned by the user. clicking an account brings up a list of all transactions contained within the account. 
