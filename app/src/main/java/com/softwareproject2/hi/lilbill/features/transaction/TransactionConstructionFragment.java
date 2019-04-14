@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +14,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.softwareproject2.hi.lilbill.SingleFragmentActivity;
 import com.softwareproject2.hi.lilbill.features.account.Account;
 import com.softwareproject2.hi.lilbill.AccountLab;
 import com.softwareproject2.hi.lilbill.R;
@@ -31,7 +29,7 @@ public class TransactionConstructionFragment extends Fragment {
     private TextView mSelectedAccountsList;
     private Button mSplitBetweenButton;
     private Button mSubmitButton;
-    private String[] mListOfAccounts; //  = {"Sara", "Fríða", "Ísak", "Júlli", "Palli"}
+    private String[] mListOfAccounts;
     private String[] accountIdList;
     boolean[] mCheckedAccounts;
     private ArrayList<Integer> mChosenAccounts = new ArrayList<>();
@@ -141,7 +139,6 @@ public class TransactionConstructionFragment extends Fragment {
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 mTransaction = new Transaction();
-
                 if (mDescriptionField.getText(
                 ) == null || mDescriptionField.getText().toString().equals("")) {
                     mTransaction.setDescription("No description");
