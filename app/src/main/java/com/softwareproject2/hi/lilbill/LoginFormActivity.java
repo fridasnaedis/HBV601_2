@@ -17,6 +17,11 @@ import java.io.IOException;
 
 public class LoginFormActivity extends AppCompatActivity {
 
+    /**
+     * Activity sem keyrist fyrst við opnun á appi. Inniheldur form þar sem hægt er að logga sig
+     * inn með username, ef að User er til í gagnagrunni, framkvæmir toast ef User er ekki til.
+     */
+
     public EditText mUsernameField;
     private EditText mPasswordField;
 
@@ -38,8 +43,12 @@ public class LoginFormActivity extends AppCompatActivity {
                 AccountLab lab = AccountLab.get(LoginFormActivity.this);
                 Context context = getApplicationContext();
 
+                // result er response frá login falli sem skilar User ef rétt username
+                // hefur verið stimplað inn.
                 String result = lab.logIn(mUsername, mPassword, context);
 
+                // Ef results er null. Framkæma Toast og gera ekkert annað
+                // Annars sýna AccountList Activity.
                 if(result.equals("null")) {
                     Toast toast = Toast.makeText(context, "User or password incorrect", Toast.LENGTH_SHORT);
                     toast.show();
