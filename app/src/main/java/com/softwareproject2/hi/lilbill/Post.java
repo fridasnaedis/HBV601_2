@@ -18,7 +18,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-import static com.softwareproject2.hi.lilbill.TransactionActivity.TAG;
+import static com.softwareproject2.hi.lilbill.features.transaction.TransactionActivity.TAG;
 
 public class Post {
 

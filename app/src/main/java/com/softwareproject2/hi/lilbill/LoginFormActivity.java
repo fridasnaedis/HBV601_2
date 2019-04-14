@@ -53,7 +53,6 @@ public class LoginFormActivity extends AppCompatActivity {
                     startActivity(new Intent(LoginFormActivity.this, AccountListActivity.class));
                 }
             }
-
         });
     }
 }

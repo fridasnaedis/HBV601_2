@@ -140,7 +140,7 @@ public class AccountLab {
             String error1 = "no user with username:";
             String error2 = "user with username:";
 
-            //Crude error handling
+            //!Crude error handling!
             if(!response.contains(error1) && !response.contains(error2)) {
 
                 JsonObject jsonObject = new JsonParser().parse(response).getAsJsonObject();
@@ -166,7 +166,6 @@ public class AccountLab {
 
         return null;
     }
-
 
     /**
      * Fake login that only checks the username

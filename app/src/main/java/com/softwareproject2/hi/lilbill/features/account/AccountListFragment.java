@@ -90,12 +90,13 @@ public class AccountListFragment extends Fragment {
         mTransactionRecyclerViewer.setAdapter(mAdapter);
     }
 
-
+    /**
+     * Recycler list holder
+     */
     private class AccountHolder extends RecyclerView.ViewHolder implements View.OnClickListener  {
 
         private TextView mTileTextView;
         private TextView mUserTextView;
-        private TextView mDateTextView;
 
         private Account mAccount;
 
@@ -103,45 +104,38 @@ public class AccountListFragment extends Fragment {
             super(inflater.inflate(R.layout.list_item_account, parent, false));
             itemView.setOnClickListener(this);
 
-            //Ná í view layout í list_item_account
-            //Búa til TextView til þess að populate-a recycle viewer
-
             mTileTextView = (TextView) itemView.findViewById(R.id.account_netbalance);
             mUserTextView = (TextView) itemView.findViewById(R.id.account_user2);
-
         }
 
         @Override
         public void onClick(View view) {
-            //TO DO
-            //Tengja við fragment
 
-            //Intent intent = TransactionActivity.newAccountIntent(getActivity(), mAccount.getId());
+            //Set the intent for the transactionlist activity
             Intent intent = TransactionListActivity.newIntent(getActivity(), mAccount.getId());
             startActivity(intent);
-
         }
 
         public void bind(Account account) {
 
-            //náum í netbalance og setjum í textViewið okkar og látum strenginn aðeins sýna 2 aukastafi
             Float balance = account.getNetBalance();
             String mAccountNetBalance = String.format("%.02f", balance)+ " kr.";
 
             mAccount = account;
             mTileTextView.setText(mAccountNetBalance);
-            //gerum það sama fyrir friend
-            // ATH hvort curr user sé user1 eða user2
 
+            //Check which user is the one using the app
             String friend = account.getUser1();
             if (accountLab.getUser().getUsername().equals(friend)){
                 friend = account.getUser2();
             }
             mUserTextView.setText(friend);
-
         }
     }
 
+    /**
+     * Recyclerlist adapter
+     */
     private class AccountAdapter extends RecyclerView.Adapter<AccountHolder> {
         private List<Account> mAccounts;
 

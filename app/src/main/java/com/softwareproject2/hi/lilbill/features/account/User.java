@@ -1,8 +1,11 @@
 package com.softwareproject2.hi.lilbill.features.account;
 
 import java.util.List;
-import java.util.UUID;
 
+
+/**
+ * User entity
+ */
 public class User {
 
     private String mId;
@@ -13,13 +16,6 @@ public class User {
     private List<String> mFriends;
 
     public User() {
-    }
-
-    public User(String username, String firstName, String lastName, String email) {
-        mUsername = username;
-        mFirstName = firstName;
-        mLastName = lastName;
-        mEmail = email;
     }
 
     public String getId() {
