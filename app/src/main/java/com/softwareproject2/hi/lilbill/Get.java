@@ -36,13 +36,12 @@ public class Get {
 
     public User getUserData(String url) throws IOException {
         /**
-         * getUserData takes a String "url" and performs a get request to get user data.
-         * Returns data as a User object.
+         * Aðgerð sem tekur inn url sem String og framkvæmir get request til að ná í upplýsingar fyrir User object
+         * Skilar User
          */
         if (isNetworkAvailable()) {
-            // Establish connection
             try {
-                // Create client, Request and Response objects
+                // Búa til instance af client og request
                 OkHttpClient client = new OkHttpClient();
                 Request request = new Request.Builder()
                         .url(url)
@@ -50,20 +49,20 @@ public class Get {
                 Response responses = null;
 
                 try {
-                    // Make the request and store as repsonse object
+                    // Framkvæma request og geyma í Response object
                     responses = client.newCall(request).execute();
 
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                // Convert response to string
+                // Breyta response yfir í String
                 String jsonData = responses.body().string();
                 if (jsonData.contains("null") || jsonData.contains("error")) {
                     return null;
                 } else {
 
                     Log.d(TAG, "line 62" + jsonData);
-                    // Create a JsonObject from the jsonData String ----------------------------------
+                    // Ná í gögn úr Json Object  ----------------------------------
                     JsonObject jsonObject = new JsonParser().parse(jsonData).getAsJsonObject();
 
                     final String mUsername = jsonObject.get("username").getAsString();
@@ -85,7 +84,7 @@ public class Get {
                         Log.i(TAG, mFriendsArray[i]);
                     }
 
-                    // Populate user object
+                    // Setja gögn inn í User object
                     User user = new User();
                     user.setId(muserId);
                     user.setEmail(mEmail);
@@ -102,17 +101,17 @@ public class Get {
                 e.printStackTrace();
             }
         }
-        // Return null if Network not available
+        // Skila null ef engin nettenging
         return null;
     }
 
     public List<String> getAccounts(String url) throws IOException {
         /**
-         * Method that performs a get request and returns an id for an account.
+         * Fall sem framkvæmir get request til að ná í Account IDs fyrir innskráðan user
+         * Skilar lista af AccountIDs
          */
 
         if (isNetworkAvailable()) {
-            // Establish connection
             try {
                 OkHttpClient client = new OkHttpClient();
                 Request request = new Request.Builder()
@@ -152,11 +151,10 @@ public class Get {
 
     public Transaction getTransaction(String url) throws IOException {
         /**
-         * method that takes an url and performs a get request and returns a Transaction object
+         * Aðferð sem framkvæmir Get request með url Streng og skilar Transaction object
          */
 
         if (isNetworkAvailable()) {
-            // Establish connection
             try {
                 OkHttpClient client = new OkHttpClient();
                 Request request = new Request.Builder()
@@ -175,13 +173,13 @@ public class Get {
 
                 JsonObject jsonObject = new JsonParser().parse(jsonData).getAsJsonObject();
 
-                // Get values from json object
+                // Sækja gögn úr JsonObject
                 final String mAmmount = jsonObject.get("amount").getAsString();
                 final String mId = jsonObject.get("id").getAsString();
                 final String mDescr = jsonObject.get("descr").getAsString();
                 final String mDate = jsonObject.get("date").getAsString();
 
-                // Set values for Transaction object
+                // Setja gildi í nýtt Transaction hlut
                 Transaction transaction = new Transaction();
                 transaction.setDate(mDate);
                 transaction.setId(mId);
