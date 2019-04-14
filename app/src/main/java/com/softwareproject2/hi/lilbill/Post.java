@@ -36,6 +36,10 @@ public class Post {
 
 
     public String postJsonFromAddFriend(String userId, String friendName) throws IOException {
+        /**
+         * Aðferð sem framkvæmir post request til að bæta við í friendslist í user object
+         * Skilar response og er unnið úr því annarstaðar.
+         */
         final MediaType JSON = MediaType.get("application/json; charset=utf-8");
 
         String url = "https://lilbill.herokuapp.com/user/" + userId + "/add/"+ friendName;
@@ -83,7 +87,6 @@ public class Post {
             OkHttpClient client = new OkHttpClient();
 
             RequestBody body = RequestBody.create(JSON,json);
-            //String body = ;
 
             Request request = new Request.Builder()
                     .url(url)

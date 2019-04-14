@@ -85,6 +85,7 @@ public class Get {
                         Log.i(TAG, mFriendsArray[i]);
                     }
 
+                    // Populate user object
                     User user = new User();
                     user.setId(muserId);
                     user.setEmail(mEmail);
@@ -106,6 +107,9 @@ public class Get {
     }
 
     public List<String> getAccounts(String url) throws IOException {
+        /**
+         * Method that performs a get request and returns an id for an account.
+         */
 
         if (isNetworkAvailable()) {
             // Establish connection
@@ -147,6 +151,9 @@ public class Get {
     }
 
     public Transaction getTransaction(String url) throws IOException {
+        /**
+         * method that takes an url and performs a get request and returns a Transaction object
+         */
 
         if (isNetworkAvailable()) {
             // Establish connection
@@ -168,11 +175,13 @@ public class Get {
 
                 JsonObject jsonObject = new JsonParser().parse(jsonData).getAsJsonObject();
 
+                // Get values from json object
                 final String mAmmount = jsonObject.get("amount").getAsString();
                 final String mId = jsonObject.get("id").getAsString();
                 final String mDescr = jsonObject.get("descr").getAsString();
                 final String mDate = jsonObject.get("date").getAsString();
 
+                // Set values for Transaction object
                 Transaction transaction = new Transaction();
                 transaction.setDate(mDate);
                 transaction.setId(mId);
@@ -222,10 +231,7 @@ public class Get {
                 final Float mNetBalance = jsonObject.get("netBalance").getAsFloat();
 
                 final JsonArray transactionsList = jsonObject.get("transactionList").getAsJsonArray();
-                //final String[] transactions = new String[transactionsList.size()];
                 final List<Transaction> mTransactionList = new ArrayList<>();
-
-                //Get - / user / {userId} / transaction / {transactionId}
 
                 for (int i = 0; i < transactionsList.size(); i++) {
                     String transUrl = "https://lilbill.herokuapp.com/user/" + userId + "/transaction/" + transactionsList.get(i);
